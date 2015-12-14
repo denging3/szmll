@@ -27,6 +27,7 @@ body {
     box-shadow: none;
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
+    display: none;
 }
 
 .menu_form_hd {

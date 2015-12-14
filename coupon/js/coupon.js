@@ -5,7 +5,7 @@
 		
 		/*设置选择固定日期的下拉菜单选项*/
 		$('#howMuchDay').setList('立即生效');
-		$('#useDay').setList('请选择');
+		$('#useDay').setList('');
 		$('#coupon_name').on('keyup',function(){
 			$.fn.checkLength(this,'#coupon_name_length');
 		});
@@ -124,7 +124,10 @@
        },
         /*设置选择天数下拉菜单*/
 		setList:function(text){
-			var html = '<option value="0">'+text+'</option>';
+			var html;
+			if(text){
+				html = '<option value="0">'+text+'</option>';
+			}
 			for(var i=1;i<91;i++){
 				html += '<option value="'+ i +'">'+ i +'天</option>';
 			}

@@ -1,0 +1,269 @@
+html,
+body {
+  font-family: Arial, '微软雅黑';
+  font-size: 40px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  line-height: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+pre,
+a,
+code,
+del,
+em,
+img,
+strong,
+sub,
+sup,
+b,
+u,
+i,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+table,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  outline: 0;
+  font-weight: 200;
+  text-decoration: none;
+  list-style: none;
+  vertical-align: baseline;
+  color: #333;
+  font-size: 40px;
+}
+/*header*/
+.header {
+  width: 16rem;
+}
+.header ul {
+  text-align: justify;
+  -moz-text-align-last: justify;
+       text-align-last: justify;
+  line-height: 0;
+  height: 79px;
+  background: #fff;
+  border-bottom: #e8e8e8;
+}
+.header ul:after {
+  display: inline-block;
+  overflow: hidden;
+  width: 100%;
+  height: 0;
+  content: '';
+  vertical-align: top;
+}
+.header ul li {
+  width: 80px;
+  display: inline-block;
+  height: 79;
+  line-height: 79px;
+  text-align: center;
+  color: #666;
+  text-decoration: none;
+}
+.header ul li a {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  margin-top: 20px;
+}
+.header_back a {
+  background: url(../images/all.png) no-repeat 0px 0px;
+}
+.header_menu a {
+  background: url(../images/all.png) no-repeat -40px 0px;
+}
+.content {
+  background: #f4f4f4;
+  height: 100%;
+}
+.stamp_banner {
+  width: 640px;
+  height: 310px;
+  z-index: 100;
+  padding: 30px 0 0 0;
+  border-bottom: 1px solid #dcdcdc;
+  position: relative;
+  background: url("../images/banner_bg.png") no-repeat;
+}
+.stamp_banner .head_portrait {
+  width: 150px;
+  margin: 0 auto;
+}
+.stamp_banner .head_portrait .pic {
+  width: 150px;
+  height: 150px;
+  border-radius: 80px;
+  overflow: hidden;
+}
+.stamp_banner .head_portrait p {
+  width: 100%;
+  text-align: center;
+  line-height: 35px;
+}
+.stamp_banner .head_portrait p:nth-child(2) {
+  font-size: 25px;
+  color: #333;
+}
+.stamp_banner .head_portrait p:nth-child(3) {
+  font-size: 20px;
+  color: #88898e;
+}
+.stamp_banner .head_portrait span {
+  font-size: 20px;
+  color: #88898e;
+}
+.stamp_banner .banner_title {
+  width: 100%;
+  margin: 0 auto;
+  position: absolute;
+  bottom: 0;
+}
+.stamp_banner .banner_title .active {
+  color: #333;
+}
+.stamp_banner .banner_title ul li {
+  width: 33%;
+  float: left;
+  text-align: center;
+  color: #88898e;
+  font-size: 20px;
+  height: 42px;
+  line-height: 30px;
+}
+.stamp_banner .banner_title ul li span,
+.stamp_banner .banner_title ul li em {
+  width: 0;
+  height: 0;
+  display: inline-block;
+  border-style: solid;
+  border-width: 0 8px 8px 8px;
+}
+.stamp_banner .banner_title ul li span {
+  position: relative;
+  bottom: -20px;
+  left: -36px;
+  border-color: transparent transparent #dcdcdc transparent;
+}
+.stamp_banner .banner_title ul li span em {
+  position: absolute;
+  bottom: -10px;
+  left: -8px;
+  z-index: 10;
+  border-color: transparent transparent #f4f4f4 transparent;
+}
+.stamp_banner .banner_title ul li .on {
+  display: none;
+}
+.stamp_wrap {
+  width: auto;
+  padding: 20px;
+}
+.stamp_wrap .stamp_bg {
+  width: auto;
+  height: 230px;
+  margin-bottom: 30px;
+  padding: 20px 0 0 20px;
+  background: url("../images/stamp_bg.png") no-repeat;
+}
+.stamp_wrap .bg1 {
+  background-position: 0 0;
+}
+.stamp_wrap .bg2 {
+  background-position: 0 -250px;
+}
+.stamp_wrap .bg3 {
+  background-position: 0 -500px;
+}
+.stamp_wrap .stamp_title {
+  height: 70px;
+  line-height: 65px;
+}
+.stamp_wrap .stamp_title > * {
+  float: left;
+}
+.stamp_wrap .stamp_title i {
+  display: inline-block;
+  width: 65px;
+  height: 65px;
+  background: url("../images/logo_house.png") no-repeat;
+}
+.stamp_wrap .stamp_title p {
+  font-size: 25px;
+  margin-left: 10px;
+  color: #fff;
+}
+.stamp_wrap .stamp_info {
+  width: 540px;
+  height: 80px;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+.stamp_wrap .stamp_info p {
+  width: 240px;
+  height: 80px;
+  font-size: 50px;
+  color: #fff;
+  float: left;
+  line-height: 80px;
+  text-align: center;
+}
+.stamp_wrap .stamp_info p span {
+  font-size: 80px;
+  color: #fff;
+}
+.stamp_wrap .stamp_info .line {
+  display: inline-block;
+  width: 1px;
+  height: 100%;
+  background: #fff;
+  opacity: .5;
+}
+.stamp_wrap .stamp_info .list {
+  display: inline-block;
+  width: 280px;
+  float: right;
+}
+.stamp_wrap .stamp_info .list h3,
+.stamp_wrap .stamp_info .list h4 {
+  color: #fff;
+  line-height: 40px;
+  text-align: center;
+}
+.stamp_wrap .stamp_info .list h3 {
+  font-size: 35px;
+}
+.stamp_wrap .stamp_info .list h4 {
+  font-size: 20px;
+  font-weight: lighter;
+}

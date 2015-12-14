@@ -1,22 +1,37 @@
 body{font-family: "微软雅黑";}
+h1{font-size: 25px; color: #666; font-weight: normal;}
 span{color: #666;}
-.wechat_menu {padding:30px;}
+input[type='button']{width: 116px; height: 32px;}
+input[disabled="disabled"]{cursor:default; background-color: #E7E7EB; border: 1px solid #E7E7EB; color: #999;}
+input[disabled="disabled"]:hover{background-color: #E7E7EB; border: 1px solid #E7E7EB;color: #999;}
+.normal_input{padding: 0 22px; background-color: white; border: 1px solid #2bc589; color: #2bc589;}
+.normal_input:hover{background-color: #EEEEEE;}
+.save_input{ background-color: #2bc589; border: 1px solid #2bc589; color: white;}
+.save_input:hover{background-color: #ff811a; border: 1px solid #ff811a;}
+.wechat_menu {padding:30px; margin-bottom: 100px;}
 .wechat_menu .wechat_tips{padding: 12px 20px 12px 42px; line-height:16px ; font-size: 14px; background-color: #e9f9f3; border-radius: 2px;}
 .wechat_menu .wechat_tips p{ position: relative;}
 .wechat_menu .wechat_tips span{ display: inline-block; height: 16px; width: 16px; position: absolute; left: -22px; top: -2px; color: orange; background: url(../images/wechat_phone.png) -318px 0;}
 .wechat_menu .weset_tips{ padding: 50px 0 30px 0; color: #8d8d8d;}
 .wechat_menu .weset_phone{ box-sizing: border-box;width: 319px; height: 582px; float: left; border: 1px solid #e7e7eb; position: relative;}
+.wechat_menu .setting_menu{width:586px;min-height: 582px; float: left; }
+.weset_phone{ margin-right: 15px;}
 .weset_phone .phone_head{width: 317px; height:64px; background: url(../images/wechat_phone.png) 0 0; }
 .weset_phone .phone_head .phone_title{color:#eceef1;text-align:center;padding-top:30px;font-size:15px;width:auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;word-wrap:normal;margin:0 40px 0px 60px;}
 
-.weset_phone .phone_footer{box-sizing: border-box; width: 317px; height: 50px; border-top: 1px solid #e7e7eb;  position: absolute; left: 0px; bottom: 0px; background: url(../images/wechat_phone.png) 0 -65px;}
+/*添加菜单*/
+.weset_phone  .phone_footer{box-sizing: border-box; width: 317px; height: 49px; border-top: 1px solid #e7e7eb;  position: absolute; left: 0px; bottom: 0px; background: url(../images/wechat_phone.png) 0 -65px;}
+.weset_phone  .phone_btn{height: 32px; position: absolute; left: 0; right:0; bottom: -74px; text-align: center;}
 .phone_footer .parent_menu_list{position:absolute;top: 0; left: 0;padding-left: 43px; width: 100%; line-height: 50px; box-sizing: border-box; white-space: nowrap; font-size: 14px; color: #666666;}
+.phone_footer .addmenu_gray{ display:inline-block;width: 16px; height: 16px; vertical-align: -3px; margin-right: 5px; background: url(../images/add_ico.png);}
+.phone_footer .addmenu_gray:hover{ background: url(../images/add_hover_ico.png);}
+.phone_footer .sub_addmenu{margin-right: 0; vertical-align: 0;}
 .phone_footer .parent_menu_list:after {content: "\200B";display: block;height: 0;clear: both;}
 .phone_footer .parent_menu_item{ position: relative; text-align: center;float: left; display: list-item; }
 .phone_footer .parent_menu_item a{display: block;width: auto;overflow: hidden; text-overflow: ellipsis;word-wrap: normal; text-decoration: none;}
 .phone_footer .parent_menu_item:hover{ cursor: pointer;}
 .phone_footer .no_extra {float: none; width: auto; overflow: hidden;}
-.phone_footer .parent_menu_link{display: block; height: 49px; line-height: 50px;  border-left: 1px solid #e7e7eb; color: #666666;}
+.phone_footer .parent_menu_link{display: block; height: 49px; line-height: 50px;  border-left: 1px solid #e7e7eb; color: #666;}
 .phone_footer .parent_menu_link:hover span{color:#333 ;}
 .phone_footer .current .parent_menu_link{box-sizing: border-box; border: 1px solid #44b549; height: 49px; line-height: 48px; padding-left: 1px;color: #44b549; }
 .phone_footer .current .parent_menu_link span{color: #44b549;}
@@ -26,17 +41,89 @@ span{color: #666;}
 .sizeof2{width: 50%;}
 .sizeof3{width: 33.3%;}
 .phone_footer .child_menu_box{width: 100%; max-height: 242px;  position: absolute; left: 0; bottom: 60px; border: 1px solid #d0d0d0; display: none;}
-.phone_footer .child_menu_list {max-height: 242px;}
-.phone_footer .child_menu_list li{}
+.phone_footer .child_menu_list {max-height: 237px;overflow:hidden; background-color: #fafafa;}
+.phone_footer .child_menu_list .js_title{width: 100%; padding: 0 .5em; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; box-sizing: border-box;}
+.phone_footer .child_menu_list li:first-child .child_menu_innder{border-top: 1px solid transparent;}
 .phone_footer .child_menu_list a:hover{background-color: #eee; }
 .phone_footer .child_menu_list a:hover .child_menu_innder{border-top: 1px solid transparent;}
-.phone_footer .child_menu_list .current{border: 1px solid #44b549; margin: -1px -1px 0 -1px;}
+.phone_footer .child_menu_list .current{border: 1px solid #44b549; background-color: white;}
 .phone_footer .child_menu_list .current .child_menu_innder{border-top: 1px solid transparent; }
 .phone_footer .child_menu_list .current .child_menu_innder span{color: #44b549;}
 .phone_footer .child_menu_list .current a:hover{background-color: white;}
-.phone_footer .child_menu_list li:first-child .child_menu_innder{border-top: 1px solid transparent;}
-.phone_footer .child_menu_list li a{padding: 0 .5em;}
 .phone_footer .child_menu_innder{border-top: 1px solid #e7e7db; box-sizing: border-box; height: 46px; display: block; margin-bottom: 1px;}
 .arrowl{position: absolute; left: 50%; margin-left: -6px;}
 .arrow_out{bottom: -6px;display: inline-block;width: 0;height: 0;border-width: 6px;border-style: dashed;border-color: transparent;border-bottom-width: 0;border-top-color: #d0d0d0;border-top-style: solid;}
 .arrow_in{bottom: -5px;display: inline-block;width: 0;height: 0;border-width: 6px;border-style: dashed;border-color: transparent;border-bottom-width: 0;border-top-color: #fafafa;border-top-style: solid;}
+.menu_ico_dot{background:url(../images/menu_list_ico.png); width: 7px; height: 7px; vertical-align: middle; display: inline-block; margin-top: -2px; margin-right: 2px;}
+.setting_btn{ position: absolute; left: 10px; right: 0; bottom: -72px; height: 32px;text-align: left;  }
+.setting_btn input{display: inline-block; margin-right: 10px;}
+.setting_menu .status_2{background-color: white;text-align:center; border: none;}
+.setting_menu .status_2 p{ color: #8d8d8d; padding-top: 200px;}
+.setting_menu .menu_form_bd p{ padding-top: 10px; color: #8d8d8d;}
+
+/*弹出框样式*/
+.data-dia, .data-dia > .fix{position: fixed;}
+.data-dia .data-content{text-align: center; width: 400px;}
+.data-dia .dia_header {height: 40px; padding-top: 5px; border-bottom: 1px solid #ddd; color: #666666; text-align: center;}
+.data-dia .dia_header .tips_title{font-size: 25px; color: #666;}
+.data-dia .dia_header .close_log{margin-top: 10px; height:15px; width: 16px; }
+.data-dia span{color: #999999;}
+.data-dia select{width: 110px;}
+.data-dia button{cursor: pointer; font-size: 16px;}
+.data-dia .cancel{background-color: #ddd; margin-top: 40px; color: #666;}
+.data-dia .confirm{background-color: #2bc589; color: white;}
+.data-dia input[type='button']{width: 146px; height: 43px; margin: 0 10px 20px 10px;}
+
+.data-dia .tips_content{padding:40px 0px 40px 0px; text-align: center;color: #999;}
+.data-dia .tips_content img{vertical-align: -5px;}
+.data-dia >img{margin-right: 10px;}
+.data-dia .tips_info{display: inline-block;text-align: left; color: #999;}
+.data-dia .tips_info_title{color: #666;}
+
+#settingInfo{overflow-y: auto;}
+#settingInfo .setting_info{padding: 30px 0;}
+#settingInfo .data-content{width: 975px;}
+#settingInfoImg .setting_info{padding: 30px 0;} 
+#settingInfoImg .data-content{width: 975px;}
+#settingInfoImg .demo_check{display: none;}
+#settingInfoImg .demo_info{ width:760px; box-sizing: border-box; border-right: 1px solid #e7e7e7;}
+#settingInfoImg .demo_main_info li{text-align: left;}
+
+
+/*手机预览图样式*/
+#preViewPhone{overflow-y: auto;}
+#preViewPhone .data-content{width: 420px; height: 723px; background-color: transparent;}
+#preViewPhone .pre_phone{ height: 100%; background:url('../images/phone_ico.png') no-repeat 0 0; position: relative; box-sizing: border-box;}
+.pre_phone .pre_title{width:200px;padding-top: 110px; margin:0 auto;}
+.pre_phone .pre_title >p{width: 100%; height:38px ; padding-left: 20px; padding-right: 10px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; box-sizing: border-box; line-height: 38px; text-align: center; color: white;}
+.pre_phone .pre_content{width: 272px; height: 394px; margin:1px auto; }
+.pre_phone .pre_content .show_list{width: 100%; height: 395px; padding: 0 10px; box-sizing: border-box; overflow-y: scroll;}
+.pre_phone .pre_content .show_item{ margin-top: 20px;}
+.pre_phone .pre_content .show_item > img{float: left; margin-right: 5px;}
+.pre_phone .pre_content .show_content{ width: 160px; float: left; background-color: white;padding: 10px;}
+.pre_phone .pre_content .preview_list{width:160px; padding: 0px; border: none; position: relative;}
+.pre_phone .pre_content .preview_list .demo_st img{width:100%; height: 175px; vertical-align: bottom;}
+.pre_phone .preview_list .deme_title_info p{width:60%;line-height: 1.5em; font-size: 12px;text-align: left;display: inline-block; vertical-align: middle; color: #333; padding: 0; }
+.pre_phone .preview_list .deme_title_info img{width:50px;height:50px;margin-left:10px; display: inline-block; vertical-align: middle;}
+.pre_phone .pre_footer{width: 272px; height: 36px;margin:0 auto; border-top: 1px solid #e7e7e7; background:#fff url(../images/mini_keybord.png) 5px center no-repeat; padding-left: 37px; box-sizing: border-box;}
+.pre_footer .pre_menu_list a{color: #666;}
+.pre_footer .pre_list_item > a:hover{color: #333;}
+.pre_footer .pre_menu_list { width: 100%; float: left; }
+.pre_footer .pre_menu_list .pre_list_item{width: 33.33%; box-sizing: border-box; line-height: 36px; position: relative; text-align: center;float: left; display: list-item; border-left: 1px solid #e7e7e7;}
+.pre_footer .pre_menu_list:hover > a{color: black;}
+.pre_footer .pre_menu_list .sub_pre_menu{width: 100%; max-height: 242px;  position: absolute; left: 0; bottom: 50px; border: 1px solid #d0d0d0;display: none;}
+.pre_footer .pre_menu_list .sub_pre_menu_list{ background-color: #fff;}
+.pre_footer .pre_menu_list .sub_list_item{line-height: 30px; box-sizing: border-box; padding: 0 5px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;}
+.pre_footer .pre_menu_list .open{display: block;}
+
+/*预览内容样式*/
+.preview_list{width: 320px; padding: 10px;border: 1px solid #ddd; position: relative;}
+.preview_list .js_delPreview{display: inline-block; position: absolute; right: -40px; bottom: 0;}
+.preview_list .demo_st{ position: relative; text-align: center; padding: 0; margin-bottom: 10px;}
+.preview_list .demo_st img{width: 320px; height: 175px; vertical-align: bottom;}
+.preview_list .demo_st p{position:absolute;width:100%;height: 35px;background:rgba(0,0,0,0.7);left:0px;bottom:0px;line-height:35px;color:#fff;font-size:14px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;padding:0 5px;-webkit-box-sizing:border-box; box-sizing: border-box;}
+.preview_list .close_demo{}
+.preview_list .deme_title_info{position:relative;width:100%;border-top:1px solid #ddd;padding:5px 0;height:50px;display:-webkit-box;-webkit-box-align:center}
+.preview_list .deme_title_info p{width:260px;line-height: 20px; font-size: 16px;text-align: left;display: inline-block; vertical-align: middle; color: #333; padding: 0; }
+.preview_list .deme_title_info img{width:50px;height:50px;margin-left:10px; display: inline-block; vertical-align: middle;}
+

@@ -1,33 +1,97 @@
-$('.js_addMenuBox').on('click',function(){
-	$('.parent_menu_list>.current').removeClass('current');
-	$('.parent_menu_list>.child_current').removeClass('child_current');
-	var html;
-	html = '<li class="parent_menu_item grid_item current"><a class="parent_menu_link">+<span>添加菜单</span></a><div class="child_menu_box"><ul class="child_menu_list"><li class="js_addMenuBox2"><a class="js_subView "><span class="child_menu_innder">+</span></a></li></ul><span class="arrowl arrow_out"></span><span class="arrowl arrow_in"></span></div></li>';
-	$(this).before(html);
-	setClass();
-	resetCurrent();
+$(document).ready(function(){
+	$('.setting_info').load('page/information.html');
 });
 
-$('.parent_menu_list').on('click','.js_addMenuBox2',function(){
-	$('.current').removeClass('current').addClass('child_current');
-	var html;
-	html = '<li class="current select4a"><a class="js_subView"><span class="child_menu_innder"><span class="js_title">子菜单名称</span></span></a></li>';
-	$(this).before(html);
-	resetChildCurrent(this);
-})
+/*初始化配置*/
+var IsDrag = 'off';
+$('#js_status_2').css('display','block');
+binParentClick();
 
+/*添加父级菜单*/
+function binParentClick(){
+	$('.js_addMenuBox').on('click',function(){
+		updateCacheData();
+		$('.parent_menu_list>.current').removeClass('current');
+		$('.parent_menu_list>.child_current').removeClass('child_current');
+		var liId ='menu_'+$('.parent_menu_list>li').length;
+		var pL = $('.parent_menu_list>li').length;
+		var html = '<li class="parent_menu_item grid_item current" id='+ liId +'>'
+					+'<a class="parent_menu_link">'
+						+'<span class="js_title">菜单名称</span>'
+					+'</a>'
+					+'<div class="child_menu_box">'
+						+'<ul class="child_menu_list" id="child_'+ liId +'">'
+							+'<li class="js_addMenuBox2" >'
+								+'<a href="javascript:void(0);" class="js_subView ">'
+									+'<span class="child_menu_innder"><i class="addmenu_gray sub_addmenu"></i></span>'
+								+'</a>'
+							+'</li>'
+						+'</ul>'
+						+'<span class="arrowl arrow_out"></span><span class="arrowl arrow_in"></span>'
+					+'</div>'
+				+'</li>';
+		
+		$(this).before(html);
+		setClass();
+		resetCurrent();
+		delDisabled('#js_saveBtn',pL,0);
+		delDisabled('#js_stortable',pL,1);
+		$('.editor_inner').css('display','none');
+		$('#js_status_1').css('display','block').attr('data-id',liId);
+		$('.frm_msg').css('display','none');
+		$('#js_rightBox').attr('data-id',liId);
+		$('#js_menuTitle1,#js_menuTitle2').html('菜单名称');
+		$('#input_title').val('菜单名称');
+		binChildClick();
+		saveCacheData(liId);
+		dataInSetting(liId);
+	});
+}
 
+/* 添加子菜单 */
+function binChildClick(){
+	$('.js_addMenuBox2').on('click',function(e){
+		updateCacheData();
+		$('.current').removeClass('current').addClass('child_current');
+		var e = event || window.event;
+		var pId = $(this).parents('li').attr('id');
+		var liId = Date.parse(new Date())+ '_childmenu_'+pId+ '_' + $(this).prevAll().length;
+		var cL = $('.child_menu_list li').length;
+		var html = '<li class="current" id="'+ liId +'">'
+				+'<a href="javascript:void(0);"  class="js_subView">'
+					+'<span class="child_menu_innder">'
+						+'<span class="js_title">子菜单名称</span>'
+					+'</span>'
+				+'</a>'
+			 +'</li>';			 
+		$(this).before(html);
+		resetChildCurrent();
+		delDisabled('#js_stortable',cL,1);	
+		$('.editor_inner').css('display','none');
+		$('#js_status_1').css('display','block').attr('data-id',liId);
+		$('#js_rightBox').attr('data-id',liId);
+		$('#js_menuTitle1,#js_menuTitle2').html('子菜单名称');
+		$('#input_title').val('子菜单名称');
+		$('.frm_msg').css('display','none');
+		saveCacheData(liId);
+		dataInSetting(liId);
+		e.stopImmediatePropagation();
+		return false;
+	})
+}
 
-
+/* 重置菜单的宽度 */
 function setClass(){
 	var listLi = $('.parent_menu_list>li');
 	var listLeng = listLi.length;
 	var sizeOf = '';
 	if(listLeng == 1){
 		sizeOf = 'sizeof1';
+		//$('.js_addMenuBox>.parent_menu_link').html('+<span class="js_addMenuTips">添加菜单</span>');
+		$('.js_addMenuTips').html('添加菜单');
 	}else if(listLeng == 2){
 		sizeOf = 'sizeof2';
-		$('.js_addMenuTips').remove();
+		$('.js_addMenuTips').html('');
 	}else{
 		sizeOf = 'sizeof3';
 	}
@@ -36,36 +100,592 @@ function setClass(){
 	}
 }
 
+/* 当子菜单点击时，触发焦点样式的更改，以及同步右边设置菜单的值 */
+
 function resetChildCurrent(){
-	$('.js_addMenuBox2').prevAll().on('click',function(){
-		$('.current').removeClass('current').addClass('child_current');
-		$(this).addClass('current');
-		return false
+	$('.js_addMenuBox2').prevAll().on('click',function(e){
+		if(IsDrag == 'off'){
+			updateCacheData();
+			var liId = $(this).attr('id');
+			var menuTitle =  $(this).find('.js_title').html();
+			$('.current').removeClass('current').addClass('child_current');
+			$(this).addClass('current');
+			$('.frm_msg').css('display','none');
+			$('.editor_inner').css('display','none');
+			$('#js_status_1').css('display','block').attr('data-id',liId);
+			$('#js_rightBox').attr('data-id',liId);
+			$('#js_menuTitle1').html(menuTitle);
+			$('#input_title').val(menuTitle);
+			$('#js_menuTitle2').html('子菜单名称');
+			$('.msg_tab .preview_list').css('display','none');
+			$('.msg_tab .jsMsgSendTab').css('display','block');	
+			dataInSetting(liId);
+			return false;
+		}	
 	})
 }
+
 function resetCurrent(){
-	$('.js_addMenuBox').prevAll().on('click',function(){
-		$('.current').removeClass('current');
-		$('.child_current').removeClass('child_current');
-		$(this).addClass('current');
+	$('.js_addMenuBox').prevAll().on('click',function(e){
+		if(IsDrag == 'off'){
+			updateCacheData();
+			var liId = $(this).attr('id');
+			var menuTitle =  $(this).find('.js_title').html();
+			var liLength = $(this).find('ul>li').length;
+			$('.current').removeClass('current');
+			$('.child_current').removeClass('child_current');
+			$('.frm_msg').css('display','none');
+			$(this).addClass('current');			
+			$('.editor_inner').css('display','none');
+			$('#js_rightBox').attr('data-id',liId);
+			if(liLength>1){
+				$('#js_status_3').css('display','block').attr('data-id',liId);
+				$('#js_menuTitle3').html(menuTitle);
+				$('#input_title2').val(menuTitle);
+				$('#js_menuTitle4').html('菜单名称');
+			}else{
+				$('#js_status_1').css('display','block').attr('data-id',liId);
+				$('#js_menuTitle1').html(menuTitle);
+				$('#input_title').val(menuTitle);
+				$('#js_menuTitle2').html('菜单名称');
+			}
+			dataInSetting(liId);
+			
+		}else{
+			updateCacheData();
+			$('.current').removeClass('current');
+			$('.child_current').removeClass('child_current');
+			$(this).addClass('child_current');	
+			dataInSetting(liId);
+		}
 	})
 }
 
-
-
-/*function chatMenu(obj){
-	this.L = '';
-	this.sizeof  = 'sizeof1';
-	this.current = 'cureent';
-}
-chatMenu.prototype {
-	on:function(){
-		
-	},
-	addList:function(){
-		
-	},
-	setClass:function(){
-		
+/*去除disabled*/
+function delDisabled(obj,objnum,bnum){
+	if(objnum >bnum){
+		$(obj).removeAttr('disabled');
 	}
-}*/
+}
+
+
+/*检查是否输入,并更改菜单名称*/
+function checkLength(obj,maxlen,target,text){
+	var val = $(obj).val();
+	var vLeng = len(val);
+	var liId = $('#js_rightBox').attr('data-id');
+	var menuTitle = $('#'+liId+'>a').find('.js_title');
+	var target = $(target);
+	$('.frm_msg').css('display','none');
+	if(vLeng == 0){
+		$('.js_titlenoTips').css('display','block');
+		menuTitle.html(text);
+		target.html(text);
+	}else if(vLeng > maxlen){
+		$('.js_titleEorTips').css('display','block');
+		subVal = subStringChar(val,maxlen);
+		menuTitle.html(subVal);
+		target.html(subVal);
+	}else{
+		menuTitle.html(val);
+		target.html(val);
+	}
+}
+$('#input_title2').on('keyup',function(){
+	checkLength(this,8,'#js_menuTitle3','菜单名称');
+});
+$('#input_title').on('keyup',function(){
+	checkLength(this,16,'#js_menuTitle1','子菜单名称');
+});
+
+
+/* 删除li菜单 */
+$('#jsDelBt').on('click',function(){
+	$('.editor_inner').css('display','none');
+	var liId = $('#js_rightBox').attr('data-id');
+	$('#'+liId).remove();
+	$('#js_status_1').css('display','none');
+	setClass();
+	
+	var pL = $('.parent_menu_item').length;
+	var cL = $('.child_menu_list li').length;
+
+	if(pL<2){
+		$('#js_status_2').css('display','block');	
+	}else{
+		$('#js_status_5').css('display','block');
+	};
+	if(pL<3 && cL<3){
+		$('#js_stortable').attr('disabled','disabled');
+	}
+	if(pL<2){
+		$('#js_saveBtn').attr('disabled','disabled');	
+	}
+})
+
+/* 触发排序事件 */
+$('#js_stortable').on('click',function(){
+	updateCacheData();
+	joinData();
+	initMenuData();
+	$('#js_stortable,.setting_btn').css('display','none');
+	$('#js_saveSort').css('display','inline-block');
+	$('.current').removeClass('current')
+	$('.editor_inner').css('display','none');
+	$('#js_status_4').css('display','block');
+	$('.js_addMenuBox,.js_addMenuBox2').remove();
+	setClass();
+	IsDrag = 'on';	
+	$( "#parent_menu" ).sortable({
+	   	axis:"x",
+        cursor: "move",
+        cursorAt: {left:40,bottom:5},
+        items :">li",  
+        opacity: 0.8,    
+    });
+    $('.parent_menu_list>li').each(function(i,value){
+		var pId = $(this).attr('id');
+		var cId =$('#'+pId).find('ul').attr('id');
+		$("#"+cId).sortable({
+		  revert:true,
+	   	  axis:"y",
+          cursor: "move",
+          cursorAt: {left:40,bottom:5},
+          items :"li",             
+          opacity: 0.8,                      
+         });		
+	 });
+})
+
+/*跳出弹窗*/
+$('#js_delBtn').on('click',function(){
+	dialogs(this,
+		'400px',
+		'确认信息',
+		'删除确认',
+		'删除后“一级导航”菜单下设置的内容将被删除',
+		'images/warn_ico.png');
+})
+$('#js_delBtn2').on('click',function(){
+	dialogs(this,
+		'400px',
+		'确认信息',
+		'删除确认',
+		'删除后菜单下设置的内容将被删除',
+		'images/warn_ico.png');
+})
+$('#js_saveBtn').on('click',function(){
+	dialogs(this,
+		'470px',
+		'发布确认',
+		'发布成功后会覆盖原版本，且将在12小时内对所有用户生效，确认发布?',
+		'&nbsp;');
+})
+$('#js_appmsgPop').on('click',function(){
+	dialogset(this);
+	$('#'+$(this).data('role')).find('.demo_title_img').html('图文链接');
+})
+$('#js_previewInfo').on('click',function(){
+	dialogset(this);
+})
+
+function dialogs(obj,wd,title,tip_titile,tip_content,src){
+	$('.data-dia').prepend("<div class='fix'></div>");
+	var r = $(obj).data('role');
+    var d = $("#" + r + "");
+    d.find('.tips_title').html(title);
+    d.find('.tips_info_title').html(tip_titile);
+    d.find('.tips_info_cont').html(tip_content);
+    d.find('.data-content').css('width',wd);
+    if(src){
+   	 	d.find('img').attr('src',src);
+   	 	d.find('img').css('display','inline-block');
+    }else{
+     	d.find('img').css('display','none');
+    }
+    d.fadeIn();
+    d.css('display', 'flex');
+    $('.fix,.close_log,.cancel,.confirm').on('click',function () {
+        d.fadeOut();
+        setTimeout(function(){
+        	$('.fix').detach();
+        },500)
+    });
+}
+
+function dialogset(obj){
+	$('.data-dia').prepend("<div class='fix'></div>");
+	var r = $(obj).data('role');
+    var d = $("#" + r + ""); 
+    d.fadeIn();
+    d.css('display', 'flex');
+    $('.fix,.close_log,.cancel,.confirm').on('click',function () {
+        d.fadeOut();
+        setTimeout(function(){
+        	$('.fix').detach();
+        },500)
+    });
+}
+
+/*设置图文消息后同步预览*/
+$('#js_settingInfo').on('click',function(){
+	var pId = $(this).parents('.data-dia').attr('id');
+	var preHtml = '<div class="preview_list">';
+	preHtml += $('#'+pId).find('.demo_list')[0].innerHTML;
+	preHtml +='<a href="javascript:;" class="js_delPreview">删除</a></div>';
+	$('.msg_tab .js_appmsgArea').css('display','block');
+	$('.msg_tab .jsMsgSendTab').css('display','none');
+	$('.js_appmsgArea').append(preHtml);
+	
+	$('.js_delPreview').on('click',function(){
+		$(this).parents('.preview_list').remove();
+		$('.msg_tab .jsMsgSendTab').css('display','block');
+	})
+})
+
+
+/*保存数据拼接JSON*/
+$('#js_saveInfo,#js_previewInfo').on('click',function(){
+	joinData();
+})
+
+$('#js_saveSort').on('click',function(){
+	joinData();
+	initMenuList();
+	initMenuData();
+	binChildClick();
+	setClass();
+	IsDrag = 'off';
+	$('#js_stortable,.setting_btn').css('display','block');
+	$('#js_saveSort').css('display','none');
+	binParentClick();
+	resetCurrent();
+	resetChildCurrent();
+
+})
+
+/*保存拼接数据*/
+function joinData(){
+	updateCacheData();
+	var parentList =  $('.parent_menu_list>li:not(.js_addMenuBox)');
+	var menuList = {
+		"menus":[]
+	}
+	for(var i=0,ii=parentList.length;i<ii;i++){
+		var childList = $(parentList[i]).find('li:not(.js_addMenuBox2)');
+		var pdata = $(parentList[i]).data();
+		 	pdata.subMenus = [];
+			for(var k=0;k<childList.length;k++){
+				var cdata =  $(childList[k]).data();
+				pdata.subMenus.push(cdata);
+			} 
+		menuList.menus.push(pdata);
+	}
+	$('#menuBoxData').data(menuList);
+	console.log(menuList);
+}
+
+/*写入菜单数据到菜单缓存中*/
+function saveCacheData(obj){
+	var cacheData = {
+		"name":"",
+		"listId":obj,
+		"type":"click",
+		"key":"",
+		"url":"",
+		"morp":"",
+		"message":{"name":""},
+		"picMessage":[],
+		"subMenus":[]
+	};
+	var name = $('#'+obj).find('.js_title').html();
+	cacheData.name = name;
+	$('#'+obj).data(cacheData);
+}
+
+/*更新菜单数据到菜单缓存中*/
+function updateCacheData(){
+	  var updateId = $('#js_rightBox').attr('data-id');
+	  if(updateId && IsDrag == 'off'){
+	  	    var originTextId = $('#js_rightBox div[data-id="'+updateId+'"]').attr('id');
+		  	var originText = $('#' + originTextId);
+		  	var cacheData = $('#'+updateId).data(cacheData);	  	
+		  	if(cacheData){
+		  		var menuTitles = originText.find('.js_menu_name').val();
+			  	cacheData.name = menuTitles;
+			  	cacheData.listId = updateId;
+				if(originTextId != 'js_status_3'){
+				  	var menuType = originText.find('.frm_vertical_pt .selected').data('menutype');
+				  	cacheData.type = menuType;			
+				  	if(menuType == 'click'){
+				  		var menuMorP = originText.find('.js_tab_navs .selected').data('type');
+				  		cacheData.morp = menuMorP;
+				  		if(menuMorP == 0){
+				  		 	var picMessage = originText.find('.js_appmsgArea .preview_list > div');
+						  	var menuPicM =[];
+						  	for(var i=0,ii=picMessage.length;i<ii;i++){
+						  		var picObj = {};
+						  	    picObj.largePicUrl = $(picMessage[0]).find('img').attr('src');
+						  	    picObj.smallPicUrl = $(picMessage[0]).find('img').attr('src');
+						  	    picObj.msg = $(picMessage[0]).find('p').html();
+						  	    menuPicM.push(picObj);
+						  }
+					        cacheData.picMessage = menuPicM;
+				  		}else{
+				  			var menuText = originText.find('.js_textArea .js_editorArea').html();
+				  			cacheData.message.name = menuText;
+				  		}
+				  	}else{
+				  		var menuUrl = originText.find('#urlText').val();
+				  		cacheData.url = menuUrl;
+				  	}
+				}
+		  	}
+		  	
+	  }  
+}
+
+/*写入预览数据到预览图中*/
+$('#js_previewInfo').on('click',function(){
+	var menuBoxList = $('#menuBoxData').data();
+	var pMenuList = menuBoxList.menus;
+	var html ='<ul class="pre_menu_list" >';
+			for(var i=0,ii=pMenuList.length;i<ii;i++){
+				html +='<li class="pre_list_item">'
+				      +'<a href="javascript:;">'
+				      +'<i class="menu_ico_dot"></i>'+ pMenuList[i].name+'</a>';
+					if(pMenuList[i].subMenus.length > 0){
+						var subMenuList = pMenuList[i].subMenus;					
+						html+='<div class="sub_pre_menu">'
+							+'<ul class="sub_pre_menu_list">';
+							for(var k=0,kk=subMenuList.length;k<kk;k++){
+								html+='<li class="sub_list_item">'
+									 +'<a href="javascript:;">'+ subMenuList[k].name+'</a>'
+									 +'</li>';
+							}
+						html+='</ul>'
+								+'<span class="arrowl arrow_out"></span>'
+								+'<span class="arrowl arrow_in"></span>'
+								+'</div>';
+					}
+				html+='</li>';	
+			}		
+			html+='</ul>';
+	$('.pre_footer').html(html);
+	resetPreCurrent();
+})
+
+/*写入数据到设置图中*/
+function dataInSetting(obj){
+	var originData = $('#'+obj).data();
+	console.log(originData);
+	if(originData){
+		var targetSet = $('#js_rightBox');
+		if(originData.type == 'click'){
+			targetSet.find('.frm_vertical_pt label').removeClass('selected');
+			targetSet.find('.frm_vertical_pt label[data-menutype="click"]').addClass('selected');
+			targetSet.find('#edit').css('display','block');
+			targetSet.find('#url').css('display','none');
+			targetSet.find('#urlText').val('');
+			if(originData.morp == 0){
+				targetSet.find('.tab_appmsg').addClass('selected');
+				targetSet.find('.tab_text').removeClass('selected');
+				targetSet.find('#js_tabInfo').css('display','block');
+				targetSet.find('#js_tabText').css('display','none');
+				targetSet.find('.js_textArea .js_editorArea').html('');
+				if(originData.picMessage.length > 0){
+					targetSet.find('.jsMsgSendTab').css('display','none');
+					var html ='<div class="preview_list">'
+								+'<div class="demo_st" data-list="1">'
+								+'<a class="close_demo" href="javascript:;"></a>'
+								+'<p>'+ originData.picMessage[0].msg+'</p>'
+								+'<img src="'+ originData.picMessage[0].largePicUrl +'" alt="">'
+								+'</div>';
+								for(var i=1;i<originData.picMessage.length;i++){
+									html+='<div class="deme_title_info" data-list="2">'
+										+'<a class="close_demo" href="javascript:;"></a>'
+										+'<p>'+ originData.picMessage[i].msg +'</p>'
+										+'<img src="'+ originData.picMessage[i].largePicUrl +'" alt="">'
+										+'</div>';
+								}
+							html+='<a href="javascript:;" class="js_delPreview">删除</a></div>';	
+				    targetSet.find('.js_appmsgArea').append(html);
+				}else{
+					targetSet.find('.jsMsgSendTab').css('display','block');
+					targetSet.find('.preview_list').remove();
+				}
+				
+			}else if(originData.morp == 1){
+				targetSet.find('.tab_appmsg').removeClass('selected');
+				targetSet.find('.tab_text').addClass('selected');
+				targetSet.find('#js_tabInfo').css('display','none');
+				targetSet.find('#js_tabText').css('display','block');
+				targetSet.find('.js_textArea .js_editorArea').html(originData.message.name);
+			}
+		}else{
+			targetSet.find('.frm_vertical_pt label').removeClass('selected');
+			targetSet.find('.frm_vertical_pt label[data-menutype="view"]').addClass('selected');
+			targetSet.find('#edit').css('display','none');
+			targetSet.find('#url').css('display','block');
+			targetSet.find('#urlText').val(originData.url);
+		}
+	}
+}
+
+/*初始化菜单缓存数据*/
+function initMenuData(){
+	var initData = $('#menuBoxData').data();
+	if(initData){
+		var pData = initData.menus;
+		if(pData.length > 0){
+			for(var i=0,ii=pData.length;i<ii;i++){
+			var cacheData = pData[i];
+			$('#'+pData[i].listId).data(cacheData);
+					if(pData[i].subMenus.length >0){
+						for(var k=0,kk=pData[i].subMenus.length;k<kk;k++){
+							var cData = pData[i].subMenus[k];
+							$('#'+pData[i].subMenus[k].listId).data(cData);
+						}
+					}
+			}
+		}
+	}
+}
+
+/*初始化菜单列表*/
+function initMenuList(){
+	var initData = $('#menuBoxData').data();
+	if(initData){
+		var pData = initData.menus;
+		var html='';
+		if(pData.length>0){
+			for(var i=0,ii=pData.length;i<ii;i++){
+				var cacheData = pData[i];
+				$('#'+pData[i].listId).data(cacheData);
+				html += '<li class="parent_menu_item grid_item" id="'+ pData[i].listId +'">'
+						+'<a class="parent_menu_link">'
+						+'<span class="js_title">'+ pData[i].name+'</span>'
+						+'</a>'
+							+'<div class="child_menu_box">'
+							+'<ul class="child_menu_list" id="child_'+ pData[i].listId +'">';
+							if(pData[i].subMenus.length >0){
+								for(var k=0,kk=pData[i].subMenus.length;k<kk;k++){
+									html+='<li class="current" id="'+ pData[i].subMenus[k].listId+'">'
+									+'<a href="javascript:void(0);" class="js_subView">'
+									+'<span class="child_menu_innder"><span class="js_title">'+pData[i].subMenus[k].name+'</span></span>'
+									+'</a>'
+									+'</li>';
+								}
+							}
+							html+='<li class="js_addMenuBox2">'
+								+'<a href="javascript:void(0);" class="js_subView ">'
+								+'<span class="child_menu_innder">'
+								+'<i class="addmenu_gray sub_addmenu"></i>'
+								+'</span>'
+								+'</a>'
+								+'</li>'
+							+'</ul>'
+							+'<span class="arrowl arrow_out"></span><span class="arrowl arrow_in"></span>'
+							+'</div>'
+						+'</li>';
+			}
+		html += '<li class="js_addMenuBox parent_menu_item no_extra sizeof1" >'
+					+'<a class="parent_menu_link"><i class="addmenu_gray"></i><span class="js_addMenuTips">添加按钮</span></a>'
+				+'</li>';
+		}
+		$('#parent_menu').html(html);
+	}
+	
+}
+
+
+
+
+/*设置预览图点击样式*/
+function resetPreCurrent(){
+	$('.pre_list_item').on('click',function(){
+		$('.pre_phone .open').removeClass('open');
+		$(this).find('.sub_pre_menu').addClass('open');
+	})
+	$('.sub_list_item').on('click',function(e){
+		$('.pre_phone .open').removeClass('open');
+		return false;
+	})
+}
+
+/*设置cookies方法*/
+function setCookie(key,val,t){   
+	var oDate = new Date();
+	oDate.setDate(oDate.getDate()+t);
+	document.cookie = key + '=' + val + ';expires=' +oDate.toGMTString();
+} 
+function getCookie(key){   
+	var arr = document.cookie.split('; ');
+	for(var i=0;i<arr.length; i++){
+		arrkey = arr[i].split('=');
+		if(arrkey[0] == key){
+			return decodeURI(arrkey[1]);
+		}
+	}
+}
+function removeCookie(key){  
+	setCookie(key,'',-1);
+}
+//setCookie('menuList',JSON.stringify(menuList));
+//console.log(menuList);
+//var menuL =JSON.parse(getCookie('menuList'));
+//alert(menuL.button_list[0].name);
+
+/*检查字符串与汉字长度*/
+function len(val){
+  return val.replace(/[^\x00-\xff]/g, "xx").length; 
+}
+
+/*截取中英文字符串，根据字符长度来计算*/
+function subStringChar(str, len) {
+        var newLength = 0;
+        var newStr = "";
+        var chineseRegex = /[^\x00-\xff]/g;
+        var singleChar = "";
+        var strLength = str.replace(chineseRegex,"**").length;
+        for(var i = 0;i < strLength;i++) {
+                singleChar = str.charAt(i).toString();
+                if(singleChar.match(chineseRegex) != null) {
+                      newLength += 2;
+                }else{
+                      newLength++;
+                }
+                if(newLength > len) {
+                      break;
+                }
+                newStr += singleChar;
+        }
+        return newStr;
+} 
+
+var menuDataArr = [{
+	"mchId":"",
+	"name":"",
+	"type":"",
+	"key":"",
+	"morp":"",
+	"url":"",
+	"message":{"name":""},
+	"picmessage":[{"largePicUrl":"","smallPicUrl":"","msg":""},{"largePicUrl":"","smallPicUrl":"","msg":""},{"largePicUrl":"","smallPicUrl":"","msg":""}],
+	"subMenus":[{
+		"name":"",
+		"type":"",
+		"key":"",
+		"url":"",
+		"morp":"",
+		"message":{"name":""},
+		"picmessage":[{"largePicUrl":"","smallPicUrl":"","msg":""},{"largePicUrl":"","smallPicUrl":"","msg":""},{"largePicUrl":"","smallPicUrl":"","msg":""}]
+		},{
+		"name":"",
+		"type":"",
+		"key":"",
+		"url":"",
+		"morp":"",
+		"message":{"name":""},
+		"picmessage":[{"largePicUrl":"","smallPicUrl":"","msg":""},{"largePicUrl":"","smallPicUrl":"","msg":""},{"largePicUrl":"","smallPicUrl":"","msg":""}]}],
+}]

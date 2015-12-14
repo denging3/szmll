@@ -1,195 +1,317 @@
 
 		<link href="css/right_menu.css" rel="stylesheet"/>
 		<link href="css/wechat_menu.css" rel="stylesheet"/>
-
+				<div id='menuBoxData' style="display: none;"></div>
 				<!---------------------内容区域-------------------------------->
 				<div class="wechat_menu">
 					<div  class="wechat_tips">
 					     <p><span></span>菜单已发布<br>12小时后可在手机查看菜单内容</p>
 					</div>
 					<p class="weset_tips" >可添加最多3个一级菜单，每个一级菜单下可添加最多5个子菜单</p>
-					<div id="sys_left_box" class="weset_phone">
-						<div class="phone_head">
-							<p class="phone_title">美乐乐旗舰店</p>
-						</div>
-						<div class="phone_footer">
-							<ul class="parent_menu_list grid_line">
-								<li class="js_addMenuBox parent_menu_item no_extra sizeof1" >
-									<a class="parent_menu_link">+<span class="js_addMenuTips">添加按钮</span></a>	
-								</li>
-							</ul>
+					<div class="wechat_content clearfix">
+						<div id="sys_left_box" class="weset_phone">
+							<div class="phone_head">
+								<p class="phone_title">美乐乐旗舰店</p>
+							</div>
+							<div class="phone_footer">
+								<ul class="parent_menu_list grid_line" id="parent_menu"  data-drag='no'>
+									<li class="js_addMenuBox parent_menu_item no_extra sizeof1" >
+										<a class="parent_menu_link"><i class="addmenu_gray"></i><span class="js_addMenuTips">添加按钮</span></a>	
+									</li>
+								</ul>
+							</div>
+							<div  class="phone_btn">
+								<input class="normal_input" disabled="disabled" type="button" value="菜单排序" id="js_stortable" />
+								<input class="normal_input" type="button" value="完成" id="js_saveSort" style="display: none;" />
+							</div>
 						</div>
 						
-					</div>
-					
-					<div id='js_rightBox' class="portable_editor to_left" style="width:586px; float: left;">
-					<div class="editor_inner">
-						<div class="global_mod float_layout menu_form_hd js_second_title_bar">
-							<h4 class="global_info">菜单名称</h4>
-							<div class="global_extra">
-								<a href="javascript:;" id='jsDelBt'>删除菜单</a>
-							</div>
-						</div>
-						<div class="menu_form_bd" id='view'>
-							<div id='js_innerNone' style='display:none;' class="msg_sender_tips tips_global"></div>
-							<div class="frm_control_group js_setNameBox">
-								<label class="frm_label">
-									<strong class="title js_menuTitle">菜单名称</strong>
-								</label>
-
-								<div class="frm_controls">
-									<span class="frm_input_box with_counter counter_in append">
-                            <input type="text" class="frm_input js_menu_name">
-                        </span>
-
-									<p class="frm_msg fail js_titleEorTips dn">字数超过上限</p>
-
-									<p class="frm_msg fail js_titlenoTips dn">请输入菜单名称</p>
-
-									<p class="frm_tips js_titleNolTips">字数不超过4个汉字或8个字母</p>
-								</div>
-							</div>
-							<div class="frm_control_group">
-								<label class="frm_label">
-									<strong class="title js_menuContent">菜单内容</strong>
-								</label>
-
-								<div class="frm_controls frm_vertical_pt">
-									<label class="frm_radio_label js_radio_sendMsg selected" data-type="#edit" data-editing='0'>
-										<i class="icon_radio"></i>
-										<span class="lbl_content">发送消息</span>
-										<input type="radio" name="hello" class="frm_radio">
-									</label>
-									<label class="frm_radio_label js_radio_url" data-type="#url" data-editing='0'>
-										<i class="icon_radio"></i>
-										<span class="lbl_content">跳转网页</span>
-										<input type="radio" name="hello" class="frm_radio">
-									</label>
-								</div>
-							</div>
-							<div class="menu_content_container">
-								<div style="display: block" class="menu_content send jsMain" id="edit">
-									<div class="msg_sender" id="editDiv">
-										<!-- ++++++++++++++++++text++++++++++++++++++++++++-->
-										<div class="msg_tab">
-											<div class="tab_navs_panel">
-												<span class="tab_navs_switch_wrp switch_prev js_switch_prev">
-                                        <span class="tab_navs_switch"></span>
-												</span>
-												<span class="tab_navs_switch_wrp switch_next js_switch_next">
-                                        <span class="tab_navs_switch"></span>
-												</span>
-
-												<div class="tab_navs_wrp">
-													<ul class="tab_navs js_tab_navs" style="margin-left:0;">
-														<li class="tab_nav tab_appmsg width5 selected" data-type="10" data-tab=".js_appmsgArea" data-tooltip="图文消息">
-															<a href="javascript:void(0);" onclick="return false;">
-                                                    &nbsp;
-                                                    <i class="icon_msg_sender"></i>
-                                                    <span class="msg_tab_title">图文消息</span>
-                                                </a>
-														</li>
-														<li class="tab_nav tab_text width5" data-type="1" data-tab=".js_textArea" data-tooltip="文字">
-															<a href="javascript:void(0);" onclick="return false;">
-                                                    &nbsp;<i class="icon_msg_sender"></i>
-                                                    <span class="msg_tab_title">文字</span>
-                                                </a>
-														</li>
-													</ul>
-												</div>
-											</div>
-											<div class="tab_panel">
-												<div style="display:none" class="tab_content">
-													<div class="js_appmsgArea inner ">
-														<!--type 10图文 2图片  3语音 15视频 11商品消息-->
-														<div class="tab_cont_cover jsMsgSendTab" data-index="0">
-															<div class="media_cover">
-																<span class="create_access">
-                                                    <a class="add_gray_wrp jsMsgSenderPopBt" href="javascript:;" data-type="10" data-index="0">
-                                                        <i class="icon36_common add_gray"></i>
-                                                        <strong>选择消息模板</strong>
-                                                    </a>
-                                                </span>
-															</div>
-
-														</div>
-													</div>
-												</div>
-
-												<div class="tab_content" style="display: none;">
-													<div class="js_textArea inner no_extra">
-														<div class="emotion_editor">
-															<div class="edit_area js_editorArea" contenteditable="true" style="overflow-y: auto; overflow-x: hidden;"></div>
-															<div class="editor_toolbar">
-																<p class="editor_tip js_editorTip">还可以输入<em>600</em>字</p>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="tab_content" style="display: block;">
-													<div class="js_imgArea inner ">
-														<!--type 10图文 2图片  3语音 15视频 11商品消息-->
-														<div class="tab_cont_cover jsMsgSendTab" data-index="2" data-type="2">
-															<div class="media_cover">
-																<span class="create_access">
-                                                        <a class="add_gray_wrp jsMsgSenderPopBt" href="javascript:;" data-type="2" data-index="2">
-                                                            <i class="icon36_common add_gray"></i>
-                                                            <strong>选择消息模板</strong>
-                                                        </a>
-                                                    </span>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<!-- ++++++++++++++++++text++++++++++++++++++++++++-->
+						<div id='js_rightBox' class="portable_editor to_left setting_menu clearfix">
+							<!--------------------设置菜单---------------------->
+							<div class="editor_inner " id="js_status_1">
+								<div class="global_mod float_layout menu_form_hd js_second_title_bar">
+									<h4 class="global_info" id="js_menuTitle1"></h4>
+									<div class="global_extra">
+										<a href="javascript:;" id='js_delBtn2' data-role='delMenuBox'>删除菜单</a>
 									</div>
 								</div>
-								<div style="display: none" class="menu_content url jsMain" id="url">
-									<form action="" id="urlForm" onSubmit="return false;">
-										<p class="menu_content_tips tips_global">订阅者点击该子菜单会跳到以下链接</p>
-
-										<div class="frm_control_group">
-											<label class="frm_label">页面地址</label>
-
-											<div class="frm_controls">
-												<span class="frm_input_box">
-                                        <input type="text" class="frm_input" id="urlText" name="urlText">
-                                    </span>
-
-												<p class="frm_tips" id="js_urlTitle" style="display: none;">
-													来自<span class="js_name"></span><span style="display:none;"> -《<span class="js_title"></span>》</span>
-												</p>
+								<div class="menu_form_bd" id='view'>
+									<div id='js_innerNone' style='display:none;' class="msg_sender_tips tips_global"></div>
+									<div class="frm_control_group js_setNameBox">
+										<label class="frm_label">
+											<strong class="title js_menuTitle" id="js_menuTitle2">菜单名称</strong>
+										</label>
+		
+										<div class="frm_controls">
+											<span class="frm_input_box with_counter counter_in append">
+		                            <input type="text" class="frm_input js_menu_name" id="input_title">
+		                        </span>
+		
+											<p class="frm_msg fail js_titleEorTips dn">字数超过上限</p>
+		
+											<p class="frm_msg fail js_titlenoTips dn">请输入菜单名称</p>
+		
+											<p class="frm_tips js_titleNolTips">字数不超过8个汉字或16个字母</p>
+										</div>
+									</div>
+									<div class="frm_control_group">
+										<label class="frm_label">
+											<strong class="title js_menuContent">菜单内容</strong>
+										</label>
+		
+										<div class="frm_controls frm_vertical_pt">
+											<label class="frm_radio_label js_radio_sendMsg selected" data-menutype='click' data-type="#edit" data-editing='0'>
+												<i class="icon_radio"></i>
+												<span class="lbl_content">发送消息</span>
+												<input type="radio" name="checkType" value="click" class="frm_radio">
+											</label>
+											<label class="frm_radio_label js_radio_url" data-menutype='view' data-type="#url" data-editing='0'>
+												<i class="icon_radio"></i>
+												<span class="lbl_content">跳转网页</span>
+												<input type="radio" name="checkType" value="view" class="frm_radio">
+											</label>
+										</div>
+									</div>
+									<div class="menu_content_container">
+										<div style="display: block" class="menu_content send jsMain" id="edit">
+											<div class="msg_sender" id="editDiv">
+												<!-- ++++++++++++++++++text++++++++++++++++++++++++-->
+												<!--动态加载-->
+												<!-- ++++++++++++++++++text++++++++++++++++++++++++-->
 											</div>
 										</div>
-										<div class="frm_control_group btn_appmsg_wrap">
-											<div class="frm_controls">
-												<p class="frm_msg fail dn" id="urlUnSelect">
-													<span for="urlText" class="frm_msg_content" style="display: inline;">请选择一篇文章</span>
-												</p>
-												<a href="javascript:;" id="js_appmsgPop">从公众号图文消息中选择</a>
-												<a href="javascript:void(0);" class='dn btn btn_default' id="js_reChangeAppmsg" style="display: none">重新选择</a>
-											</div>
+										<div style="display: none" class="menu_content url jsMain" id="url">
+											<form action="" id="urlForm" onSubmit="return false;">
+												<p class="menu_content_tips tips_global">订阅者点击该子菜单会跳到以下链接</p>
+		
+												<div class="frm_control_group">
+													<label class="frm_label">页面地址</label>
+		
+													<div class="frm_controls">
+														<span class="frm_input_box">
+		                                        <input type="text" class="frm_input" id="urlText" name="urlText">
+		                                    </span>
+		
+														<p class="frm_tips" id="js_urlTitle" style="display: none;">
+															来自<span class="js_name"></span><span style="display:none;"> -《<span class="js_title"></span>》</span>
+														</p>
+													</div>
+												</div>
+												<div class="frm_control_group btn_appmsg_wrap">
+													<div class="frm_controls">
+														<p class="frm_msg fail dn" id="urlUnSelect">
+															<span for="urlText" class="frm_msg_content" style="display: inline;">请选择一篇文章</span>
+														</p>
+														<a href="javascript:;" data-role= "settingInfoImg"  id="js_appmsgPop">从公众号图文消息中选择</a>
+														<a href="javascript:void(0);" class='dn btn btn_default' id="js_reChangeAppmsg" style="display: none">重新选择</a>
+													</div>
+												</div>
+											</form>
 										</div>
-									</form>
+										<div class="menu_content sended" style="display:none;">
+											<p class="menu_content_tips tips_global">订阅者点击该子菜单会跳到以下链接</p>
+		
+											<div class="msg_wrp" id="viewDiv"></div>
+											<p class="frm_tips">来自<span class="js_name">素材库</span><span style="display:none;"> -《<span
+		                                class="js_title"></span>》</span>
+											</p>
+										</div>
+										<div id='js_errTips' style='display:none;' class="msg_sender_msg mini_tips warn"></div>
+									</div>
 								</div>
-								<div class="menu_content sended" style="display:none;">
-									<p class="menu_content_tips tips_global">订阅者点击该子菜单会跳到以下链接</p>
-
-									<div class="msg_wrp" id="viewDiv"></div>
-									<p class="frm_tips">来自<span class="js_name">素材库</span><span style="display:none;"> -《<span
-                                class="js_title"></span>》</span>
-									</p>
-								</div>
-								<div id='js_errTips' style='display:none;' class="msg_sender_msg mini_tips warn"></div>
 							</div>
+							<!--------------------设置菜单结束---------------------->
+							<!--------------------有子级时设置父级菜单------------->
+							<div class="editor_inner " id="js_status_3" >
+								<div class="global_mod float_layout menu_form_hd js_second_title_bar">
+									<h4 class="global_info" id="js_menuTitle3">菜单名称</h4>
+									<div class="global_extra">
+										<a href="javascript:;" id='js_delBtn' data-role='delMenuBox'>删除菜单</a>
+									</div>
+								</div>
+								<div class="menu_form_bd" >
+									<p>已添加子菜单,仅可设置菜单名称</p>
+									<div id='js_innerNone' style='display:none;' class="msg_sender_tips tips_global"></div>
+									<div class="frm_control_group js_setNameBox">	
+										<label class="frm_label">
+											<strong class="title js_menuTitle" id="js_menuTitle4">菜单名称</strong>
+										</label>
+		
+										<div class="frm_controls">
+											<span class="frm_input_box with_counter counter_in append">
+		                            <input type="text" class="frm_input js_menu_name" id="input_title2">
+		                        </span>
+		
+											<p class="frm_msg fail js_titleEorTips dn">字数超过上限</p>
+		
+											<p class="frm_msg fail js_titlenoTips dn">请输入菜单名称</p>
+		
+											<p class="frm_tips js_titleNolTips">字数不超过4个汉字或8个字母</p>
+										</div>
+									</div>
+
+								</div>
+							</div>
+							<!--------------------有子级时设置父级菜单结束---------->
+							<div class="editor_inner status_2" id="js_status_2" >
+								<p>点击左侧的加号，添加菜单</p>
+							</div>
+							<div class="editor_inner status_2" id="js_status_4" >
+								<p>请通过拖拽左边的菜单进行排序</p>
+							</div>
+							<div class="editor_inner status_2" id="js_status_5" >
+								<p>点击左侧菜单进行编辑操作</p>
+							</div>
+							<!-----------------操作按钮组----------------------->
+							<div class="setting_btn">
+									<input  type="button"  class="save_input" disabled="disabled" value="保存并发布" data-role='saveMenuBox' id="js_saveBtn" />
+									<input  type="button" class="normal_input" value="预 览" id="js_previewInfo" data-role='preViewPhone' />
+							</div>
+							<!-----------------操作按钮组结束----------------------->
 						</div>
 					</div>
-				</div>
-				</div>
-				<!---------------------内容区域结束-------------------------------->
-		
+					
+				</div>	
+				
+<!---------------------------------------------------内容区域结束------------------------->
+				
+				<!----------------------确认删除菜单弹窗---------------------------->
+				<div class="data-dia" id="delMenuBox">
+			        <div class="data-content">
+			        	<h1 class="dia_header" >
+	               			<span class="tips_title">确认信息</span><a class='close_log' href="javascript:;"></a>
+	           			</h1>
+	           			<p class="tips_content">
+	           				<img src="" />
+	           				<span class="tips_info">
+		           				<span class="tips_info_title">删除确认</span><br />
+		           				<span class="tips_info_cont">添加子菜单后，一级菜单的内容将被清除.</span>
+	           				</span>
+	           			</p>
+	           			<p>
+		           			<input type="button" class="cancel" value="取消">
+		           			<input type="button" class="confirm" id="jsDelBt" value="确定">
+	           			</p>
+			        </div>
+		   		 </div>
+		   		<!-----------------------保存信息弹窗-------------------------->
+		   		<div class="data-dia" id="saveMenuBox">
+			        <div class="data-content">
+			        	<h1 class="dia_header" >
+	               			<span class="tips_title">确认信息</span><a class='close_log' href="javascript:;"></a>
+	           			</h1>
+	           			<p class="tips_content">
+	           				<img src="" />
+	           				<span class="tips_info">
+		           				<span class="tips_info_title">删除确认</span><br />
+		           				<span class="tips_info_cont">添加子菜单后，一级菜单的内容将被清除.</span>
+	           				</span>
+	           			</p>
+	           			<p>
+		           			<input type="button" class="cancel" value="取消">
+		           			<input type="button" class="confirm" id="js_saveInfo" value="确定">
+	           			</p>
+			        </div>
+		   		</div>			
+				<!------------------------设置图文消息模板-------------------------------->
+				<div class="data-dia" id="settingInfo">
+			        <div class="data-content">
+			        	<h1 class="dia_header" >
+	               			<span class="tips_title">选择消息模板</span><a class='close_log' href="javascript:;"></a>
+	           			</h1>
+	           			<div class="setting_info clearfix">
+							
+						</div>
+	           			<p>
+		           			<input type="button" class="cancel" value="取消">
+		           			<input type="button" class="confirm" id="js_settingInfo" value="确定">
+	           			</p>
+			        </div>
+		   		</div>
+				<!---------------------设置图文链接----------------------------->
+				<div class="data-dia" id="settingInfoImg">
+			        <div class="data-content">
+			        	<h1 class="dia_header" >
+	               			<span class="tips_title">选择图文链接</span><a class='close_log' href="javascript:;"></a>
+	           			</h1>
+	           			<div class="setting_info clearfix">
+							
+						</div>
+	           			<p>
+		           			<input type="button" class="cancel" value="取消">
+		           			<input type="button" class="confirm" id="js_settingInfoImg" value="确定">
+	           			</p>
+			        </div>
+		   		</div>
+				<!---------------------设置图文链接----------------------------->
+				
+				<!--------------------手机预览弹窗---------------------->
+				<div class="data-dia" id="preViewPhone">
+			        <div class="data-content">
+			        	<div class="pre_phone">
+			        		<div class="pre_title">
+			        			<P>美乐乐测试号一美乐乐测试号一美乐乐测试号一</P>
+			        		</div>
+			        		<div class="pre_content">
+			        			<ul class="show_list">
+			        				<!--------------动态加载------------->
+				        				<li class="show_item clearfix">
+				        					<img src="images/warn_ico.png" />
+				        					<div class="show_content">
+				        						<!--从设置的图文信息中获取-->
+				        						<div class="preview_list">
+													<div class="demo_st clearfix" data-list="1">
+														<a class="close_demo" href="javascript:;"></a>
+														<p>美乐乐微信推广金秋10月代金券</p>
+														<img src="images/bacimg.png" alt=""></div>
+														<div class="deme_title_info" data-list="1">
+															<a class="close_demo" href="javascript:;"></a>
+															<p>美乐乐微信推广金秋10月代金券</p>
+															<img src="images/bacimg.png" alt="">
+														</div>
+														<div class="deme_title_info" data-list="1">
+															<a class="close_demo" href="javascript:;"></a>
+															<p>美乐乐微信推广金秋10月代金券</p>
+															<img src="images/bacimg.png" alt="">	
+														</div>
+				        						</div>
+				        						<!--从设置的图文信息中获取-->
+				        					</div>
+				        				</li>
+			        				<!-----------------动态加载结束--------------->
+			        			</ul>
+			        		</div>
+			        		<div class="pre_footer">
+			        			<!--<ul class="pre_menu_list" >
+									<li class="pre_list_item">
+										<a href="javascript:;"><i class="menu_ico_dot"></i>菜单名称</a>
+										<div class="sub_pre_menu open">
+											<ul class="sub_pre_menu_list">
+												<li class="sub_list_item">
+													<a href="javascript:;">菜单名称菜单名称</a>
+												</li>
+												<li class="sub_list_item">
+													<a href="javascript:;">菜单名称</a>
+												</li>
+												<li class="sub_list_item">
+													<a href="javascript:;">菜单名称</a>
+												</li>
+											</ul>
+											<span class="arrowl arrow_out"></span>
+											<span class="arrowl arrow_in"></span>
+										</div>
+									</li>
+								</ul>-->
+			        		</div>
+			        	</div>
+			        	<div class="pre_quite">
+			        		<input type="button" value="退出预览" class="cancel" />
+			        	</div>
+			        </div>
+		   		 </div>
+				<!--------------------手机预览弹窗结束---------------------->
 	<script type="text/javascript" src="js/right_menu.js"></script>
+	<script type="text/javascript" src="../plug/jquery_sortable/jquery-ui.js"></script>	
 	<script type="text/javascript" src="js/wechat_menu.js"></script>
-
+	
+	

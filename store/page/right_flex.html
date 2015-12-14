@@ -47,6 +47,12 @@
             simpleData: {
                 enable: true
             }
+        },
+        callback: {
+            onDragMove:onDragMove,
+            onDrag:OnDrag,
+            onClick:TreeOnClick,
+            onMouseUp: zTreeOnMouseUp
         }
     };
 
@@ -70,9 +76,23 @@
         { id:23, pId:2, name:"随意拖拽 2-3"}
     ];
 
-    function showIconForTree(treeId, treeNode) {
-        return !treeNode.isParent;
-    };
+    function onDragMove(event, treeId, treeNodes){
+        // console.log(event.target);
+    }
+
+    function OnDrag(event, treeId, treeNodes){
+        console.log(event.toElement)
+        $(event.toElement).parent().css({'background':'#ddd','border':'1px #ff811a dashed'});
+    }
+
+    function TreeOnClick(event, treeId, treeNode){
+        $(event.toElement).parent().css('background','#ddd');
+    }
+
+    function zTreeOnMouseUp(event, treeId, treeNode){
+        console.log($(event.toElement).next('a'))
+        $(event.toElement).next('a').css('background','#fff');
+    }
 
     $(document).ready(function(){
         $.fn.zTree.init($("#treeDemo"), setting, zNodes);

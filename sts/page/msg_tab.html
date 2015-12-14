@@ -9,7 +9,7 @@
     </span>
     <div class="tab_navs_wrp">
         <ul class="tab_navs js_tab_navs" style="margin-left:0;">
-            <li class="tab_nav tab_appmsg width5 selected" data-type="10" data-tab=".js_appmsgArea" data-tooltip="图文消息">
+            <li class="tab_nav tab_appmsg width5 selected" data-type="0" data-tab=".js_appmsgArea" data-tooltip="图文消息">
                 <a href="javascript:void(0);" onclick="return false;">
                     &nbsp;
                     <i class="icon_msg_sender"></i>
@@ -26,11 +26,10 @@
     </div>
 </div>
 <div class="tab_panel">
-    <div style="display:none" class="tab_content">
+    <div  class="tab_content" id="js_tabInfo">
         <div class="js_appmsgArea inner ">
-            <!--type 10图文 2图片  3语音 15视频 11商品消息-->
             <div class="tab_cont_cover jsMsgSendTab" data-index="0">
-                <div class="media_cover">
+                <div class="media_cover" data-role= "settingInfo"  onclick="dialogset(this)">
                         <span class="create_access">
                             <a class="add_gray_wrp jsMsgSenderPopBt" href="javascript:;" data-type="10" data-index="0">
                                 <i class="icon36_common add_gray"></i>
@@ -42,7 +41,7 @@
         </div>
     </div>
 
-    <div class="tab_content" style="display: none;">
+    <div class="tab_content" id="js_tabText" style="display: none;">
         <div class="js_textArea inner no_extra">
             <div class="emotion_editor">
                 <div class="edit_area js_editorArea" contenteditable="true" style="overflow-y: auto; overflow-x: hidden;"></div>
@@ -52,11 +51,10 @@
             </div>
         </div>
     </div>
-    <div class="tab_content" style="display: block;">
+    <!--<div class="tab_content" style="display: none;">
         <div class="js_imgArea inner ">
-            <!--type 10图文 2图片  3语音 15视频 11商品消息-->
             <div class="tab_cont_cover jsMsgSendTab" data-index="2" data-type="2">
-                <div class="media_cover">
+                <div class="media_cover" data-role= "settingInfo"  onclick="dialogset(this)">
                     <span class="create_access">
                         <a class="add_gray_wrp jsMsgSenderPopBt" href="javascript:;" data-type="2" data-index="2">
                             <i class="icon36_common add_gray"></i>
@@ -66,7 +64,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 </div>
 </div>
 

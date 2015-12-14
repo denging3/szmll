@@ -45,7 +45,7 @@ button{width: 148px; height: 45px; border-radius: 2px; background-color: #ffae13
 .list_table .user_ico{padding: 0;}
 .list_table .user_ico img{display: inline-block; vertical-align: middle; width: 35px; height: 35px; border-radius: 50%;}
 .pageNav{text-align: center; margin-top: 30px;}
-.width_950{width: 950px;}
+.width_950{width:1150px;}
 .pageNav a{ display: inline-block;height: 26px; line-height: 28px; padding: 0 10px; border: 1px solid #dddddd; cursor: pointer; color: #666666;}
 .pageNav a:hover{background-color: #2bc589; border: 1px solid #2bc589; color: white;}
 .pageNav a.hoverd{background-color: #2bc589; border: 1px solid #2bc589; color: white;}
@@ -93,7 +93,7 @@ button{width: 148px; height: 45px; border-radius: 2px; background-color: #ffae13
 #qr_item .data-content input[type='submit']{width: 60px;}
 
 /*二维码列表*/
-.qr_list{width: 950px; overflow: hidden;}
+.qr_list{width: 1150px; overflow: hidden;}
 .qr_list li{ height: 218px; width: 167px; box-sizing: border-box; padding: 20px;  text-align: center; border: 1px solid transparent;float: left; margin-right: 20px; position: relative;}
 .qr_list li h5{color: #666666;overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
 .qr_list li img{margin-bottom: 20px;}

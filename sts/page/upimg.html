@@ -1,0 +1,86 @@
+<style type="text/css">
+    #loadImgDia .data-content{width: 530px;color: #666;}
+    #loadImgDia .dia-main{margin: 10px 0;}
+    .data-dia .dia-main .img-block{float: left;}
+    .data-dia .dia-main .block1 {width:290px;}
+    #imgDragPane{width: 290px;height: 232px;background-color: #b2b2b2;border-radius: 4px;padding-top: 30px;}
+    #imgDragContainer{width: 290px;height: 200px;margin-left: -1px;border:dotted 1px #ddd;background-color: #fff;}
+    #imgDragContainer .p1{margin-top: 70px;color: #808080;text-align: center;}
+    #imgDragContainer .p1 b{font-size: 24px;vertical-align: -3px;color: #999;}
+    #imgDragContainer .p2{color: #999;margin-top: 5px;text-align: center;}
+    /*裁剪图片预览样式*/
+    .jcrop-holder #preview-pane {display: block;position: absolute;z-index: 2000;top: -30px;right: -275px;background-color: white;border-radius: 2px;}
+    #preview-pane .preview-container {width: 210px;height: 140px;overflow: hidden;}
+    .data-dia .dia-main .block1 .file-btn{display:block;width:288px;height:32px;line-height:32px;border:solid 1px #ddd;border-radius:2px;cursor:pointer;text-align: center;margin-top: 20px;}
+    .data-dia .dia-main .block1 b{font-size: 20px;color: #999;vertical-align: -3px;}
+    .data-dia .dia-main .block1 .file-tips{display:inline-block;width:290px;margin-top:10px;color:#666;}
+    .data-dia .dia-main .block2{margin-left: 28px;}
+    .data-dia .dia-main .block2 .img-fi-preview{display: block;width: 210px;height: 140px;border: solid 1px #ddd;border-radius: 2px;position: relative;}
+    .data-dia .dia-main .label{display: block;margin-top: 10px;text-align: center;}
+    .data-dia .dia-footer{margin: 20px 0;text-align: center;}
+</style>
+
+<button id='fov' data-role='loadImgDia'>dianji</button>
+<!-- / 更换商户图片弹窗 start / -->
+<div class="data-dia" id="loadImgDia" data-role="loadImgDia">
+    <div class="data-content">
+        <div class="dia-header">
+            <span class="dia-title">更换图片</span>
+            <a class="dia-close dia-cha" href="javascript:;" title="关闭">×</a>
+        </div>
+        <div class="dia-main clearfix">
+            <div class="img-block block1">
+                <form name="imgUpForm" enctype="multipart/form-data">
+                    <div id="imgDragPane">
+                        <div id="imgDragContainer">
+                            <p class="p1"><b>+</b>&nbsp;上传图片</p>
+                            <p class="p2">(建议尺寸：300×200)</p>
+                        </div>
+                    </div>
+                    <span class="file-btn" onclick="imgpath.click()"><b>+</b>上传本地图片</span>
+                    <input type="file" id="imgpath" style="display:none" onchange="previewImage(this)">
+                    <input type="hidden" id="imgLeft" name="imgLeft" />
+                    <input type="hidden" id="imgTop" name="imgTop" />
+                    <input type="hidden" id="imgW" name="imgW" />
+                    <input type="hidden" id="imgH" name="imgH">
+                    <span class="file-tips">支持图片类型jpg、jpeg、png</span>
+                </form>
+            </div>
+            <div class="img-block block2">
+                    <span class="img-fi-preview">
+                        <div id="preview-pane">
+                            <div class="preview-container">
+                                <img id="imgPre" class="jcrop-preview" />
+                            </div>
+                        </div>
+                    </span>
+                <span class="label">预览效果</span>
+            </div>
+        </div>
+        <div class="dia-footer">
+            <input type="button" class="dia-close cancel-button" value="取消" />
+            <input type="button" class="bright-button" value="确认" onclick="beforImgUpload();" />
+        </div>
+    </div>
+</div>
+<!-- / 更换商户图片弹窗 start / -->
+<script type="text/javascript" src="js/jquery.Jcrop.js"></script>
+<script type="text/javascript" src="js/imgUploadPre.js"></script>
+<script type="text/javascript">
+    $('#fov').click(function(){
+        dialog(this);
+    })
+
+   /**
+     * [beforImgUpload 上传图片]
+     */
+    // function beforImgUpload(){
+    //     var imgPreDom = $('#imgPre')[0];
+    //     $('#imgTop').val(parseFloat(imgPreDom.style.marginTop));
+    //     $('#imgLeft').val(parseFloat(imgPreDom.style.marginLeft));
+    //     $('#imgW').val(imgPreDom.width);
+    //     $('#imgH').val(imgPreDom.height);
+
+    //     document.imgUpForm.submit();
+    // }
+</script>

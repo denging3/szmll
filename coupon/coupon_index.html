@@ -15,6 +15,8 @@
 		<!--[if (gte IE 6)&(lte IE 8)]>
       		<script type="text/javascript" src="js/selectivizr.js"></script>
 		<![endif]-->
+		<!--上传图样式--->
+		<link rel="stylesheet" href="css/jquery.Jcrop.css" />
 	</head>
 	<body>
 		<div id="header" class="clearfix">
@@ -32,8 +34,8 @@
 			</div>
 		</div>
 		<div id="content" class="clearfix">
-			<div id="sidebar" class="clearfix"></div>
-			<div id="section" class="clearfix">
+			<div id="sidebar"></div>
+			<div id="section">
 				<div id="setting">
 					<div class="coupon_category">
 						<a href="coupon_index.html" class="focus">配置</a><a href="coupon_list.html" id="coupon_list">卡券列表</a>
@@ -48,16 +50,16 @@
 						</div>
 						<div class="item upload_pic clearfix">
 							<label>图文封面</label>
-							<div class="upload_big">
+							<div class="upload_big" id="upImg"  onclick="upImgBox();">
 								<span>+</span>上传图片
-								<input type="file" name="upfile" class="input_pic"/>
+								<!--<input type="file" name="upfile" class="input_pic" />-->
 								<span class="pic_tips">大图建议尺寸900X500</span>
 								<div id="pic_fault_tips">*请上传图片</div>
 								<img src="" class="pic_hide" />
 							</div>
-							<div class="upload_small">
+							<div class="upload_small" id="upImgsmall" onclick="upImgBox();">
 								<span>+</span>上传图片
-								<input type="file" name="upfile" class="input_pic"/>
+								<!--<input type="file" name="upfile" class="input_pic" />-->
 								<span class="pic_tips">小图建议尺寸200X200</span>
 								<img src="images/header.png" class="pic_show" />
 							</div>
@@ -84,8 +86,7 @@
 						<div class="tabs">
 							<div class="item tab_type">
 								<label>折扣率</label>
-								<input type="text" id="tab_type_zhekou" /><span>折</span>&nbsp;<span class="gray_999">（请填写1-9.9之间的数字，精确到小数点后1位）
-</span>
+								<input type="text" id="tab_type_zhekou" /><span>折</span>&nbsp;<span class="gray_999">（请填写1-9.9之间的数字，精确到小数点后1位）</span>
 								<div id="zhekou_fault_tips">*请输入折扣率</div>
 							</div>
 							<div class="item tab_type">
@@ -98,6 +99,7 @@
 							<label>有效期</label>
 							<input type="radio" name="chose_date" checked="checked" value="1"/><span>固定日期</span>
 							<input type="text" readonly  id="startDate"/>至<input type="text" readonly  id="endDate"/>
+							<div class="falut_tips" style=" left: 18%;">*请选择日期</div>
 						</div>
 						<div class="item chose_date chose_date_2">
 							<label></label>
@@ -242,6 +244,9 @@
 	<script type="text/javascript" src="ztree/js/jquery.ztree.excheck-3.5.js"></script>
 	<script type="text/javascript" src="js/treelist.js"></script>
 	<!--ztree树形结构引用结束-->
-
-	
+	<!--上传图片插件-->
+	<script type="text/javascript" src="js/jquery.Jcrop.js" ></script>
+	<script type="text/javascript" src="js/imgUploadPre.js" ></script>
+	<script type="text/javascript" src="js/upPic.js" ></script>
+	<!--上传图片插件结束-->
 </html>

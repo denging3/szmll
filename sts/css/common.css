@@ -224,7 +224,7 @@ select::-ms-expand {
 
 /*--公共左边导航--- */
 #content {
-	overflow: hidden;
+    overflow: hidden;
 }
 
 #sidebar {
@@ -233,65 +233,53 @@ select::-ms-expand {
 }
 
 #sidebar .first_lev {
-    width: 165px;
+    width: 80px;
+    padding-bottom:2000px;
+    margin-bottom: -1969px;
     float: left;
     background-color: #3f4a59;
-    padding-bottom: 2000px;
-    margin-bottom: -1969px;
 }
 
 #sidebar .first_lev li {
-    display:flex;
-    width:100%;
-    margin-top:30px;
+    width: 80px;
+    height: 50px;
+    padding: 20px 0;
     text-align: center;
     cursor: pointer;
-    height:16px;
-    font-size:16px;
-    line-height:1;
 }
 
 #sidebar .first_lev li a {
-    width:16px;
-    height:100%;
-}
-
-#sidebar .first_lev li .arrow{
-    margin-left:10px;
-    background:url(../images/rp.png) no-repeat 50% 50%;
-}
-
-#sidebar .first_lev li a:first-of-type{
-    margin-left: 20px;
+    display: block;
+    width: 36px;
+    height: 32px;
+    margin: 0 auto;
+    margin-bottom: 4px;
 }
 
 #sidebar .first_lev li span {
-    text-align: left;
-    width:80px;
     color: #aeb2b8;
-    margin-left:10px;
 }
 
 #sidebar .second_lev {
-    display:inline-block;
-    width:100%;
+    width: 140px;
+    padding-top: 10px;
     padding-bottom: 2000px;
     margin-bottom: -1980px;
     float: left;
-    background-color:#3f4a59;
+    border-top: 1px solid #e8e8e8;
+    background-color: #f6f6f6;
 }
 
 #sidebar .second_lev .sec_li {
-    height:13px;
+    margin-top: 20px;
+    padding: 0 15px;
     cursor: pointer;
-    margin-top:20px;
 }
 
 #sidebar .second_lev .sec_li span {
     display: inline-block;
-    margin:0 auto;
-    font-size: 13px;
-    color: #87929a;
+    font-size: 16px;
+    color: #3fb889;
 }
 
 #sidebar .second_lev .sec_li .arrow {
@@ -323,6 +311,108 @@ select::-ms-expand {
 }
 
 #sidebar .third_lev .thir_li a {
+    font-size: 14px;
+    color: #999999;
+    text-decoration: none;
+}
+
+
+#sts_sidebar {
+    float: left;
+    padding: 0px;
+}
+
+#sts_sidebar .first_lev {
+    width: 165px;
+    float: left;
+    background-color: #3f4a59;
+    padding-bottom: 2000px;
+    margin-bottom: -1969px;
+}
+
+#sts_sidebar .first_lev li {
+    display:flex;
+    width:100%;
+    margin-top:30px;
+    text-align: center;
+    cursor: pointer;
+    height:16px;
+    font-size:16px;
+    line-height:1;
+}
+
+#sts_sidebar .first_lev li a {
+    width:16px;
+    height:100%;
+}
+
+#sts_sidebar .first_lev li .arrow{
+    margin-left:10px;
+    background:url(../images/rp.png) no-repeat 50% 50%;
+}
+
+#sts_sidebar .first_lev li a:first-of-type{
+    margin-left: 20px;
+}
+
+#sts_sidebar .first_lev li span {
+    text-align: left;
+    width:80px;
+    color: #aeb2b8;
+    margin-left:10px;
+}
+
+#sts_sidebar .second_lev {
+    display:inline-block;
+    width:100%;
+    padding-bottom: 2000px;
+    margin-bottom: -1980px;
+    float: left;
+    background-color:#3f4a59;
+}
+
+#sts_sidebar .second_lev .sec_li {
+    height:13px;
+    cursor: pointer;
+    margin-top:20px;
+}
+
+#sts_sidebar .second_lev .sec_li span {
+    display: inline-block;
+    margin:0 auto;
+    font-size: 13px;
+    color: #87929a;
+}
+
+#sts_sidebar .second_lev .sec_li .arrow {
+    display: inline-block;
+    width: 9px;
+    height: 5px;
+    margin-top: 8px;
+    background: url(../images/common.png) 0px 160px;
+    float: right;
+}
+
+#sts_sidebar .third_lev {
+    margin-top: 10px;
+}
+
+#sts_sidebar .third_lev .thir_li {
+    height: 36px;
+    line-height: 36px;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+#sts_sidebar .third_lev .thir_li span {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+#sts_sidebar .third_lev .thir_li a {
     font-size: 14px;
     color: #999999;
     text-decoration: none;
@@ -401,7 +491,6 @@ select::-ms-expand {
 #section {
     border-top: 1px solid #e8e8e8;
     text-align: left;
-    margin-left:165px;
     padding-bottom: 2000px;
     margin-bottom: -2000px;
 }
@@ -486,7 +575,7 @@ select::-ms-expand {
     font-size: 12px;
     text-align: center;
 }
-.input,.select,.textarea {
+.input,.select {
     display: inline-block;
     height: 32px;
     border: 1px solid #e8e8e8;
@@ -592,7 +681,6 @@ a.red-button {
     color: #e7441f!important;
 }
 /* ****************弹框内部内容样式****************** */
-.data-dia .data-content{max-height: 760px;overflow-y:auto;}
 .data-dia .dia-header {
     height: 44px;
     line-height: 44px;
@@ -600,8 +688,6 @@ a.red-button {
 }
 .data-dia .dia-header .dia-title {
     font-size: 25px;
-    display: block;
-    text-align: center;
 }
 .data-dia .dia-header .dia-cha {
     position: absolute;
@@ -672,18 +758,17 @@ a.red-button {
     float: left;
 }
 .data-dia .dia-main .block1 {
-    /*width:290px;*/
+    width:290px;
 }
 #imgDragPane {
-    /*width: 290px;
-    height: 232px;*/
-    background-color: #b2b2b2;
+    -webkit-box-sizing:border-box;
+    width: 290px;
+    background-color: #fff;
     border-radius: 4px;
-    padding-top: 30px;
 }
 #imgDragContainer {
-    /*width: 290px;
-    height: 200px;*/
+    width: 290px;
+    height: 200px;
     margin-left: -1px;
     border:dotted 1px #ddd;
     background-color: #fff;
@@ -692,9 +777,6 @@ a.red-button {
     margin-top: 70px;
     color: #808080;
     text-align: center;
-    border-bottom: none;
-    padding-top: 0;
-    padding-bottom: 0;
 }
 #imgDragContainer .p1 b {
     font-size: 24px;
@@ -705,11 +787,9 @@ a.red-button {
     color: #999;
     margin-top: 5px;
     text-align: center;
-    border-bottom: none;
-    padding-top:0;
 }
 
-/*.jcrop-holder #preview-pane {
+.jcrop-holder #preview-pane {
     display: block;
     position: absolute;
     z-index: 2000;
@@ -717,15 +797,16 @@ a.red-button {
     right: -275px;
     background-color: white;
     border-radius: 2px;
-}*/
-/*#preview-pane .preview-container {
+}
+#preview-pane .preview-container {
     width: 210px;
     height: 140px;
     overflow: hidden;
-}*/
+}
 .data-dia .dia-main .block1 .file-btn {
     display:block;
-    height:32px;
+    width:288px;
+    eight:32px;
     line-height:32px;
     border:solid 1px #ddd;
     border-radius:2px;
@@ -748,6 +829,9 @@ a.red-button {
     margin-left: 28px;
 }
 .data-dia .dia-main .block2 .img-fi-preview {
+    display: block;
+    width: 210px;
+    height: 140px;
     border: solid 1px #ddd;
     border-radius: 2px;
     position: relative;
