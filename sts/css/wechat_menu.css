@@ -1,0 +1,42 @@
+body{font-family: "微软雅黑";}
+span{color: #666;}
+.wechat_menu {padding:30px;}
+.wechat_menu .wechat_tips{padding: 12px 20px 12px 42px; line-height:16px ; font-size: 14px; background-color: #e9f9f3; border-radius: 2px;}
+.wechat_menu .wechat_tips p{ position: relative;}
+.wechat_menu .wechat_tips span{ display: inline-block; height: 16px; width: 16px; position: absolute; left: -22px; top: -2px; color: orange; background: url(../images/wechat_phone.png) -318px 0;}
+.wechat_menu .weset_tips{ padding: 50px 0 30px 0; color: #8d8d8d;}
+.wechat_menu .weset_phone{ box-sizing: border-box;width: 319px; height: 582px; float: left; border: 1px solid #e7e7eb; position: relative;}
+.weset_phone .phone_head{width: 317px; height:64px; background: url(../images/wechat_phone.png) 0 0; }
+.weset_phone .phone_head .phone_title{color:#eceef1;text-align:center;padding-top:30px;font-size:15px;width:auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;word-wrap:normal;margin:0 40px 0px 60px;}
+
+.weset_phone .phone_footer{box-sizing: border-box; width: 317px; height: 50px; border-top: 1px solid #e7e7eb;  position: absolute; left: 0px; bottom: 0px; background: url(../images/wechat_phone.png) 0 -65px;}
+.phone_footer .parent_menu_list{position:absolute;top: 0; left: 0;padding-left: 43px; width: 100%; line-height: 50px; box-sizing: border-box; white-space: nowrap; font-size: 14px; color: #666666;}
+.phone_footer .parent_menu_list:after {content: "\200B";display: block;height: 0;clear: both;}
+.phone_footer .parent_menu_item{ position: relative; text-align: center;float: left; display: list-item; }
+.phone_footer .parent_menu_item a{display: block;width: auto;overflow: hidden; text-overflow: ellipsis;word-wrap: normal; text-decoration: none;}
+.phone_footer .parent_menu_item:hover{ cursor: pointer;}
+.phone_footer .no_extra {float: none; width: auto; overflow: hidden;}
+.phone_footer .parent_menu_link{display: block; height: 49px; line-height: 50px;  border-left: 1px solid #e7e7eb; color: #666666;}
+.phone_footer .parent_menu_link:hover span{color:#333 ;}
+.phone_footer .current .parent_menu_link{box-sizing: border-box; border: 1px solid #44b549; height: 49px; line-height: 48px; padding-left: 1px;color: #44b549; }
+.phone_footer .current .parent_menu_link span{color: #44b549;}
+.phone_footer .current .child_menu_box{display: block;}
+.phone_footer .child_current .child_menu_box{display: block;}
+.sizeof1{width: 100%;}
+.sizeof2{width: 50%;}
+.sizeof3{width: 33.3%;}
+.phone_footer .child_menu_box{width: 100%; max-height: 242px;  position: absolute; left: 0; bottom: 60px; border: 1px solid #d0d0d0; display: none;}
+.phone_footer .child_menu_list {max-height: 242px;}
+.phone_footer .child_menu_list li{}
+.phone_footer .child_menu_list a:hover{background-color: #eee; }
+.phone_footer .child_menu_list a:hover .child_menu_innder{border-top: 1px solid transparent;}
+.phone_footer .child_menu_list .current{border: 1px solid #44b549; margin: -1px -1px 0 -1px;}
+.phone_footer .child_menu_list .current .child_menu_innder{border-top: 1px solid transparent; }
+.phone_footer .child_menu_list .current .child_menu_innder span{color: #44b549;}
+.phone_footer .child_menu_list .current a:hover{background-color: white;}
+.phone_footer .child_menu_list li:first-child .child_menu_innder{border-top: 1px solid transparent;}
+.phone_footer .child_menu_list li a{padding: 0 .5em;}
+.phone_footer .child_menu_innder{border-top: 1px solid #e7e7db; box-sizing: border-box; height: 46px; display: block; margin-bottom: 1px;}
+.arrowl{position: absolute; left: 50%; margin-left: -6px;}
+.arrow_out{bottom: -6px;display: inline-block;width: 0;height: 0;border-width: 6px;border-style: dashed;border-color: transparent;border-bottom-width: 0;border-top-color: #d0d0d0;border-top-style: solid;}
+.arrow_in{bottom: -5px;display: inline-block;width: 0;height: 0;border-width: 6px;border-style: dashed;border-color: transparent;border-bottom-width: 0;border-top-color: #fafafa;border-top-style: solid;}

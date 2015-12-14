@@ -1,0 +1,32 @@
+<div class="main-content">
+    <div class="emotion-editor">
+        <div class="edit-area js-editorArea" contenteditable="true">dfsdfdsf</div>
+        <div class="editor-toolbar">
+            <p class="editor-tip js-editorTip">还可以输入<span class="js-left-word">600</span>字</p>
+        </div>
+    </div>
+    <div class="feed-footer js-feed-footer">
+        <div class="feed-oper">
+            <input type="button" id="feedOperBtn_0" value="删除回复" class="cancel-button">&emsp;
+            <input type="button" id="feedOperBtn_1" value="确  认" class="bright-button">
+    </div></div>
+</div>
+<script type="text/javascript">
+!function(){
+    //验证文字输入
+    var MAX_INPUT_WORD = 600;
+    $('.js-left-word').text( MAX_INPUT_WORD - $('.js-editorArea').text().length );
+    $('.js-editorArea').bind('input',function(){
+        var text = this.innerText;
+        if ( text.length > MAX_INPUT_WORD ) {
+            $(this).text(text.slice(0,-1));
+            $('.js-left-word').text(0);
+        } else {
+            $('.js-left-word').text( MAX_INPUT_WORD - text.length );
+        }
+    });
+}();
+function removeFooter(){
+    $('.js-feed-footer').remove();
+}
+</script>

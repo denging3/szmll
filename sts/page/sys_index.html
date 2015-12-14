@@ -1,0 +1,110 @@
+<link href="css/sys_index.css" rel="stylesheet" />
+<div class="wechat_info" >
+	<h2>编辑微信接口信息</h2>
+	<table>
+		<tr>
+			<td style="width: 170px;"><span class="star_orange">*</span><span style="letter-spacing: 19px;">微&nbsp;信&nbsp;号</span></td>
+			<td colspan="2"><input type="text" /></td>
+		</tr>
+
+		<tr>
+			<td><span class="star_orange">*</span><span style="letter-spacing: 15px;">微信号名称</span></td>
+			<td><input type="text" /></td>
+		</tr>
+		<tr>
+			<td><span class="star_orange">*</span><span style="letter-spacing: 4px;">AppID(应用ID)</span></td>
+			<td><input type="text" /></td>
+		</tr>
+		<tr>
+			<td><span class="star_orange">*</span><span style="letter-spacing: 0.5px">APPSecret(应用密钥)</span></td>
+			<td><input type="text" /></td>
+		</tr>
+		<tr>
+			<td><span class="star_orange">*</span><span style="letter-spacing: 3px;">URL(服务器地址)</span></td>
+			<td><input type="text" /></td>
+			<td><input type="submit" value="复制" /> </td>
+		</tr>
+		<tr>
+			<td><span class="star_orange">*</span><span style="letter-spacing: 7px;">Token(令牌)</span></td>
+			<td><input type="text" /></td>
+			<td><input type="submit" value="复制" /> </td>
+		</tr>
+		<tr>
+			<td><span class="star_orange">*</span><span style="letter-spacing: 4px;">消息加密解密密钥</span></td>
+			<td><input type="text" /></td>
+		</tr>
+		<tr>
+			<td><span class="star_orange">*</span><span style="letter-spacing: 2px;">OAuth2.0网页授权</span></td>
+			<td><input type="text" /></td>
+			<td><input type="submit" value="复制" /> </td>
+		</tr>
+		<tfoot>
+		<td colspan="3" style="text-align: center; padding-top: 30px;">
+			<button type="submit" class="save_info">保&nbsp;&nbsp;存</button>
+		</td>
+		<td></td>
+		</tfoot>
+	</table>
+</div>
+<div class="wechat_edit" >
+	<h2>微信接口</h2>
+	<table>
+		<tr>
+			<td><span class="star_orange">*</span></td>
+			<td>微信号</td>
+			<td>b4384c050f27b99151501b1a95eb529cb1a95eb529c</td>
+		</tr>
+		<tr>
+			<td><span class="star_orange">*</span></td>
+			<td>微信号名称</td>
+			<td>b4384c050f27b99151501b1a95eb529cb1a95eb529c</td>
+		</tr>
+		<tr>
+			<td><span class="star_orange">*</span></td>
+			<td>AppID(应用ID)</td>
+			<td>b4384c050f27b99151501b1a95eb529cb1a95eb529c</td>
+		</tr>
+		<tr>
+			<td><span class="star_orange">*</span></td>
+			<td>AppSecret(应用密钥)</td>
+			<td>b4384c050f27b99151501b1a95eb529cb1a95eb529c</td>
+		</tr>
+		<tr>
+			<td><span class="star_orange">*</span></td>
+			<td>URL(服务器地址)</td>
+			<td>b4384c050f27b99151501b1a95eb529cb1a95eb529c</td>
+			<td><input type="submit" value="复制" ></td>
+		</tr>
+		<tr>
+			<td><span class="star_orange">*</span></td>
+			<td>Token(令牌)</td>
+			<td>b4384c050f27b99151501b1a95eb529cb1a95eb529c</td>
+			<td><input type="submit" value="复制" ></td>
+		</tr>
+		<tr>
+			<td><span class="star_orange">*</span></td>
+			<td>消息加解密密钥</td>
+			<td>b4384c050f27b99151501b1a95eb529cb1a95eb529c</td>
+		</tr>
+		<tr>
+			<td><span class="star_orange">*</span></td>
+			<td>OAuth2.0网页授权</td>
+			<td>b4384c050f27b99151501b1a95eb529cb1a95eb529c</td>
+			<td><input type="submit" value="复制" ></td>
+		</tr>
+		<tfoot>
+		<td colspan="4" style="text-align: center; padding-top: 30px;">
+			<button type="submit" id="edit_info" class="edit_info">编&nbsp;&nbsp;辑</button>
+		</td>
+		</tfoot>
+	</table>
+</div>
+<script type="text/javascript" src="js/selectivizr.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#edit_info').on('click',function(){
+			$('.wechat_edit').css('display','none');
+			$('.wechat_info').css('display','block');
+		})
+	})
+</script>

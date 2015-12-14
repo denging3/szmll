@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link href="../common/css/common.css" rel="stylesheet" />
+		<link href="css/coupon.css" rel="stylesheet" />
+		<!--日期插件引用css-->
+		<link href="../plug/datepicker/css/jquery.ui.css" rel="stylesheet"/>
+		<link href="../plug/datepicker/css/date.css" rel="stylesheet" />
+		<!--日期插件引用css结束-->
+	</head>
+	<body>
+		<div id="header" class="clearfix">
+			<div class="header_logo">LOGO</div>
+			<div class="header_info">欢迎您，[label]<span>ceshi</span>[<span>修改密码</span>][<span>退出</span>]</div>
+			<div class="header_setting">
+				<div id="sysInfo" class="sys_info">
+				    	<div class="sys_title"><span class="sys_ico"></span><a>系统</a></div>
+						<div class="sys_tips">
+							<em></em>
+							<ul class="sys_list">
+							</ul>
+						</div> 
+				</div>
+			</div>
+		</div>
+		<div id="content" class="clearfix">
+			<div id="sidebar" class="clearfix"></div>
+			
+			<!---section开始--->
+			<div id="section">
+				<div id="setting">
+					<div class="coupon_category">
+						<a href="coupon_index.html">配置</a><a href="coupon_list.html" id="coupon_list" class="focus">卡券列表</a>
+					</div>
+					
+<!---------------------------条件搜索输入栏--------------------------------------->
+					<div class="search_value">
+						<input type="text" placeholder="请输入券名" />类型 
+						<select >
+							<option>折扣券</option>
+							<option>优惠券</option>
+							<option>代金券</option>
+						</select>
+						发放状态
+						<select>
+							<option>过期</option>
+							<option>使用中</option>
+						</select>
+						<button>查询</button>
+						<button>导出数据 </button>
+					</div>
+					
+<!--------------------------------列表栏---------------------------------------->
+					<table class="list_table">
+						<tr>
+							<td>名称</td>
+							<td>有效期</td>
+							<td>类型</td>
+							<td>状态</td>
+							<td>浏览次数</td>
+							<td>领取量
+							<span class="seriz_arrow">
+								<p class="arrow_up"></p>
+								<p class="arrow_down"></p>
+							</span>
+							</td>
+							<td>使用量
+							<span class="seriz_arrow">
+								<p class="arrow_up"></p>
+								<p class="arrow_down "></p>
+							</span>
+							</td>
+							<td>剩余数量
+							<span class="seriz_arrow">
+								<p class="arrow_up"></p>
+								<p class="arrow_down"></p>
+							</span>
+							</td>
+							<td>操作</td>
+						</tr>
+						<tr>
+							<td>金秋11月优惠券</td>
+							<td>2015.10.11-2015.11.11
+							<div class="edit_date" onclick="dialogs(this)" data-role="edit_date">点击修改</div></td>
+							<td>类型</td>
+							<td>状态</td>
+							<td>0</td>
+							<td>589</td>
+							<td>589777</td>
+							<td>1155
+							<div class="edit_date" onclick="dialogs(this)" data-role="surplus_numbers">点击修改</div></td>
+							<td>
+								<button onclick="dialogs(this)" data-role="list_item">明细</button>
+								<button >删除</button>
+							</td>
+						</tr>			
+						<tr>
+							<td>金秋10月优惠券</td>
+							<td>领券30天有效
+							<div class="edit_date" onclick="dialogs(this)" data-role="edit_days">点击修改</div></td>
+							<td>代金券</td>
+							<td>有效</td>
+							<td>598</td>
+							<td>123333</td>
+							<td>5454</td>
+							<td>47575
+							<div class="edit_date" onclick="dialogs(this)" data-role="surplus_numbers">点击修改</div></td>
+							<td>
+								<button onclick="dialogs(this)" data-role="list_item">明细</button>
+								<button>删除</button>
+							</td>
+						</tr>
+					</table>
+					<div class="pageNav">
+							<a>上一页</a>
+							<a class="hoverd"> 1 </a>
+							<a> 2 </a>
+							<a> 3 </a>
+							<a>...</a>
+							<a>50</a>
+							<a>下一页</a>
+							到第<input type="text" />页
+							<input type="submit" value="确定" />
+							共<span>20</span>页<span class="all_items">200</span>项
+					</div>
+				</div>
+			</div>
+			
+			<!---section结束--->
+<!--------------------------------修改数量弹窗------------------------------------>
+			<div class="data-dia" id="surplus_numbers">
+		        <div class="data-content">
+		        	<h1 class="dia_header" >
+               			 修改剩余数量<a class='close_log' href="javascript:;"></a>
+           			</h1>
+           			<p>剩余数量：<input type='text' /></p>
+           			<span>提示：请输入整数</span>
+           			<p>
+	           			<button class="cancel">取消</button>
+	           			<button class="confirm">确认</button>
+           			</p>
+		        </div>
+		    </div>
+		    
+<!--------------------------------修改有效天数------------------------------------>
+			<div class="data-dia" id="edit_days">
+		        <div class="data-content">
+		        	<h1 class="dia_header" >
+               			 修改有效期<a class='close_log' href="javascript:;"></a>
+           			</h1>
+           			<p>
+           				领取后：<select>
+           					<option>立即</option>
+           				</select>
+           				生效，有效期：<select>
+           					<option>30天</option>
+           				</select>
+           			</p>
+           			<span>提示:为保证券的使用效果，您只可修改截止日期，且为明天以后</span>
+           			<p>
+	           			<button class="cancel">取消</button>
+	           			<button class="confirm">确认</button>
+           			</p>
+		        </div>
+		    </div>
+		    
+<!--------------------------------修改日期弹窗------------------------------------>
+			<div class="data-dia" id="edit_date">
+		        <div class="data-content">
+		        	<h1 class="dia_header" >
+               			 修改有效期<a class='close_log' href="javascript:;"></a>
+           			</h1>
+           			<p>截止时间：<input type='text' readonly id="startDateD" /></p>
+           			<span>提示:为保证券的使用效果，您只可修改截止日期，且为明天以后</span>
+           			<p>
+	           			<button class="cancel">取消</button>
+	           			<button class="confirm">确认</button>
+           			</p>
+		        </div>
+		    </div>
+		    
+<!--------------------------------明细列表弹窗------------------------------------>
+			<div class="data-dia" id="list_item">
+		        <div class="data-content">
+			        	<h1 class="dia_header" >
+	               			 明细列表<a class='close_log' href="javascript:;"></a>
+	           			</h1>
+	           			<!--添加内容区域-->
+	           			<iframe src="list_item.html" id="list_item_iframe" width="100%" height="850px" frameborder="0" scrolling="no"></iframe>
+	           			<!--添加内容结束-->
+           			
+		        </div>
+		    </div>
+<!--------------------------------弹窗结束--------------------------------------->		    
+		</div>
+	</body>
+	<script type="text/javascript" src="../common/js/jquery-1.11.3.js"></script>
+	<script type="text/javascript" src="../common/js/common.js"></script>
+	<script type="text/javascript" src="js/coupon.js"></script>
+	<!--日期插件引用JS-->
+	<script type="text/javascript" src="../plug/datepicker/js/jquery.ui.js"></script>
+	<script type="text/javascript" src="../plug/datepicker/js/moment.min.js"></script>
+	<script type="text/javascript" src="js/days.js"></script>
+	<!--日期插件引用结束-->
+</html>

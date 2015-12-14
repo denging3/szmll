@@ -1,0 +1,358 @@
+.act {
+    border-bottom: 1px solid #2bc486;
+}
+
+.act a {
+    color: #2bc486;
+}
+
+.tab {
+    margin-left: 30px;
+}
+
+.tab>div:first-child{
+    border-bottom: 1px solid #ddd;
+}
+
+.tab ul li a {
+    font-size: 14px;
+}
+
+.tab ul li {
+    display: inline-block;
+    padding: 27px 0 10px 0;
+    width: 95px;
+    text-align: center;
+    margin-bottom: -1px;
+    margin-right: 10px;
+}
+
+.tab .logo{
+    height: 60px;
+    line-height:60px;
+    margin:20px 0 0 20px;
+}
+
+.tab .logo li{
+    padding: 0;
+    margin: 0;
+    float: left;
+}
+
+.tab .logo li:first-child{
+    height: 100%;
+    width: auto;
+}
+
+.tab .logo li:first-child img{
+    width:120px;
+    height: 60px;
+}
+
+#mainMap {
+    min-width: 650px;
+    width: 650px;
+    height: 580px;
+}
+
+#map {
+    width: 940px;
+    margin: 0 auto;
+}
+
+#map > div {
+    display: inline-block;
+    vertical-align: top;
+}
+
+#map > .map_info {
+    text-align: left;
+    border: 1px solid #ddd;
+    -webkit-box-sizing: border-box;
+    margin-top: 50px;
+    width: 270px;
+    margin-left: 10px;
+    border-radius: 2px;
+}
+
+.map_info h2, .map_info h2 span {
+    position: relative;
+    font-size: 16px;
+    font-weight: 400;
+    padding:15px;
+    padding-left: 0px;
+    background: #2bc486;
+    color: #fff;
+    margin-bottom:15px;
+}
+
+.map_info h2{
+    padding-left: 20px;
+}
+
+.map_info h2:after{
+    content:'\25E3';
+    position: absolute;
+    display: inline-block;
+    color: #2bc486;
+    top: 20px;
+    left: -8px;
+    width:20px;
+    height: 20px;
+    font-size: 24px;
+    -webkit-transform:rotate(45deg);
+    line-height: 20px;
+}
+
+.map_info h2 span {
+    color: #ffea00;
+    padding:15px 3px;
+}
+
+.info_list{
+    margin: 0 10px;
+}
+
+.info_list a {
+    display:block;
+    width:250px;
+    text-align: left;
+    height: 35px;
+    line-height: 35px;
+    border: 1px solid #fff;
+}
+
+.info_list a:hover{
+    border: 1px solid #2bc486;
+}
+
+.info_list a:hover * {
+    color: #2bc486;
+}
+
+.info_list a p {
+    display: inline-block;
+    width: 150px;
+    padding-left: 10px;
+}
+
+.info_list a span{
+    display: inline-block;
+    height: 35px;
+    line-height: 35px;
+    float: right;
+    padding-right: 10px;
+}
+
+.change_page {
+    margin: 10px 0px 25px 0px;
+    text-align: center;
+}
+
+button {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+    width: 68px;
+    height: 25px;
+    margin-right: 10px;
+    font-size: 12px;
+}
+
+button:hover {
+    color: #2bc486;
+    border: 1px solid #2bc486;
+}
+
+.check {
+    background-color: #2bc486;
+    border: 1px solid #2bc486;
+    color: #fff;
+}
+.data-content .page-header{
+    text-align: center;
+}
+.list>div input,.list>div select,.list>div option{
+    background: transparent;
+    padding: 0;
+    height:33px;
+}
+.list>.top_left input{
+    padding-left:10px;
+    width:200px;
+}
+.list select{
+    width: 200px;
+}
+#new_store .list>.top_left>ul{
+    margin-top: -10px;
+}
+#new_store .list>.top_left>ul>li,#new_store .list>.btm_right>ul>li{
+    margin: 10px 0px;
+}
+.list>.btm_right li a.file {
+    width: 150px;
+    height: 100px;
+    position: relative;
+    display: inline-block;
+    background: transparent;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    overflow: hidden;
+    color: #333;
+    text-align: center;
+    text-indent: 0;
+    line-height: 100px;
+}
+.file input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
+#new_store .ssq select{
+    width:90px;
+}
+#new_store .ssq select:nth-of-type(4){
+    width: 204px;
+    height:35px;
+}
+#new_store .ssq input{
+    margin-left:73px;
+    padding-left:10px;
+    width: 260px;
+    margin-top:10px;
+}
+#new_store .ssq .beizhu{
+    margin-top: 4px;
+    color: #ff6600;
+    height: 35px;
+    line-height:35px;
+}
+#new_store .list>.btm_right>ul>.sub {
+    text-align: center;
+}
+
+#new_store .list>.btm_right>ul>.sub input{
+    width: 148px;
+    height:45px;
+}
+#new_store .list>.btm_right>ul>.sub input:last-child{
+    background:#2bc486;
+    color: #fff;
+    margin-left:20px;
+}
+
+#baiduMap{
+    min-width:570px;
+    width:55%;
+    height:260px;
+    margin-left:90px;
+}
+.list>.btm_right li:not(.sub) *:not(input){
+    padding: 7px 0;
+}
+#baiduMap_info{
+    height:160px;width:517px;background:#ddd;display:inline-block
+}
+.data-dia .required-field {
+    display: inline-block;
+    color: red;
+    margin-right:-25px;
+    vertical-align: middle;
+}
+#map_info .none{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+#map_info .none *{
+    padding-top: 20%;
+    display: inline-block;
+}
+#map_info .none a{
+    color:#26a8e2
+}
+/*——————————右浮窗——————————*/
+.right_flex{
+    position: fixed;
+    width:0px;
+    height:100%;
+    top: 80px;
+    right:-2px;
+    z-index:1000;
+    border:2px solid #ff811a;
+    background:#fff;
+    -webkit-transition: all .1s linear;
+}
+.flex_Click{
+    position: absolute;
+    background:#ff811a;
+    text-align: center;
+    width:40px;
+    height: 40px;
+    top:-2px;
+    left:-40px;
+    z-index:1000;
+    border-radius:5px 0 0 0;
+    -webkit-transition: all .1s linear;
+}
+.flex_content{
+    padding: 10px;
+}
+.flex_Click img{
+    display: inline-block;
+    padding:13px 0;
+}
+.flex_title{
+    background: url('../images/whitejia.png');
+    height: auto;
+    text-align: right;
+}
+.flex_title button{
+    display: flex;
+    height:24px;
+    width: 87px;
+    padding:0;
+    line-height:24px;
+    border-radius:11.5px;
+    text-align: center;
+    background: #2bc486;
+    color:#fff;
+    border: 1px solid #2bc486;
+    margin-left:140px;
+}
+.flex_title button .icon{
+    display: inline-block;
+    width:22px;
+    height:22px;
+    margin-left:5px;
+    background: url(../images/whitejia.png) no-repeat 50% ;
+}
+.flex_title input{
+    -webkit-box-sizing:border-box;
+    width:230px;
+    height: 34px;
+    margin:10px 0px;
+    padding-left:10px;
+    background: #fff;
+}
+.flex_title .icon_search{
+    display: inline-block;
+    position: relative;
+    width:24px;
+    height:24px;
+    top: -40px;
+    right:10px;
+    background:url(../images/search.png) no-repeat 50%;
+}
+#treeDemo{
+    margin-top: -35px;
+}
+/*——————————右浮窗——————————*/

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+	<title></title>
+	<link href="css/common.css" rel="stylesheet" />
+</head>
+<body>
+<div id="header" class="clearfix">
+	<div class="header_logo">LOGO</div>
+	<div class="header_info">欢迎您，[label]<span>ceshi</span>[<span>修改密码</span>][<span>退出</span>]</div>
+	<div class="header_setting">
+		<div id="sysInfo" class="sys_info">
+			<div class="sys_title"><span class="sys_ico"></span><a>系统</a></div>
+			<div class="sys_tips">
+				<em></em>
+				<ul class="sys_list">
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="content" class="clearfix">
+	<div id="sidebar" class="clearfix"></div>
+	<div id="section">
+
+	</div>
+</div>
+
+</body>
+<script type="text/javascript" src="js/jquery-1.11.3.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7SmwfZjPiEcotg6SAghfZGrG"></script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#section').load('page/staff_index.html')
+//		$('#section').load('page/store_index.html')
+	})
+</script>
+</html>

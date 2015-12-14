@@ -1,0 +1,231 @@
+<style type="text/css">
+.data-dia .edit-rule-main {margin-top: 10px;}
+.data-dia .edit-rule-main table { font-size: 14px; color: #666; margin-top: 10px;}
+.data-dia .edit-rule-main table td { vertical-align: middle; height: 70px;}
+.data-dia .edit-rule-main .lab { font-size: 14px; color: #666; width: 80px; }
+.data-dia .edit-rule-main .input { width: 680px; }
+.data-dia .edit-rule-main .textarea {width: 810px;height: 78px;}
+.data-dia .edit-rule-main .keyw-tips {display: inline-block;width: 830px;height: 34px;line-height: 26px;text-align: right;}
+.data-dia .edit-rule-main .fir-create-access {padding-right: 20px;}
+.data-dia .edit-rule-main .create-access a {display: inline-block;width: 400px;height: 206px;line-height:206px;text-align:center;color:#666;border: dotted 2px #ddd;border-radius: 2px;}
+.data-dia .create-access a:hover {border-color: #aaa;}
+.data-dia .edit-rule-main .msg-contain { display: inline-block; width: 830px; height: 118px; border: solid 1px #ddd; border-radius: 2px; margin:10px 0;}
+.data-dia .edit-rule-main .msg-contain .msg-span { display: inline-block; width: 660px; height: 98px; border-right: solid 1px #ddd; margin: 10px; vertical-align: middle;}
+.data-dia .edit-rule-main .msg-contain dl { display: inline-block; width: 134px; float: none; height: 90px; border-bottom: none;text-align: center;}
+.data-dia .edit-rule-main .msg-contain dd{display: inline-block;margin-top: 8px;padding: 0 3px;}
+.data-dia .edit-rule-main .msg-span .msg-span-intext{display: inline-block;width: 470px;height: 100px;vertical-align: 30px;}
+.data-dia a.green-link{  padding: 3px 5px; border: 1px solid #2bc486; border-radius: 2px;color: #2bc486;}
+.data-dia a.red-link{  padding: 3px 5px; border: 1px solid red; border-radius: 2px;color: red;}
+.data-dia a.gray-link{  padding: 3px 5px; border: 1px solid #ddd; border-radius: 2px;color: #666;}
+.data-dia .emotion-editor{width: 585px;}
+</style>
+<div class="main-content">
+    <div class="keyword-setting setting-box">
+        <p class="tips">设置关键词自动回复，用户发送的消息内如果有您设置的关键字，即可把您设置在此规则名中回复的内容自动发送给订阅用户。</p>
+        <p><span class="orange-button lit-orange js-add-rule"><i class="icon20-white-add"></i>添加规则</span></p>
+    </div>
+    <div class="info-list">
+        <table class="list">
+            <thead style="text-align: center">
+                <tr>
+                    <th>规则名</th>
+                    <th width="40%">关键词</th>
+                    <th width="25%">回复消息</th>
+                    <th width="18%">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>美式</td>
+                    <td>
+                        <span class="kspan">地中海</span>&nbsp;
+                        <span class="kspan">海洋</span>&nbsp;
+                        <span class="kspan">蓝色</span>&nbsp;
+                        <span class="kspan">家具</span>&nbsp;
+                    </td>
+                    <td>0条文字，1条图文</td>
+                    <td>
+                        <a href="javascript:;" onclick="editRule('zhangsan|张三|1|2|3');">编辑</a>
+                        <a href="javascript:;" class="red-button" onclick="dialog('delAccount');">删除</a>
+                    </td>
+                </tr>
+                <tr class="odd">
+                    <td>美式</td>
+                    <td>
+                        <span class="kspan">地中海</span>&nbsp;
+                        <span class="kspan">海洋</span>&nbsp;
+                        <span class="kspan">蓝色</span>&nbsp;
+                        <span class="kspan">家具</span>&nbsp;
+                    </td>
+                    <td>0条文字，1条图文</td>
+                    <td>
+                        <a href="javascript:;" onclick="editAccount('zhangsan|张三|1|2|3');">编辑</a>
+                        <a href="javascript:;" class="red-button" onclick="dialog('delAccount');">删除</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="page-bar">
+        <a class="prev" href="#" style="width:66px;">&lt; 上一页</a>
+        <a href="#">1</a>
+        <strong>2</strong>
+        <a href="#">3</a>
+        <span class="dot">…</span>
+        <a href="#">150</a>
+        <a class="next" href="#" style="width:66px;">下一页 &gt;</a>
+        <span class="no-border">到第<input  onkeyup="__goPageE(this,event);">页</span>
+        <a class="button" href="javascript:;" onclick="__goPage(this);" style="width:50px;">确定</a>
+        <span class="total-info">共20页</span>
+        <span class="total-info">198项</span>
+    </div>
+</div>
+<!-- 添加/编辑规则弹框内容 start -->
+<div class="addRule" style="display:none">
+    <div class="edit-rule-main">
+        <table>
+            <tr>
+                <td class="lab">规则名</td>
+                <td>
+                    <input type="text" class="input js-rulename" />
+                    <span class="rulename-tips">规则名最多为60个字</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="lab">关键词</td>
+                <td>
+                    <textarea class="textarea js-keywords"></textarea>
+                    <span class="js-keyw-tips keyw-tips">多个关键字使用空格隔开，还可输入30个字</span>
+                </td>
+            </tr>
+            <tr class="js-add-content">
+                <td>回复内容</td>
+                <td>
+                    <span class="create-access fir-create-access">
+                        <a class="js-add-msg" href="javascript:;" onclick="addMsgItem();" data-role="add-mulmsg">
+                            <i class="icon20-gray-add"></i>
+                            <strong>添加图文消息</strong>
+                        </a>
+                    </span>
+                    <span class="create-access">
+                        <a class="js-add-msg" href="javascript:;" onclick="addTextMsg();" data-role="add-textmsg">
+                            <i class="icon20-gray-add"></i>
+                            <strong>添加文字消息</strong>
+                        </a>
+                    </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<!-- 添加/编辑规则弹框内容 end -->
+<!-- 添加编辑文字消息内容 start -->
+<div class="addTextMsg" style="display:none;"></div>
+<!-- 添加编辑文字消息内容 end -->
+<!-- 添加编辑图文消息 start -->
+<div class="addMsgItem" style="display:none;"></div>
+<!-- 添加编辑图文消息 end -->
+
+<script type="text/javascript">
+!function(){
+    $('.js-add-rule').on('click',function(){
+
+        $.lightBox({
+            width: 930,
+            boxID: 'addRule',
+            title: '添加规则',
+            html: $('.addRule').html(),
+            buttons: null
+        });
+    });
+    $('.addTextMsg').load('page/text_msg.html',function(){
+        removeFooter();
+    });
+    $('.addMsgItem').load('page/information.html',function(){
+        weFeedShow('运营',[]);
+    });
+}();
+function editRule(){
+        $.lightBox({
+            width: 930,
+            boxID: 'addRule',
+            title: '添加规则',
+            html: $('.addRule').html(),
+            buttons: null
+        });
+        $('.data-dia .js-add-content').before(createMsgH);
+}
+function addTextMsg(ruleid){
+    $.lightBox({
+        width: 585,
+        closeOther: false,
+        boxID: 'addTextMsg',
+        title: '添加文字消息',
+        html: $('.addTextMsg').html()
+    });
+}
+function editTextMsg(id,desc){
+    desc = '我是一直小小鸟';
+    //获取接口数据
+    $.lightBox({
+        width: 585,
+        closeOther: false,
+        boxID: 'editTextMsg',
+        title: '编辑文字消息',
+        html: $('.addTextMsg').html()
+    });
+    //TODO
+    //是否关闭时提交
+    $('.data-dia .js-editorArea').text(desc);
+}
+function addMsgItem(ruleid){
+    $.lightBox({
+        width: 980,
+        closeOther: false,
+        boxID: 'addMsgItem',
+        title: '添加图文消息',
+        html: $('.addMsgItem').html()
+    });
+}
+function editMsgItem(id,src,desc){
+    $.lightBox({
+        width: 980,
+        closeOther: false,
+        boxID: 'addMsgItem',
+        title: '添加图文消息',
+        html: $('.addMsgItem').html()
+    });
+    //TODO 补充接口后完善
+}
+function createMsgH(){
+    //TODO  接口获取图文消息数据
+    //msgType 消息类型约定图文消息为msg，文字消息为textmsg
+    var msgInfo = {msgID:1,imgSrc:'http://www.szmll.com/sts/images/bacimg.png',desc:'2050国庆大欢乐',msgType: 'textmsg'};
+
+    var html = '';
+    if ( msgInfo.msgType == 'msg' ) {
+        html = '<tr><td></td><td>'
+            + '<span class="msg-contain js-textmsg-contain">'
+                + '<span class="msg-span">'
+                    + '<img src="' + msgInfo.imgSrc + '" width="100" height="100" />'
+                    + '<span class="msg-span-intext">' + msgInfo.desc + '</span>'
+                + '</span>'
+                + '<dl><dt>图文消息</dt>'
+                    + '<dd><a href="javascript:;" onclick="editTextMsg(' + msgInfo.id + ',\'' + msgInfo.desc+ '\');">编辑</a></dd>'
+                    + '<dd><a href="javascript:;" onclick="delMsgItem();">删除</a></dd>'
+                + '</dl>'
+            + '</span></td></tr>';
+    } else {
+        html = '<tr><td></td><td>'
+            + '<span class="msg-contain js-textmsg-contain">'
+                + '<span class="msg-span js-textmsg">' + msgInfo.desc + '</span>'
+                + '<dl>'
+                    + '<dt>文字消息</dt>'
+                    + '<dd><a href="javascript:;" class="green-link" onclick="editMsgItem(' + msgInfo.id + ',\'' + msgInfo.imgSrc + '\',\'' + msgInfo.desc + '\');">编辑</a></dd>'
+                    + '<dd><a href="javascript:;" class="gray-link" onclick="delMsgItem();">删除</a></dd>'
+                + '</dl>'
+            + '</span></td></tr>';
+    }
+    return html;
+}
+</script>

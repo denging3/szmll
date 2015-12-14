@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link href="../common/css/common.css" rel="stylesheet" />
+		<link href="css/qrcode.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div id="header" class="clearfix">
+			<div class="header_logo">LOGO</div>
+			<div class="header_info">欢迎您，[label]<span>ceshi</span>[<span>修改密码</span>][<span>退出</span>]</div>
+			<div class="header_setting">
+			    <div id="sysInfo" class="sys_info">
+			    	<div class="sys_title"><span class="sys_ico"></span><a>系统</a></div>
+					<div class="sys_tips">
+						<em></em>
+						<ul class="sys_list">
+						</ul>
+					</div> 
+				</div>
+			</div>
+		</div>
+		<div id="content" class="clearfix">
+			<div id="sidebar" class="clearfix"></div>
+			<div id="section">
+				<div id="setting">
+					<div class="qr_category">
+						<a href="qrcode_index.html" class="focus">配置</a><a href="qrcode_list.html" id="coupon_list">二维码列表</a>
+					</div>
+					<div class="search_value">
+						<input type="text" placeholder="二维码名称"/> 
+						<button>查询</button>
+					</div>
+					<ul class="qr_list ">
+						<li>
+							<img src="images/new_ico.png" onclick="dialogs(this)" data-role = "qr_setting" />
+							<h5>新建二维码</h5>
+						</li>
+						<li>
+							<img src="images/qr_ico.png" />
+							<h5>名称：成都体验馆成都成都体验馆成都</h5>
+							<h5>拉粉数：3594646</h5>
+							<div class="qr_set">
+								<input type="button" onclick="dialogs(this)" data-role = "qr_setting" value="配置" />
+								<input type="button" value="下载" />
+							</div>
+						</li>
+						<li>
+							<img src="images/qr_ico.png" />
+							<h5>名称：成都体验馆成都成都体验馆成都</h5>
+							<h5>拉粉数：3594646</h5>
+							<div class="qr_set">
+								<input type="button" onclick="dialogs(this)" data-role = "qr_setting" value="配置" />
+								<input type="button" value="下载" />
+							</div>
+						</li>
+						<li>
+							<img src="images/qr_ico.png" />
+							<h5>名称：成都体验馆成都成都体验馆成都</h5>
+							<h5>拉粉数：3594646</h5>
+							<div class="qr_set">
+								<input type="button" onclick="dialogs(this)" data-role = "qr_setting" value="配置" />
+								<input type="button" value="下载" />
+							</div>
+						</li>
+						<li>
+							<img src="images/qr_ico.png" />
+							<h5>名称：成都体验馆成都成都体验馆成都</h5>
+							<h5>拉粉数：3594646</h5>
+							<div class="qr_set">
+								<input type="button" onclick="dialogs(this)" data-role = "qr_setting" value="配置" />
+								<input type="button" value="下载" />
+							</div>
+						</li>
+						<li>
+							<img src="images/qr_ico.png" />
+							<h5>名称：成都体验馆成都成都体验馆成都</h5>
+							<h5>拉粉数：3594646</h5>
+							<div class="qr_set">
+								<input type="button" onclick="dialogs(this)" data-role = "qr_setting" value="配置" />
+								<input type="button" value="下载" />
+							</div>
+						</li>
+						<li>
+							<img src="images/qr_ico.png" />
+							<h5>名称：成都体验馆成都成都体验馆成都</h5>
+							<h5>拉粉数：3594646</h5>
+							<div class="qr_set">
+								<input type="button" onclick="dialogs(this)" data-role = "qr_setting" value="配置" />
+								<input type="button" value="下载" />
+							</div>
+						</li>
+						<li>
+							<img src="images/qr_ico.png" />
+							<h5>名称：成都体验馆成都成都体验馆成都</h5>
+							<h5>拉粉数：3594646</h5>
+							<div class="qr_set">
+								<input type="button" onclick="dialogs(this)" data-role = "qr_setting" value="配置" />
+								<input type="button" value="下载" />
+							</div>
+						</li>
+						<li>
+							<img src="images/qr_ico.png" />
+							<h5>名称：成都体验馆成都成都体验馆成都</h5>
+							<h5>拉粉数：3594646</h5>
+							<div class="qr_set">
+								<input type="button" onclick="dialogs(this)" data-role = "qr_setting" value="配置" />
+								<input type="button" value="下载" />
+							</div>
+						</li>
+						<li>
+							<img src="images/qr_ico.png" />
+							<h5>名称：成都体验馆成都成都体验馆成都</h5>
+							<h5>拉粉数：3594646</h5>
+							<div class="qr_set">
+								<input type="button" onclick="dialogs(this)" data-role = "qr_setting" value="配置" />
+								<input type="button" value="下载" />
+							</div>
+						</li>
+					</ul>
+					<div class="pageNav width_950">
+							<a>上一页</a>
+							<a class="hoverd"> 1 </a>
+							<a> 2 </a>
+							<a> 3 </a>
+							<a>...</a>
+							<a>50</a>
+							<a>下一页</a>
+							到第<input type="text" />页
+							<input type="submit" value="确定" />
+							共<span class="color_black">20</span>页<span class="all_items color_black">200</span>项
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--------------------------------配置二维码------------------------------------>
+			<div class="data-dia" id="qr_setting">
+		        <div class="data-content">
+		        	<h1 class="dia_header" >
+               			 配置二维码<a class='close_log' href="javascript:;"></a>
+           			</h1>
+           			<p>名称：<input type="text" /></p>
+           			<p>门店：<input type="text" onclick="dialogs(this)" data-role="qrset_stors" /><span style="color: #999;">（选填）</span></p>
+	           		<button class="cancel">保存</button>
+           			</p>
+		        </div>
+		    </div>
+		<!--------------------------------设置门店------------------------------------>
+			<div class="data-dia" id="qrset_stors">
+		        <div class="data-content">
+		        	<h1 class="dia_header" >
+               			 选择门店<a class='close_log' href="javascript:;"></a>
+           			</h1>
+           			<p class="search_store">
+           				<input type="text" placeholder="请输入门店名称" /><input type="submit" value="查询" />
+           			</p>
+           			<ul>
+           				<li><input type="radio" name="chose_store" />美乐乐体验店5 </li>
+           				<li><input type="radio" name="chose_store"/>天津劝三体验店 </li>
+           				<li><input type="radio" name="chose_store"/>美乐乐天府广场体验店 </li>
+           				<li><input type="radio" name="chose_store"/>美乐乐体验店5 </li>
+           				<li><input type="radio" name="chose_store"/>美乐乐体验店5 </li>
+           				<li><input type="radio" name="chose_store" />美乐乐体验店5 </li>
+           				<li><input type="radio" name="chose_store"/>天津劝三体验店 </li>
+           				<li><input type="radio" name="chose_store"/>美乐乐天府广场体验店 </li>
+           				<li><input type="radio" name="chose_store"/>美乐乐体验店5 </li>
+           				<li><input type="radio" name="chose_store"/>美乐乐体验店5 </li>
+           				<li><input type="radio" name="chose_store"/>美乐乐体验店5 </li>
+           				<li><input type="radio" name="chose_store"/>美乐乐体验店5 </li>
+           				<li><input type="radio" name="chose_store"/>美乐乐体验店5 </li>
+           				<li><input type="radio" name="chose_store"/>美乐乐体验店5 </li>
+           			</ul>
+           			<p>
+	           		<button class="cancel">取消</button>
+	           		<button class="confirm">确定</button>
+           			</p>
+		        </div>
+		    </div>
+	</body>
+	<script type="text/javascript" src="../common/js/jquery-1.11.3.js"></script>
+	<script type="text/javascript" src="../common/js/common.js"></script>
+	<script type="text/javascript" src="js/qrcode.js"></script>
+</html>

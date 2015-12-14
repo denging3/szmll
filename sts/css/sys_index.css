@@ -1,0 +1,27 @@
+/*编辑微信接口列表*/
+.wechat_info{padding: 30px; font-family: "微软雅黑"; display: none;}
+.wechat_info h2{font-size: 25px; color: #666666; border-bottom:1px solid #e8e8e8 ; padding-bottom: 10px;}
+.wechat_info table{ margin: 30px 0;border-collapse: collapse; }
+.wechat_info tr td{height: 54px; vertical-align: middle; }
+.wechat_info input{width: 535px; height: 30px; padding-left: 10px; background-color: white; color: #666666;font-family: "微软雅黑"; }
+.wechat_info span{color: #666666;}
+.wechat_info input[type="submit"]{ width: 110px; margin-left: 20px; text-align: center; letter-spacing: 10px;cursor: pointer;}
+.wechat_info button{width: 148px; height: 45px; margin-left: 20px; outline: none; border: none; cursor: pointer; font-size: 16px;font-family: "微软雅黑";}
+.wechat_info .save_info{background-color:#ffae13; color: white;}
+.wechat_info .star_orange{ display:inline-block; margin-right: 20px; font-size: 20px; color: #ff6600; vertical-align: middle; margin-top: 8px;}
+
+/*微信接口列表*/
+.wechat_edit{padding: 30px; font-family: "微软雅黑";}
+.wechat_edit h2{font-size: 25px; color: #666666; border-bottom:1px solid #e8e8e8 ; padding-bottom: 10px;}
+.wechat_edit table{ margin: 30px 0;border-collapse: collapse; }
+.wechat_edit tr td{height: 44px; vertical-align: middle; }
+.wechat_edit tr td{height: 60px; line-height: 60px; padding-left: 10px; color: #666666;}
+.wechat_edit tr td:nth-of-type(1){width: 15px; text-align: left;color: #ff6600;}
+.wechat_edit tr td:nth-of-type(2){background-color: #f8f8f8; width: 200px ; border: 1px solid #dddddd;}
+.wechat_edit tr td:nth-of-type(3){width: 540px;border: 1px solid #dddddd;}
+.wechat_edit input{width: 535px; height: 34px; padding-left: 20px; background-color: white; color: #666666;font-family: "微软雅黑"; cursor: pointer;}
+.wechat_edit  span{color: #666666;}
+.wechat_edit input[type="submit"]{ width: 110px; margin-left: 20px; text-align: center; letter-spacing: 10px;}
+.wechat_edit button{width: 148px; height: 45px; outline: none; border: none; cursor: pointer; font-size: 16px;font-family: "微软雅黑";}
+.wechat_edit .edit_info{background-color:#2bc589; color: white;}
+.wechat_edit .star_orange{ display:inline-block; margin-right: 20px; font-size: 20px; color: #ff6600; vertical-align: middle; margin-top: 8px;}

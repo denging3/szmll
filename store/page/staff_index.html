@@ -1,0 +1,493 @@
+<style type='text/css'>
+    /* *********************
+    *tab菜单切换公告部分
+    * ***********************/
+    .act {border-bottom: 1px solid #2bc486;}
+    .act a {color: #2bc486;}
+    .tab {margin-left: 30px;}
+    .tab>div:first-child{border-bottom: 1px solid #ddd;}
+    .tab ul li a {font-size: 14px;}
+    .tab ul li {display: inline-block;padding: 27px 0 10px 0;width: 95px;text-align: center;margin-bottom: -1px;margin-right: 10px;}
+    .mt20{margin-top: 20px}
+    .mt30{margin-top: 30px;}
+    .mb20{margin-bottom: 20px;}
+    .align-right{text-align: right;}
+    .no-margin-right{margin-right: 0!important;}
+    .no-margin-left{margin-left: 0!important;}
+    .button{display:inline-block;background-color: #fff;border: 1px solid #ddd;border-radius: 2px;outline: none;cursor: pointer;height: 32px;margin-right: 10px;font-size: 12px;}
+    .light-button {display:inline-block;background-color: #fff;border: 1px solid #2bc486;color: #2bc486;border-radius: 2px;outline: none;cursor: pointer;height: 32px;margin-right: 10px;font-size: 12px;}
+    .cancel-button{display:inline-block;background-color: #ddd;border: 1px solid #ddd;color: #666;border-radius: 2px;outline: none;cursor: pointer;height: 32px;margin-right: 10px;font-size: 12px;}
+    .bright-button{display:inline-block;background-color: #2bc486;border: 1px solid #2bc486;color: #fff;border-radius: 2px;outline: none;cursor: pointer;height: 32px;margin-right: 10px;font-size: 12px;}
+    .input,.select{display: inline-block;height: 32px;border: 1px solid #e8e8e8;background-color: #fff;color: #999;padding: 0 10px;font-size: 12px;}
+    .data-dia .button,.data-dia .light-button,.data-dia .cancel-button,.data-dia .bright-button{width:138px;height: 45px;line-height: 45px;font-size: 16px;}
+    table tr:first-child td{background-color: #fff;}
+    table,table tr,table td{border: none;}
+
+    /** tab切换页面主体内容样式 **/
+    .tab-content{width: 910px;}
+    .tab-content .search-box{margin:20px 0;background-color: #fff;}
+    .tab-content .search-box .p-oper{margin-top: 20px;text-align: right;}
+    .tab-content .search-box label{margin:0 10px 0 15px;}
+    .tab-content table{width: 100%;color: #666;border-top: 1px solid #ddd;border-left: 1px solid #ddd;  border-collapse: collapse;}
+    .tab-content table tr{border-right: 1px solid #ddd;border-bottom: 1px solid #ddd;}
+    .tab-content table tr td{background-color: #fff;border: none;}
+    .tab-content table td,.tab-content table th{vertical-align: middle;}
+    .tab-content table thead th{height: 50px;background-color: #eee;font-weight: bold;font-size: 12px;}
+    .tab-content table tr td{height: 55px;background-color: #fff;font-size: 12px;}
+    .tab-content table .odd td{background-color: #f8f8f8;}
+    .tab-content table td a{padding: 3px 5px;border: 1px solid #ddd;border-radius:2px;background-color: transparent;color: #666;}
+    .tab-content table .odd td a{border-color: #2bc486;color: #2bc486;}
+    a.red-button{border-color: #e7441f!important;color: #e7441f!important;}
+    .info-list .list{text-align: center;padding: 0;margin: 0;}
+
+    .page-bar{width: 550px;margin: 0 auto;margin-top: 40px;}
+    .page-bar a,.page-bar strong {display: inline-block;  line-height: 26px;height: 26px; border: 1px solid #ddd; color: #666;border-radius: 1px;width: 28px;text-align: center;}
+    .page-bar span{border: none;display: inline-block;  line-height: 26px;height: 26px; color: #666;}
+    .page-bar a:hover{background-color: #2bc486;color: #fff;border-color: #2bc486;}
+    .page-bar strong{background-color: #2bc486;color: #fff;border-color: #2bc486;}
+    .page-bar input{width: 22px;line-height: 26px;height: 26px;padding: 0 3px;border:1px solid #ddd;border-radius:2px;margin: 0 5px;background-color: #fff;}
+
+    /** 弹框样式 **/
+    #addStoreDia .data-content{width: 600px;padding: 10px 20px;color: #666;}
+    #editRoleDia .data-content,#resetPassDia .data-content{width: 370px;padding: 10px 20px;color: #666;}
+    #editRoleDia .dia-main,#resetPassDia .dia-main{margin: 10px 30px;}
+    #staffinfoDia .data-content{width: 500px;color: #666;}
+    #staffinfoDia .dia-main{margin: 10px 20px;}
+    #staffinfoDia table tr{height: 26px;}
+    #editStaffinfoDia .data-content,#addStaffDia .data-content{width: 610px;padding: 10px 20px;color: #666;}
+    #editStaffinfoDia table td,#addStaffDia table td{padding:0 0;}
+    #stopUseDia .data-content{width: 400px;padding: 10px 30px;color: #666;}
+    #stopUseDia table tr{height: 42px;}
+    #stopUseDia table td{text-align: center;}
+    #batchAddStaffDia .data-content{width: 390px;padding: 10px 30px;color: #666;}
+    #batchAddStaffDia .dia-main{margin: 10px 30px;}
+    #batchAddStaffDia table tr{height: 38px;}
+    #warnInfoDia .data-content{width: 330px;padding: 10px 30px;color: #666;}
+    #warnInfoDia table tr{height: 38px;}
+    #warnInfoDia table td{text-align: center;}
+
+    .data-dia .dia-header{height: 44px;line-height: 44px;border-bottom: solid 1px #e8e8e8;}
+    .data-dia .dia-header .dia-title{font-size: 25px;}
+    .data-dia .dia-header .dia-cha{position: absolute;display: inline-block;font-size:20px;width: 15px;height: 15px;right: 20px;top: 6px;color: #666;}
+    .data-dia .dia-main{margin: 10px 10px;}
+    .data-dia table{width: 100%;}
+    .data-dia table tr{height: 54px;}
+    .data-dia table td{text-align: left;padding: 10px 0;}
+    .data-dia .required-field{color: red;padding-right: 3px;}
+    .data-dia .warn-tips{color: #f60;padding-top: 2px;}
+    .data-dia .gray-tips{color: #999;padding-top: 2px;}
+    .data-dia td a.down-link{color: #26a8e2;cursor: pointer;}
+    .data-dia .input{width: 180px;}
+    .data-dia .select{width: 202px;}
+    .data-dia .select option{padding-top:20px;}
+    .data-dia .address .select{margin-right:5px;}
+    .data-dia table .store-logo .tips{color:#999;}
+    .data-dia .img-preview{display: inline-block;width: 150px;height: 100px;line-height:100px;text-align:center;border:solid 1px #ddd;border-radius: 2px;color: #666;cursor: pointer;}
+    .data-dia .img-preview b{font-size: 24px;vertical-align: -3px;}
+    .data-dia input[type="radio"]{display: none;}
+    .data-dia .radio-input{display: inline-block;cursor: pointer;padding-left: 22px;background:url(images/radio.png) no-repeat left bottom;background-size: 16px;}
+    .data-dia .radio-input.check{background-position: left top;}
+</style>
+
+<div class='tab'>
+    <div class="tab_menu">
+        <ul>
+            <li><a data-role='tabContent1' href='#'>店员管理</a></li>
+            <li><a data-role='tabContent2' href='#'>角色管理</a></li>
+        </ul>
+    </div>
+    <div id="tabContent1" class="tab-content">
+        <div class="search-box">
+            <form>
+                <p>
+                    <label class="no-margin-left">店员姓名</label>
+                    <input type="text" class="input" style="width:136px;" />
+                    <label>店员手机号</label>
+                    <input type="text" class="input" style="width:90px;" />
+                    <label>所属门店</label>
+                    <input type="text" class="input" style="width:108px;" />
+                    <label>角色</label>
+                    <select class="select" style="width:84px;">
+                        <option value="0">店长</option>
+                        <option value="1">店员</option>
+                    </select>
+                    <label>状态</label>
+                    <select class="select" style="width:84px;">
+                        <option value="0">请选择</option>
+                    </select>
+                </p>
+                <p class="p-oper">
+                    <input type="button" class="light-button" value="搜索" />
+                    <input type="button" class="light-button" onclick="showDialog('batchAddStaff');" value="批量新增店员" />
+                    <input type="button" class="bright-button no-margin-right" onclick="showDialog('addStaff');" value="新增店员" />
+                </p>
+            </form>
+        </div>
+        <div class="info-list">
+            <table class="list">
+                <thead>
+                <tr>
+                    <th width="12%">店员姓名</th>
+                    <th width="18%">店员手机号</th>
+                    <th width="18%">所属门店</th>
+                    <th>角色</th>
+                    <th>状态</th>
+                    <th width="28%">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>大张三</td>
+                    <td>13800000000</td>
+                    <td>美乐乐旗舰店</td>
+                    <td>店长</td>
+                    <td>已激活</td>
+                    <td>
+                        <a href="javascript:;" onclick="showStaffInfo('LIST|1519999999|成都旗舰店|店员|启用')">查看</a>
+                        <a href="javascript:;" onclick="editStaff('张三|15100000000|2|1|1');">编辑</a>
+                        <a href="javascript:;" class="red-button" onclick="showDialog('stopUse');">停用</a>
+                        <a href="javascript:;" onclick="showDialog('resetPass')">修改密码</a>
+                    </td>
+                </tr>
+                <tr class="odd">
+                    <td>大张三</td>
+                    <td>13800000000</td>
+                    <td>美乐乐旗舰店</td>
+                    <td>店长</td>
+                    <td>已激活</td>
+                    <td>
+                        <a href="javascript:;" onclick="showStaffInfo('张三|1510000000|成都旗舰店|店员|启用')">查看</a>
+                        <a href="javascript:;" onclick="editStaff('张三|15100000000|2|1|1');">编辑</a>
+                        <a href="javascript:;" class="red-button" onclick="showDialog('stopUse');">停用</a>
+                        <a href="javascript:;" onclick="showDialog('resetPass')">修改密码</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="page-bar">
+            <a class="prev" href="#" style="width:66px;">&lt; 上一页</a>
+            <a href="#">1</a>
+            <strong>2</strong>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <span class="dot">…</span>
+            <a href="#">150</a>
+            <a class="next" href="#" style="width:66px;">下一页 &gt;</a>
+            <span class="no-border">到第<input  onkeyup="__goPageE(this,event);">页</span>
+            <a class="button" href="javascript:;" onclick="__goPage(this);" style="width:50px;">确定</a>
+            <span class="total-info">共20页</span>
+            <span class="total-info">198项</span>
+        </div>
+    </div>
+    <div id="tabContent2" class="tab-content">
+        <div class="info-list mt30">
+            <table class="list">
+                <thead>
+                <tr>
+                    <th>角色</th>
+                    <th>权限描述</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>店长</td>
+                    <td>核销卡卷</td>
+                    <td>
+                        <a href="javascript:;" onclick="editRole();">编辑</a>
+                    </td>
+                </tr><tr class="odd">
+                    <td>店长</td>
+                    <td>核销卡卷</td>
+                    <td>
+                        <a href="javascript:;">编辑</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="page-bar">
+            <a class="prev" href="#" style="width:66px;">&lt; 上一页</a>
+            <a href="#">1</a>
+            <strong>2</strong>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <span class="dot">…</span>
+            <a href="#">150</a>
+            <a class="next" href="#" style="width:66px;">下一页 &gt;</a>
+            <span class="no-border">到第<input  onkeyup="__goPageE(this,event);">页</span>
+            <a class="button" href="javascript:;" onclick="__goPage(this);" style="width:50px;">确定</a>
+            <span class="total-info">共20页</span>
+            <span class="total-info">198项</span>
+        </div>
+    </div>
+</div>
+<!-- / 新增店员 start/ -->
+<div id="addStaff" style="display:none;">
+    <div class="dia-header">
+        <span class="dia-title">新增店员</span>
+        <a class="dia-close dia-cha" href="javascript:;" title="关闭">×</a>
+    </div>
+    <div class="dia-main">
+        <form onsubmit="return validForm(0);">
+            <table>
+                <tr>
+                    <td width="10%"><span class="required-field">*</span>店员姓名</td>
+                    <td width="44%">
+                        <input type="text" class="input staffnameIn" />
+                    </td>
+                    <td width="10%"><span class="required-field">*</span>手&nbsp;&nbsp;机&nbsp;&nbsp;号</td>
+                    <td>
+                        <input type="text" class="input staffPhoneIn" />
+                    </td>
+                </tr><tr>
+                <td><span class="required-field">*</span>密&emsp;&emsp;码</td>
+                <td>
+                    <input type="text" class="input passIn" />
+                    <br /><span class="gray-tips">6-20位字母数字和字符</span>
+                </td>
+                <td><span class="required-field">*</span>确认密码</td>
+                <td>
+                    <input type="text" class="input rePassIn" />
+                </td>
+            </tr><tr>
+                <td><span class="required-field">*</span>所属门店</td>
+                <td>
+                    <select class="select storenameIn"></select>
+                </td>
+                <td><span class="required-field">*</span>角&emsp;&emsp;色</td>
+                <td><input type="text" class="input staffRoleIn" /></td>
+            </tr><tr>
+                <td><span class="required-field">*</span>状&emsp;&emsp;态</td>
+                <td colspan="3">
+                    <input type="radio" />
+                    <span class="radio-input">已激活</span>&emsp;&emsp;
+                    <input type="radio" />
+                    <span class="radio-input">已停用</span>
+                </td>
+            </tr><tr>
+                <td colspan="4" style="text-align:center;">
+                    <input type="button" value="取消" class="dia-close cancel-button" />
+                    <input type="submit" value="确认" class="bright-button" />
+                </td>
+            </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<!-- / 新增店员 end / -->
+<!-- / 批量新增店员 start / -->
+<div id="batchAddStaff" style="display:none;">
+    <div class="dia-header">
+        <span class="dia-title">批量新增店员</span>
+        <a class="dia-close dia-cha" href="javascript:;" title="关闭">×</a>
+    </div>
+    <div class="dia-main">
+        <form>
+            <table>
+                <tr>
+                    <td>1.请先<a hrer="#" class="down-link">下载模版</a></td>
+                </tr><tr>
+                <td>2.根据模版填写店员信息</td>
+            </tr><tr>
+                <td>3.导入模版</td>
+            </tr><tr>
+                <td>
+                    <input type="input" class="input" name="updwtfile" id="updwtfile" placeholder="请选择已填写的模版" onclick="dwtpath.click()" />
+                    <input type="file" id="dwtpath" style="display:none" onchange="updwtfile.value=this.value">
+                    <input type="button" value="导入" class="bright-button" style="width:96px;height:34px;line-height:34px;vertical-align:-3px;"/>
+                    <br /><span class="gray-tips">一次性最多导入500条数据</span>
+                </td>
+            </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<!-- / 批量新增店员 end / -->
+<!-- / 提示信息 start / -->
+<div id="warnInfo" style="display:none;">
+    <div class="dia-header">
+        <span class="dia-title"></span>
+        <a class="dia-close dia-cha" href="javascript:;" title="关闭">×</a>
+    </div>
+    <div class="dia-main">
+        <form>
+            <table>
+            </table>
+        </form>
+    </div>
+</div>
+<!-- / 提示信息 end / -->
+<!-- / 店员基本信息 start / -->
+<div id="staffinfo" style="display:none;">
+    <div class="dia-header">
+        <span class="dia-title">店员基本信息</span>
+        <a class="dia-close dia-cha" href="javascript:;" title="关闭">×</a>
+    </div>
+    <div class="dia-main">
+        <form>
+            <table>
+                <tr>
+                    <td style="width:16%;">店员姓名：</td>
+                    <td class="staffnameShow"></td>
+                    <td style="width:16%;">手&nbsp;&nbsp;机&nbsp;&nbsp;号：</td>
+                    <td class="staffPhoneShow"></td>
+                </tr><tr>
+                <td>所属门店：</td>
+                <td class="storeNameShow"></td>
+                <td>角&emsp;&emsp;色：</td>
+                <td class="staffRoleShow"></td>
+            </tr><tr>
+                <td>状&emsp;&emsp;态：</td>
+                <td colspan="3" class="staffStatusShow"></td>
+            </tr>
+                <tr>
+                    <td colspan="4" style="text-align:center;">
+                        <input type="button" value="确认" class="dia-close bright-button" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<!-- / 店员基本信息 end / -->
+<!-- / 编辑店员信息 start / -->
+<div id="editStaffinfo" style="display:none;">
+    <div class="dia-header">
+        <span class="dia-title">编辑店员</span>
+        <a class="dia-close dia-cha" href="javascript:;" title="关闭">×</a>
+    </div>
+    <div class="dia-main">
+        <form onsubmit="return validForm(1);">
+            <table>
+                <tr>
+                    <td><span class="required-field">*</span>店员姓名</td>
+                    <td><input type="text" class="input staffnameIn" /></td>
+                    <td><span class="required-field">*</span>手&nbsp;&nbsp;机&nbsp;&nbsp;号</td>
+                    <td>
+                        <input type="text" class="input staffPhoneIn" />
+                        <br /><span class="warn-tips">修改手机号会重置店员状态为未激活</span>
+                    </td>
+                </tr><tr>
+                <td>所属门店：</td>
+                <td>
+                    <select class="select storenameIn">
+                        <option value="0">请选择</option>
+                        <option value="1">成都旗舰店</option>
+                        <option value="2">上海美乐乐直营</option>
+                        <option value="3">绵阳美乐乐旗舰店</option>
+                    </select>
+                </td>
+                <td>角&emsp;&emsp;色：</td>
+                <td>
+                    <select class="select staffRoleIn">
+                        <option value="0">店长</option>
+                        <option value="1">店员</option>
+                        <option value="2">店长</option>
+                        <option value="3">店员</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>状&emsp;&emsp;态：</td>
+                <td colspan="3">
+                    <input type="radio" name="status" class="staffStatusIn" />
+                    <span class="radio-input">已激活</span>&emsp;&emsp;
+                    <input type="radio" name="status" class="staffStatusIn" />
+                    <span class="radio-input">已停用</span>
+                </td>
+            </tr>
+                <tr>
+                    <td colspan="4" style="text-align:center;">
+                        <input type="button" value="取消" class="dia-close cancel-button" />
+                        <input type="submit" value="确认" class="bright-button" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<!-- / 编辑店员信息 end / -->
+<!-- / 确认停用 start / -->
+<div id="stopUse" style="display:none;">
+    <div class="dia-header">
+        <span class="dia-title">确认信息</span>
+        <a class="dia-close dia-cha" href="javascript:;" title="关闭">×</a>
+    </div>
+    <div class="dia-main">
+        <form>
+            <table>
+                <tr>
+                    <td>确认要停用此员工帐号？</td>
+                </tr><tr>
+                <td>
+                    <input type="button" value="取消" class="dia-close cancel-button" />
+                    <input type="submit" value="确认" class="bright-button" />
+                </td>
+            </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<!-- / 确认停用 end / -->
+<!-- / 修改密码 start / -->
+<div id="resetPass" style="display:none;">
+    <div class="dia-header">
+        <span class="dia-title">修改密码</span>
+        <a class="dia-close dia-cha" href="javascript:;" title="关闭">×</a>
+    </div>
+    <div class="dia-main">
+        <form>
+            <table>
+                <tr>
+                    <td><span class="required-field">*</span>新&nbsp;&nbsp;密&nbsp;&nbsp;码</td>
+                    <td><input type="text" class="input passIn" /></td>
+                </tr>
+                <tr>
+                    <td><span class="required-field">*</span>确认密码</td>
+                    <td><input type="text" class="input rePassIn" /></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:center;">
+                        <input type="button" value="取消" class="dia-close cancel-button" />
+                        <input type="submit" value="确认" class="bright-button" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<!-- / 修改密码 end / -->
+<!-- / 编辑角色 start / -->
+<div id="editRole" style="display:none;">
+    <div class="dia-header">
+        <span class="dia-title">编辑角色</span>
+        <a class="dia-close dia-cha" href="javascript:;" title="关闭">×</a>
+    </div>
+    <div class="dia-main">
+        <form>
+            <table>
+                <tr>
+                    <td><span class="required-field">*</span>角&emsp;&emsp;色</td>
+                    <td><input type="text" class="input roleIn" /></td>
+                </tr>
+                <tr>
+                    <td><span class="required-field">*</span>权&emsp;&emsp;限</td>
+                    <td><input type="radio" name="privIn" /><span class="radio-input">核销卡卷<span></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:center;">
+                        <input type="button" value="取消" class="dia-close cancel-button" />
+                        <input type="submit" value="确认" class="bright-button" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<!-- / 编辑角色 end / -->
+<div class="data-dia">
+    <div class="data-content">
+    </div>
+</div>
+<script type="text/javascript" src="js/staff_setting.js"></script>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link href="../common/css/common.css" rel="stylesheet" />
+		<link href="css/coupon.css" rel="stylesheet" />
+		<!--日期插件引用css-->
+		<link href="../plug/datepicker/css/jquery.ui.css" rel="stylesheet"/>
+		<link href="../plug/datepicker/css/date.css" rel="stylesheet" />
+		<!--日期插件引用css结束-->
+		<!--ztree树形结构引用css-->
+		<link rel="stylesheet" href="ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+		<!--ztree树形结构css结束-->
+		<!--[if (gte IE 6)&(lte IE 8)]>
+      		<script type="text/javascript" src="js/selectivizr.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<div id="header" class="clearfix">
+			<div class="header_logo">LOGO</div>
+			<div class="header_info">欢迎您，[label]<span>ceshi</span>[<span>修改密码</span>][<span>退出</span>]</div>
+			<div class="header_setting">
+				<div id="sysInfo" class="sys_info">
+				    	<div class="sys_title"><span class="sys_ico"></span><a>系统</a></div>
+						<div class="sys_tips">
+							<em></em>
+							<ul class="sys_list">
+							</ul>
+						</div> 
+				</div>
+			</div>
+		</div>
+		<div id="content" class="clearfix">
+			<div id="sidebar" class="clearfix"></div>
+			<div id="section" class="clearfix">
+				<div id="setting">
+					<div class="coupon_category">
+						<a href="coupon_index.html" class="focus">配置</a><a href="coupon_list.html" id="coupon_list">卡券列表</a>
+					</div>
+<!---------------------------配置卡券信息----------------------------------------->
+					<div class="coupon_info">
+						<div class="coupon_title">
+							<h3>卡券信息</h3>
+						</div>
+						<div class="item">
+							<label>商户名</label><span>美乐乐家居旗舰店</span>
+						</div>
+						<div class="item upload_pic clearfix">
+							<label>图文封面</label>
+							<div class="upload_big">
+								<span>+</span>上传图片
+								<input type="file" name="upfile" class="input_pic"/>
+								<span class="pic_tips">大图建议尺寸900X500</span>
+								<div id="pic_fault_tips">*请上传图片</div>
+								<img src="" class="pic_hide" />
+							</div>
+							<div class="upload_small">
+								<span>+</span>上传图片
+								<input type="file" name="upfile" class="input_pic"/>
+								<span class="pic_tips">小图建议尺寸200X200</span>
+								<img src="images/header.png" class="pic_show" />
+							</div>
+						</div>
+						<div class="item">
+							<label>名称</label>
+							<div class="set_title">
+								<input type="text" name="set_title" id="coupon_name" maxlength="9"/>
+								<div class="title_tips">
+									<span id="coupon_name_length">0</span>/9
+								</div>
+								<div id="title_fault_tips">
+									*请输入名称
+								</div>
+							</div>
+							<span class="set_tips">建议涵盖卡券类型，服务及金额</span>
+						</div>
+						<div class="item chose_type">
+							<label>类型</label>
+							<div class="coupon_type" data-num='1' id="discount">折扣券</div>
+							<div class="coupon_type" data-num='2' id="voucher">代金券</div>
+							<div class="coupon_type" data-num='3' id="gif">礼品券</div>
+						</div>
+						<div class="tabs">
+							<div class="item tab_type">
+								<label>折扣率</label>
+								<input type="text" id="tab_type_zhekou" /><span>折</span>&nbsp;<span class="gray_999">（请填写1-9.9之间的数字，精确到小数点后1位）
+</span>
+								<div id="zhekou_fault_tips">*请输入折扣率</div>
+							</div>
+							<div class="item tab_type">
+								<label>卡券金额</label>
+								<input type="text" id="tab_type_daijin" maxlength="5" /><span>元</span>
+								<div id="daijin_fault_tips">*请输入卡券金额</div>
+							</div>
+						</div>
+						<div class="item chose_date">
+							<label>有效期</label>
+							<input type="radio" name="chose_date" checked="checked" value="1"/><span>固定日期</span>
+							<input type="text" readonly  id="startDate"/>至<input type="text" readonly  id="endDate"/>
+						</div>
+						<div class="item chose_date chose_date_2">
+							<label></label>
+							<input type="radio" name="chose_date" value="2"/><span>领取后</span>
+							<select name="" id="howMuchDay" disabled="disabled" class="grays">
+							</select>生效,有效期<select name="" id="useDay" disabled="disabled" class="grays">
+							</select>
+						</div>
+						<div class="item chose_stroe">
+							<label>适用门店</label>
+							<input type="radio" name="store" checked="checked" /><span>所有门店</span>
+							<input type="radio" name="store" data-role="set_stores" onclick="dialogs(this)"  /><span>指定门店</span><span style="color: #26a8e2;" data-role="set_stores">选择</span>
+						</div>
+						<div class="item explain">
+							<label>使用说明</label>
+							<textarea></textarea><span>(选填)</span>
+						</div>
+						<div class="item service">
+							<label>客服电话</label>
+							<input type="text" id="service_phone" /><span>(选填)</span>
+						</div>
+						<div class="coupon_title">
+							<h3>领券设置</h3>
+						</div>
+						<div class="item service coupon_leave">
+							<label>优惠券库存</label>
+							<input type="text" /><span>份</span>
+							<div id="coupon_fault_tips">*请输入库存</div>
+						</div>
+						<div class="item service">
+							<label>领取限制</label>
+							<input type="text" placeholder="每个用户领券上限,如不填,则默认为1" /><span>张</span>
+						</div>
+						<div class="item submit">
+							<button>保&nbsp;&nbsp;存</button>
+						</div>
+					</div>
+<!---------------------------配置卡券信息结束--------------------------------------->	
+
+<!---------------------------手机预览效果开始--------------------------------------->
+					<div class="coupon_previw">
+						<div class="coupon_pre_title">
+							优惠券
+						</div>
+						<div class="coupon_pre_pic">
+							<div class="coupon_pre_type">
+								<p><a></a><span class="preview_name">美乐乐官方旗舰店</span></p>
+								<div class="pre_type_cont">
+									<span class="preview_num" id="preview_zhekou">9.5</span><span class="preview_sub">折</span></span><span class="preview_text">金秋10月优惠券</span>
+								</div>
+							</div>
+							<div class="coupon_pre_type">
+								<p><a></a><span class="preview_name">美乐乐深圳旗舰店</span></p>
+								<div class="pre_type_cont">
+									<span class="preview_num" id="preview_daijin">888</span><span class="preview_sub">元</span></span><span class="preview_text">金秋10月优惠券</span>
+								</div>
+							</div>
+							<div class="coupon_pre_type">
+								<p><a></a><span class="preview_name">美乐乐成都旗舰店</span></p>
+								<div class="pre_type_cont">
+									<span class="preview_pic"></span><span class="preview_text">金秋10月优惠券</span>
+								</div>
+							</div>
+						</div>
+						<div class="coupon_pre_cont">
+							<p>有效期：<span id="pre_startDate">2015.11.11</span>-<span id="pre_endDate">2015.11.12</span></p>
+							<div class="QRcode"></div>
+							<p id="qrCode">MLL9022090924242</p>
+							<p>将本页展示给店员即可使用</p>
+						</div>
+						<div class="coupon_pre_link">
+							<div class="link_list">
+								<div class="link_info">
+									<span>使用说明</span><span>></span>
+								</div>
+								<div class="link_info">
+									<span>适用门店</span><span>></span>
+								</div>
+								<div class="link_info" id="pre_phone">
+									<span>客服电话</span><span>></span>
+								</div>
+							</div>
+						</div>
+					</div>
+<!-------------------------------手机预览效果结束----------------------------------->		
+
+<!-------------------------------设置门店弹窗------------------------------------->
+			<div class="data-dia set_stores" id="set_stores">
+		        <div class="data-content">
+		        	<h1 class="dia_header" >
+               			 指定门店<a class='close_log' href="javascript:;"></a>
+           			</h1>
+           			<div class="list_stores clearfix">
+           				<div class="store_tree">
+           					<h3>所有门店</h3>
+           					<p>
+		           			<input type="text" placeholder="输入门店名称" />
+		           			<a href="javascript:;" class="search_box"></a>
+		           			</p>
+							<ul id="treeDemo" class="ztree"></ul>
+							<div class="store_footer">
+								<input type="checkbox" id="all_checked" />全选<span> 共<b>358</b>家门店</span>
+							</div>
+           				</div>
+           				<div class="store_chosed">
+           					<h3>已选门店</h3>
+           					<ul class="chosed_stores" id="chosed_stores">
+           						<!--<li>美乐乐体验店<span>X</span></li>
+           						<li>美乐乐体验店<span>X</span></li>
+           						<li>美乐乐体验店<span>X</span></li>
+           						<li>美乐乐体验店<span>X</span></li>
+           						<li>美乐乐体验店<span>X</span></li>
+           						<li>美乐乐体验店<span>X</span></li>
+           						<li>美乐乐体验店<span>X</span></li>
+           						<li>美乐乐体验店<span>X</span></li>
+           						<li>美乐乐体验店<span>X</span></li>-->
+           					</ul>
+           					<div class="chosed_footer">
+								<input type="submit" id="save_setting" value="保存配置" />
+								<span>已选择<b>17</b>家门店</span><span class="clear_all">清空所选</span>
+							</div>
+           				</div>
+           			</div>
+		        </div>
+		    </div>
+<!--------------------------------设置门店弹窗结束------------------------------------>
+
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../common/js/jquery-1.11.3.js"></script>
+	<script type="text/javascript" src="../common/js/common.js"></script>
+	<script type="text/javascript" src="js/coupon.js"></script>
+	<!--日期插件引用JS-->
+	<script type="text/javascript" src="../plug/datepicker/js/jquery.ui.js"></script>
+	<script type="text/javascript" src="../plug/datepicker/js/moment.min.js"></script>
+	<script type="text/javascript" src="js/days.js"></script>
+	<!--日期插件引用结束-->
+	<!--ztree树形结构引用JS-->
+	<script type="text/javascript" src="ztree/js/jquery.ztree.core-3.5.js"></script>
+	<script type="text/javascript" src="ztree/js/jquery.ztree.excheck-3.5.js"></script>
+	<script type="text/javascript" src="js/treelist.js"></script>
+	<!--ztree树形结构引用结束-->
+
+	
+</html>

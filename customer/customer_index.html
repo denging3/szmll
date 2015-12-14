@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link href="../common/css/common.css" rel="stylesheet" />
+		<link href="css/customer.css" rel="stylesheet" />
+		<!--日期插件引用css-->
+		<link href="../plug/datepicker/css/jquery.ui.css" rel="stylesheet"/>
+		<link href="../plug/datepicker/css/date.css" rel="stylesheet" />
+		<!--日期插件引用css结束-->
+	</head>
+	<body>
+		<div id="header" class="clearfix">
+			<div class="header_logo">LOGO</div>
+			<div class="header_info">欢迎您，[label]<span>ceshi</span>[<span>修改密码</span>][<span>退出</span>]</div>
+			<div class="header_setting">
+			    <div id="sysInfo" class="sys_info">
+			    	<div class="sys_title"><span class="sys_ico"></span><a>系统</a></div>
+					<div class="sys_tips">
+						<em></em>
+						<ul class="sys_list">
+						</ul>
+					</div> 
+				</div>
+			</div>
+		</div>
+		<div id="content" class="clearfix">
+			<div id="sidebar" class="clearfix"></div>
+			<div id="section">
+				<div id="customer_list">
+					<div class="customer_category">
+						<a href="#" class="focus">用户列表</a>
+					</div>
+					<div class="search_value">
+						用户呢称
+						<input type="text" /> 
+						核销时间
+						<input type="text" id="startDate" />至
+						<input type="text" id="endDate" />
+						<button>查询</button>
+						<button>导出数据 </button>
+					</div>
+					<!--------------------------------列表栏---------------------------------------->
+					<table class="list_table">
+						<tr>
+							<td class="max_w">用户呢称</td>
+							<td>头像</td>
+							<td>来源</td>
+							<td>关注时间</td>
+							<td>当前是否关注</td>
+							<td>微信资料</td>
+						</tr>
+						<tr>
+							<td>王XX</td>
+							<td class="user_ico"><img src="images/header.png"></td>
+							<td>主动关注</td>
+							<td>2015-10-13 20:30</td>
+							<td>关注</td>
+							<td><button onclick="dialogs(this)" data-role="user_info">查看</button></td>
+						</tr>
+						<tr>
+							<td>生活是历史的重演，重演的是历史的悲剧</td>
+							<td class="user_ico"><img src="images/header.png"></td>
+							<td>渠道二维码</td>
+							<td>2015-10-13 20:30</td>
+							<td>未关注</td>
+							<td><button onclick="dialogs(this)" data-role="user_info">查看</button></td>
+						</tr>
+						<tr>
+							<td>王XX</td>
+							<td class="user_ico"><img src="images/header.png"></td>
+							<td>渠道二维码</td>
+							<td>2015-10-13 20:30</td>
+							<td>未关注</td>
+							<td><button onclick="dialogs(this)" data-role="user_info">查看</button></td>
+						</tr>
+						<tr>
+							<td>王XX</td>
+							<td class="user_ico"><img src="images/header.png"></td>
+							<td>渠道二维码</td>
+							<td>2015-10-13 20:30</td>
+							<td>未关注</td>
+							<td><button onclick="dialogs(this)" data-role="user_info">查看</button></td>
+						</tr>
+						<tr>
+							<td>王XX</td>
+							<td class="user_ico"><img src="images/header.png"></td>
+							<td>渠道二维码</td>
+							<td>2015-10-13 20:30</td>
+							<td>未关注</td>
+							<td><button onclick="dialogs(this)" data-role="user_info">查看</button></td>
+						</tr>
+						<tr>
+							<td>王XX</td>
+							<td class="user_ico"><img src="images/header.png"></td>
+							<td>渠道二维码</td>
+							<td>2015-10-13 20:30</td>
+							<td>未关注</td>
+							<td><button onclick="dialogs(this)" data-role="user_info">查看</button></td>
+						</tr>
+						<tr>
+							<td>王XX</td>
+							<td class="user_ico"><img src="images/header.png"></td>
+							<td>渠道二维码</td>
+							<td>2015-10-13 20:30</td>
+							<td>未关注</td>
+							<td><button onclick="dialogs(this)" data-role="user_info">查看</button></td>
+						</tr>
+					</table>
+					<div class="pageNav">
+							<a>上一页</a>
+							<a class="hoverd"> 1 </a>
+							<a> 2 </a>
+							<a> 3 </a>
+							<a>...</a>
+							<a>50</a>
+							<a>下一页</a>
+							到第<input type="text" />页
+							<input type="submit" value="确定" />
+							共<span>20</span>页<span class="all_items">200</span>项
+					</div>
+				</div>
+			</div>
+		</div>	
+		<!--------------------------------查看资料弹出框------------------------------------>
+			<div class="data-dia" id="user_info">
+		        <div class="data-content">
+		        	<h1 class="dia_header" >
+               			 微信资料<a class='close_log' href="javascript:;"></a>
+           			</h1>
+           			<p><img src="images/header.png"></p>
+           			<table>
+           				<tr>
+           					<td>用户呢称</td>
+           					<td>卖火材的小小女孩</td>
+           				</tr>
+           				<tr>
+           					<td>性别</td>
+           					<td>女</td>
+           				</tr>
+           				<tr>
+           					<td>省份</td>
+           					<td>广东</td>
+           				</tr>
+           				<tr>
+           					<td>城市</td>
+           					<td>深圳</td>
+           				</tr>
+           			</table>
+           			<p>
+	           			<button class="cancel">关闭</button>
+           			</p>
+		        </div>
+		    </div>
+	</body>
+	<script type="text/javascript" src="../common/js/jquery-1.11.3.js"></script>
+	<script type="text/javascript" src="../common/js/common.js"></script>
+	<!--日期插件引用JS-->
+	<script type="text/javascript" src="../plug/datepicker/js/jquery.ui.js"></script>
+	<script type="text/javascript" src="../plug/datepicker/js/moment.min.js"></script>
+	<script type="text/javascript" src="js/customer.js"></script>
+	<!--日期插件引用结束-->
+</html>

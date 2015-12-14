@@ -1,0 +1,95 @@
+<link rel="stylesheet" href="css/right_menu.css"/>
+<div id='js_rightBox' class="portable_editor to_left" style="display:block;width:586px;">
+    <div class="editor_inner">
+        <div class="global_mod float_layout menu_form_hd js_second_title_bar">
+            <h4 class="global_info"></h4>
+            <div class="global_extra">
+                <a href="javascript:;" id='jsDelBt'>删除菜单</a>
+            </div>
+        </div>
+        <div class="menu_form_bd" id='view'>
+            <div id='js_innerNone' style='display:none;' class="msg_sender_tips tips_global"></div>
+            <div class="frm_control_group js_setNameBox">
+                <label class="frm_label">
+                    <strong class="title js_menuTitle"></strong>
+                </label>
+
+                <div class="frm_controls">
+                    <span class="frm_input_box with_counter counter_in append">
+                        <input type="text" class="frm_input js_menu_name">
+                    </span>
+
+                    <p class="frm_msg fail js_titleEorTips dn">字数超过上限</p>
+
+                    <p class="frm_msg fail js_titlenoTips dn">请输入菜单名称</p>
+
+                    <p class="frm_tips js_titleNolTips">字数不超过4个汉字或8个字母</p>
+                </div>
+            </div>
+            <div class="frm_control_group">
+                <label class="frm_label">
+                    <strong class="title js_menuContent">菜单内容</strong>
+                </label>
+
+                <div class="frm_controls frm_vertical_pt">
+                    <label class="frm_radio_label js_radio_sendMsg selected" data-type="#edit" data-editing='0'>
+                        <i class="icon_radio"></i>
+                        <span class="lbl_content">发送消息</span>
+                        <input type="radio" name="hello" class="frm_radio">
+                    </label>
+                    <label class="frm_radio_label js_radio_url" data-type="#url" data-editing='0'>
+                        <i class="icon_radio"></i>
+                        <span class="lbl_content">跳转网页</span>
+                        <input type="radio" name="hello" class="frm_radio">
+                    </label>
+                </div>
+            </div>
+            <div class="menu_content_container">
+                <div style="display: block" class="menu_content send jsMain" id="edit">
+                    <div class="msg_sender" id="editDiv">
+                        <!-- ++++++++++++++++++text++++++++++++++++++++++++-->
+
+                        <!-- ++++++++++++++++++text++++++++++++++++++++++++-->
+                    </div>
+                </div>
+                <div style="display: none" class="menu_content url jsMain" id="url">
+                    <form action="" id="urlForm" onSubmit="return false;">
+                        <p class="menu_content_tips tips_global">订阅者点击该子菜单会跳到以下链接</p>
+
+                        <div class="frm_control_group">
+                            <label class="frm_label">页面地址</label>
+
+                            <div class="frm_controls">
+                                <span class="frm_input_box">
+                                    <input type="text" class="frm_input" id="urlText" name="urlText">
+                                </span>
+
+                                <p class="frm_tips" id="js_urlTitle" style="display: none;">
+                                    来自<span class="js_name"></span><span style="display:none;"> -《<span class="js_title"></span>》</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="frm_control_group btn_appmsg_wrap">
+                            <div class="frm_controls">
+                                <p class="frm_msg fail dn" id="urlUnSelect">
+                                    <span for="urlText" class="frm_msg_content" style="display: inline;">请选择一篇文章</span>
+                                </p>
+                                <a href="javascript:;" id="js_appmsgPop">从公众号图文消息中选择</a>
+                                <a href="javascript:void(0);" class='dn btn btn_default' id="js_reChangeAppmsg" style="display: none">重新选择</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="menu_content sended" style="display:none;">
+                    <p class="menu_content_tips tips_global">订阅者点击该子菜单会跳到以下链接</p>
+
+                    <div class="msg_wrp" id="viewDiv"></div>
+                    <p class="frm_tips">来自<span class="js_name">素材库</span><span style="display:none;"> -《<span
+                            class="js_title"></span>》</span></p>
+                </div>
+                <div id='js_errTips' style='display:none;' class="msg_sender_msg mini_tips warn"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/right_menu.js"></script>

@@ -1,0 +1,81 @@
+<div class="flex_Click">
+    <img src="images/ding.png">
+</div>
+<div class="flex_content zTreeDemoBackground">
+    <div class='flex_title'>
+        <button data-role='new_store'><span class='icon'></span>新增门店</button>
+        <input type='text'/><a href='javascript:;' class='icon_search'></a>
+    </div>
+    <ul id="treeDemo" class="ztree"></ul>
+</div>
+
+<script>
+    $('.flex_title button').on('click',function(){
+        dialog(this);
+    });
+    /*right_float*/
+    var t = true;
+    $('.flex_Click').click(function(){
+        var w = $('.right_flex').width();
+        if(w ==250&&t == true){
+            console.log(t)
+            $('.right_flex').css('width',w+'px');
+            t = false;
+        }else{
+            $('.right_flex').css('width','0px');
+            t = true;
+        }
+    });
+    $('.right_flex').mouseenter(function(){
+        if(t==true){
+            $('.right_flex').css('width','250px');
+        }
+    });
+    $('.right_flex').mouseleave(function(){
+        if(t==true){
+            $('.right_flex').css('width','0px');
+        }
+    });
+    /*-------z-tree-------*/
+    var setting = {
+        edit: {
+            enable: true,
+            showRemoveBtn: false,
+            showRenameBtn: false
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        }
+    };
+
+    var zNodes =[
+        { id:1, pId:0, name:"随意拖拽 1", open:true},
+        { id:11, pId:1, name:"随意拖拽 1-1"},
+        { id:12, pId:1, name:"随意拖拽 1-2", open:true},
+        { id:121, pId:12, name:"随意拖拽 1-2-1"},
+        { id:122, pId:12, name:"随意拖拽 1-2-2"},
+        { id:123, pId:12, name:"随意拖拽 1-2-3"},
+        { id:13, pId:1, name:"禁止拖拽 1-3", open:true, drag:false},
+        { id:131, pId:13, name:"禁止拖拽 1-3-1", drag:false},
+        { id:132, pId:13, name:"禁止拖拽 1-3-2", drag:false},
+        { id:133, pId:13, name:"随意拖拽 1-3-3"},
+        { id:2, pId:0, name:"随意拖拽 2", open:true},
+        { id:21, pId:2, name:"随意拖拽 2-1"},
+        { id:22, pId:2, name:"禁止拖拽到我身上 2-2", open:true, drop:false},
+        { id:221, pId:22, name:"随意拖拽 2-2-1"},
+        { id:222, pId:22, name:"随意拖拽 2-2-2"},
+        { id:223, pId:22, name:"随意拖拽 2-2-3"},
+        { id:23, pId:2, name:"随意拖拽 2-3"}
+    ];
+
+    function showIconForTree(treeId, treeNode) {
+        return !treeNode.isParent;
+    };
+
+    $(document).ready(function(){
+        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+    });
+    /*-------z-tree-------*/
+</script>

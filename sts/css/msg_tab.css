@@ -1,0 +1,323 @@
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, dl, dd, fieldset, textarea {
+    margin: 0;
+}
+
+body {
+    line-height: 1.6;
+    font-family: Arial, "微软雅黑";
+    color: #222;
+    font-size: 14px;
+}
+/*—————————————————新加的模板！到时候分开单独成立—————————————————————*/
+.msg_sender .tab_navs_panel {
+    overflow: hidden;
+    border-bottom: 1px solid #e7e7eb;
+}
+
+.msg_sender .tab_navs_switch_wrp.switch_prev {
+    float: left;
+}
+
+.msg_sender .tab_navs_switch_wrp {
+    display: none;
+    margin-top: 6px;
+}
+
+.msg_sender .switch_prev .tab_navs_switch {
+    background: transparent url(../images/left.png) no-repeat 0 0;
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    display: inline-block;
+    background-position: 50% 50%;
+}
+
+.msg_sender .tab_navs_switch {
+    line-height: 300px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.menu_form_area .msg_sender .tab_navs_switch_wrp.switch_next {
+    display: block;
+}
+
+.msg_sender .tab_navs_switch_wrp.switch_next {
+    float: right;
+}
+
+.msg_sender .switch_next .tab_navs_switch {
+    background: transparent url('../images/right.png') no-repeat 0 0;
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    display: inline-block;
+    background-position: 50% 50%;
+}
+
+.menu_form_area .msg_sender .tab_navs_wrp {
+    width: 420px;
+}
+
+.msg_sender .tab_navs_wrp {
+    overflow: hidden;
+}
+
+.msg_sender .tab_navs {
+    white-space: nowrap;
+    text-align: left;
+    font-size: 0;
+    border-bottom-width: 0;
+}
+
+.msg_sender .tab_navs {
+    border-top-width: 0;
+}
+
+.msg_sender .tab_navs {
+    background-color: #fff;
+    line-height: 38px;
+    height: 38px;
+}
+
+.msg_sender .tab_nav {
+    float: none;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.tab_nav a {
+    display: block;
+    text-decoration: none;
+    color: #222;
+    outline: 0;
+    padding: 0 20px;
+    float: left;
+    font-size: 14px;
+}
+
+.tab_appmsg .icon_msg_sender {
+    background: url("../images/msg_tab_z25df2d.png") 0 -240px no-repeat;
+}
+
+.tab_appmsg.selected .icon_msg_sender, .tab_appmsg:hover .icon_msg_sender {
+    background: url("../images/msg_tab_z25df2d.png") 0 -270px no-repeat;
+}
+
+.tab_text .icon_msg_sender {
+    background: url("../images/msg_tab_z25df2d.png") 0 0 no-repeat;
+}
+
+.tab_text.selected .icon_msg_sender, .tab_text:hover .icon_msg_sender {
+    background: url("../images/msg_tab_z25df2d.png") 0 -30px no-repeat;
+}
+
+.tab_img .icon_msg_sender {
+    background: url("../images/msg_tab_z25df2d.png") 0 -60px no-repeat;
+}
+
+.tab_img.selected .icon_msg_sender, .tab_img:hover .icon_msg_sender {
+    background: url("../images/msg_tab_z25df2d.png") 0 -90px no-repeat;
+}
+
+.msg_sender .tab_nav .msg_tab_title {
+    color: #8d8d8d;
+}
+
+.icon_msg_sender {
+    margin-right: 3px;
+    margin-top: -2px;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.tab_navs {
+    text-align: center;
+    line-height: 38px;
+    height:38px;
+    border: 1px solid #e7e7eb;
+    border-bottom: none;
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.5);
+    -moz-box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.5);
+    -webkit-box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.5);
+}
+
+ul, ol {
+    padding-left: 0;
+    list-style-type: none;
+}
+
+.msg_sender .tab_panel {
+    border-bottom-left-radius: 3px;
+    -moz-border-radius-bottomleft: 3px;
+    -webkit-border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    -moz-border-radius-bottomright: 3px;
+    -webkit-border-bottom-right-radius: 3px;
+}
+
+.tab_panel {
+    background-color: #fff;
+    min-height: 216px;
+}
+
+.msg_sender .tab_content {
+    padding: 0;
+}
+
+.msg_sender .tab_content .inner {
+    border-width: 0;
+}
+
+.tab_content .inner {
+    border: 1px solid #e7e7e7;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    padding: 14px 20px;
+}
+
+.menu_form_area .msg_sender .tab_cont_cover {
+    padding: 20px;
+}
+
+.tab_cont_cover {
+    overflow: hidden;
+    padding:20px;
+}
+
+.menu_form_area .msg_sender .tab_cont_cover .media_cover:first-child, .menu_form_area .msg_sender .tab_cont_cover .appmsg_cover:first-child {
+    margin-left: 0;
+}
+
+.menu_form_area .msg_sender .tab_cont_cover .media_cover, .menu_form_area .msg_sender .tab_cont_cover .appmsg_cover {
+    width: 47%;
+    margin-right: 0;
+    margin-left: 5.5%;
+}
+
+.tab_cont_cover .appmsg_cover, .tab_cont_cover .media_cover {
+    width: 48%;
+    margin-right: 2%;
+    float: left;
+}
+
+.menu_form_area .msg_sender .tab_cont_cover .create_access {
+    padding: 42px 0;
+}
+
+.tab_cont_cover .create_access {
+    padding: 42px 0;
+    margin-bottom: 0;
+    line-height: normal;
+    position: relative;
+}
+
+.create_access {
+    display: block;
+    border: 2px dotted #d9dadc;
+    line-height: 80px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.create_access:hover{
+    border:2px dotted #aaa;
+}
+
+.create_access a:hover{
+    text-decoration:underline;
+}
+
+.tab_cont_cover .create_access .add_gray_wrp, .tab_cont_cover .create_access_primary .add_gray_wrp {
+    display: inline-block;
+}
+
+.create_access a {
+    display: none;
+    vertical-align: middle;
+    margin-left: 10px;
+    margin-right: 10px;
+    color: #8d8d8d;
+    font-size: 14px;
+    line-height: normal;
+}
+
+.icon36_common.add_gray {
+    background: url("../images/base_z2968da.png") 0 -2904px no-repeat;
+}
+
+.create_access i {
+    cursor: pointer;
+    line-height: 300px;
+    overflow: hidden;
+}
+
+.icon36_common {
+    width: 36px;
+    height: 36px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.tab_cont_cover .create_access strong {
+    padding-top: 2px;
+}
+
+.create_access a strong {
+    display: block;
+    padding-top: 3px;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.menu_form_area .msg_sender .emotion_editor .edit_area {
+    height: 151px;
+}
+
+.tab_content .inner.no_extra {
+    padding: 0;
+    border-width: 0;
+}
+
+.emotion_editor .edit_area {
+    padding: 14px 20px;
+    outline: 0;
+    border: 1px solid #e7e7e7;
+    border-bottom:none;
+    word-wrap: break-word;
+    word-break: break-all;
+    border-top-left-radius: 0;
+    -moz-border-radius-topleft: 0;
+    -webkit-border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    -moz-border-radius-topright: 0;
+    -webkit-border-top-right-radius: 0;
+    background-color: #fff;
+    height: 188px;
+}
+
+.menu_form_area .msg_sender .editor_toolbar {
+    border-bottom: 0;
+    padding-bottom: 0;
+}
+
+.editor_toolbar {
+    padding: 0 20px;
+    line-height: 36px;
+    background-color: #fff;
+    border: 1px solid #e7e7eb;
+}
+
+.editor_toolbar {
+    overflow: hidden;
+    border-bottom: 1px solid #e7e7eb;
+}
+
+.editor_tip {
+    float: right;
+    color: #8d8d8d;
+}
+/*—————————————————新加的模板！到时候分开单独成立—————————————————————*/

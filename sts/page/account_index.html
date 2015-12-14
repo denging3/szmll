@@ -1,0 +1,361 @@
+<style type="text/css">
+.section .sec-header p{padding-bottom:6px;border-bottom: solid 1px #e8e8e8;}
+
+.data-dia .button,.data-dia .light-button,.data-dia .cancel-button,.data-dia .bright-button{width:138px;height: 45px;line-height: 45px;font-size: 16px;}
+#accountinfoDia .data-content{width: 500px;}
+.data-dia .p1{padding: 10px 30px;border-bottom: solid 1px #e8e8e8;}
+.data-dia .p2{padding: 10px 30px 20px 30px;border-bottom: solid 1px #e8e8e8;}
+.data-dia .p3{padding: 10px 30px 20px 30px;}
+.data-dia .p1 td{text-align: left;height: 28px;}
+.data-dia .p-title{font-weight: bold;}
+.data-dia p{padding-top: 10px;text-align: left;}
+ #editAccountDia .data-content,#addAccountDia .data-content{width: 590px;}
+ #editAccountDia .dia-main,#addAccountDia .dia-main{margin: 20px;}
+ #editAccountDia .input{width: 180px}
+ #editAccountDia .select{width: 200px;}
+ #editAccountDia table{width: 100%}
+ #editAccountDia table td{height: 54px;}
+ #resetPassDia .dia-main{margin: 20px 40px;}
+ #resetPassDia .data-content{width: 400px;}
+ #resetPassDia .input{width: 230px;}
+ #batchAddAccountDia .data-content{width: 390px;padding: 10px 30px;color: #666;}
+ #batchAddAccountDia .dia-main{margin: 10px 30px;}
+ #batchAddAccountDia table td{height: 38px;}
+ #delAccountDia .data-content{width: 400px;padding: 10px 30px;color: #666;}
+ #delAccountDia table tr{height: 42px;}
+ #delAccountDia table td{text-align: center;}
+ .data-dia .status-tips{padding-top: 12px;}
+</style>
+
+<div class="sec-header">
+    <p>帐号管理</p>
+</div>
+<div class="sec-main">
+    <div class="search-box">
+       <form>
+           <p>
+               <label class="no-margin-left">登录帐号</label>
+               <input type="text" class="input" style="width:146px;" />
+               <label>姓名</label>
+               <input type="text" class="input" style="width:128px;" />
+               <label>门店名称</label>
+               <input type="text" class="input" style="width:144px;" />
+               <label>权限</label>
+               <select class="select" style="width:84px;">
+                   <option value="0">店长</option>
+                   <option value="1">店员</option>
+               </select>
+               <label>状态</label>
+               <select class="select" style="width:84px;">
+                   <option value="0">请选择</option>
+               </select>
+           </p>
+           <p class="p-oper">
+               <input type="button" class="light-button" value="搜索" />
+               <input type="button" class="light-button" onclick="dialog('batchAddAccount');" value="批量新增帐号" />
+               <input type="button" class="bright-button no-margin-right" onclick="dialog('addAccount');" value="新增帐号" />
+           </p>
+       </form>
+    </div>
+    <div class="info-list">
+        <table class="list">
+            <thead style="text-align: center">
+                <tr>
+                    <th width="12%">登录帐号</th>
+                    <th width="18%">姓名</th>
+                    <th width="18%">门店名称</th>
+                    <th>权限</th>
+                    <th>最近登录时间</th>
+                    <th>状态</th>
+                    <th width="28%">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>zhangsan</td>
+                    <td>张三</td>
+                    <td>美乐乐旗舰店</td>
+                    <td>店长</td>
+                    <td>2015-11-31 12:12</td>
+                    <td>已激活</td>
+                    <td>
+                        <a href="javascript:;" onclick="showAccount('22222|张三|启用|店长|成都是旗舰店，美乐乐旗舰店|12|2015-11-31 12:12');">查看</a>
+                        <a href="javascript:;" onclick="editAccount('zhangsan|张三|1|2|3');">编辑</a>
+                        <a href="javascript:;" onclick="showStaffInfo();">停用</a>
+                        <a href="javascript:;" class="red-button" onclick="dialog('delAccount');">删除</a>
+                        <a href="javascript:;" onclick="dialog('resetPass')">修改密码</a>
+                    </td>
+                </tr>
+                <tr class="odd">
+                    <td>大张三</td>
+                    <td>13800000000</td>
+                    <td>美乐乐旗舰店</td>
+                    <td>店长</td>
+                    <td>2015-11-31 12:12</td>
+                    <td>已激活</td>
+                    <td>
+                        <a href="javascript:;" onclick="showAccount('111|李四|启用|店长|成都是旗舰店，美乐乐旗舰店|12|2015-11-31 12:12');">查看</a>
+                        <a href="javascript:;" onclick="editAccount('zhangsan|张三|1|1|1');">编辑</a>
+                        <a href="javascript:;" onclick="showStaffInfo();">停用</a>
+                        <a href="javascript:;" class="red-button" onclick="dialog('delAccount');">删除</a>
+                        <a href="javascript:;" onclick="dialog('resetPass')">修改密码</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="page-bar">
+        <a class="prev" href="#" style="width:66px;">&lt; 上一页</a>
+        <a href="#">1</a>
+        <strong>2</strong>
+        <a href="#">3</a>
+        <a href="#">4</a>
+        <span class="dot">…</span>
+        <a href="#">150</a>
+        <a class="next" href="#" style="width:66px;">下一页 &gt;</a>
+        <span class="no-border">到第<input  onkeyup="__goPageE(this,event);">页</span>
+        <a class="button" href="javascript:;" onclick="__goPage(this);" style="width:50px;">确定</a>
+        <span class="total-info">共20页</span>
+        <span class="total-info">198项</span>
+    </div>
+</div>
+<!-- / 弹窗div start / -->
+<div class="data-dia">
+    <div class="data-content">
+    </div>
+</div>
+<!-- / 弹窗div end / -->
+<!-- / 账户信息弹窗 start / -->
+<div id="accountinfo" style="display:none;">
+    <div class="dia-header">
+        <span class="dia-title">帐号信息</span>
+        <a class="dia-close dia-cha" href="javascript:;" title="关闭">×</a>
+    </div>
+    <div class="dia-main">
+        <div class="p1">
+            <table>
+                <tr>
+                    <td width="20%">登录帐号：</td>
+                    <td class="accountUserShow" width="30%"></td>
+                    <td width="20%">姓&emsp;&emsp;名：</td>
+                    <td class="accountNameShow" width="30%"></td>
+                </tr><tr>
+                    <td>状&emsp;&emsp;态：</td>
+                    <td class="accountStatusShow"></td>
+                    <td>权&emsp;&emsp;限：</td>
+                    <td class="accountPriv"></td>
+                </tr><tr>
+                    <td>门店名称：</td>
+                    <td colspan="3" class="storeNameShow"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="p2">
+            <p class="p-title">登录日志</p>
+            <p>登&nbsp;&nbsp;录&nbsp;&nbsp;次&nbsp;&nbsp;数：<span class="logTimesShow">12次</span></p>
+            <p>最近登录时间：<span class="lastLogTimeShow">2015.11.30 12:30:30</span></p>
+        </div>
+        <div class="p3">
+            <p class="p-title">操作日志</p>
+            <p>2015.11.30 12:30:30&nbsp;&nbsp;店长zhangdan编辑帐号信息</p>
+            <p>2015.11.30 12:30:30&nbsp;&nbsp;店长lisi修改密码</p>
+        </div>
+    </div>
+</div>
+<!-- / 账户信息弹窗 end / -->
+<!-- / 编辑帐号 start / -->
+<div id="editAccount" style="display:none;">
+    <div class="dia-header">
+        <span class="dia-title">编辑帐号</span>
+        <a class="dia-close dia-cha" href="javascript:;" title="关闭">×</a>
+    </div>
+    <div class="dia-main">
+        <form onsubmit="return validForm(1);">
+            <table>
+                <tr>
+                    <td width="12%"><span class="required-field">*</span>登录帐号</td>
+                    <td width="40%"><input type="text" class="input accountUserIn" /></td>
+                    <td width="12%"><span class="required-field">*</span>姓&emsp;&emsp;名</td>
+                    <td width="36%"><input type="text" class="input accountNameIn" /></td>
+                </tr>
+                <tr>
+                    <td><span class="required-field">*</span>权&emsp;&emsp;限</td>
+                    <td><select class="select accountPrivIn">
+                        <option value="0">请选择</option>
+                        <option value="1">店长</option>
+                        <option value="2">店员</option>
+                    </select></td>
+                    <td><span class="required-field">*</span>状&emsp;&emsp;态</td>
+                    <td class="status-td">
+                        <span><input type="radio" name="status" class="accountStatusIn" value="1" />
+                        <span class="radio-input">启用</span></span>&emsp;&emsp;
+                        <span><input type="radio" name="status" class="accountStatusIn" value="2" />
+                        <span class="radio-input">停用</span></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="required-field">*</span>门店名称</td>
+                    <td colspan="3">
+                        <select class="select storeNameIn">
+                            <option value="0">请选择</option>
+                            <option value="1">成都旗舰店</option>
+                            <option value="2">沈阳美乐乐旗舰店</option>
+                            <option value="3">上海美乐乐店</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="text-align:center;">
+                        <input type="button" class="dia-close cancel-button" value="取消" />&emsp;
+                        <input type="submit" class="bright-button" value="确认" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<!-- / 编辑帐号 end / -->
+<!-- / 新增帐号 start / -->
+<div id="addAccount" style="display:none;">
+    <div class="dia-header">
+        <span class="dia-title">新增帐号</span>
+        <a class="dia-close dia-cha" href="javascript:;" title="关闭">×</a>
+    </div>
+    <div class="dia-main">
+        <form onsubmit="return validForm(0);">
+            <table>
+                <tr>
+                    <td width="12%"><span class="required-field">*</span>登录帐号</td>
+                    <td width="40%"><input type="text" class="input accountUserIn" /></td>
+                    <td width="12%"><span class="required-field">*</span>姓&emsp;&emsp;名</td>
+                    <td width="36%"><input type="text" class="input accountNameIn" /></td>
+                </tr>
+                <tr>
+                    <td><span class="required-field">*</span>权&emsp;&emsp;限</td>
+                    <td><select class="select accountPrivIn">
+                        <option value="0">请选择</option>
+                        <option value="1">店长</option>
+                        <option value="2">店员</option>
+                    </select></td>
+                    <td><span class="required-field">*</span>状&emsp;&emsp;态</td>
+                    <td class="status-td">
+                        <span><input type="radio" name="status" class="accountStatusIn" value="1" />
+                        <span class="radio-input">启用</span></span>&emsp;&emsp;
+                        <span><input type="radio" name="status" class="accountStatusIn" value="2" />
+                        <span class="radio-input">停用</span></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="required-field">*</span>门店名称</td>
+                    <td colspan="3">
+                        <select class="select storeNameIn">
+                            <option value="0">请选择</option>
+                            <option value="1">成都旗舰店</option>
+                            <option value="2">沈阳美乐乐旗舰店</option>
+                            <option value="3">上海美乐乐店</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="text-align:center">
+                        <input type="button" class="dia-close cancel-button" value="取消" />&emsp;
+                        <input type="submit" class="bright-button" value="确认" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<!-- / 新增帐号 end / -->
+<!-- / 修改密码 start / -->
+<div id="resetPass" style="display:none;">
+    <div class="dia-header">
+        <span class="dia-title">修改密码</span>
+        <a class="dia-close dia-cha" href="javascript:;" title="关闭">×</a>
+    </div>
+    <div class="dia-main">
+        <form name="theForm" onsubmit="return validForm(2);">
+            <table>
+                <tr>
+                    <td width="20%"><span class="required-field">*</span>新&nbsp;&nbsp;密&nbsp;&nbsp;码</td>
+                    <td><input type="text" class="input passIn" /></td>
+                </tr>
+                <tr>
+                    <td><span class="required-field">*</span>确认密码</td>
+                    <td><input type="text" class="input rePassIn" /></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:center;">
+                        <input type="button" value="取消" class="dia-close cancel-button" />
+                        <input type="submit" value="确认" class="bright-button" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<!-- / 修改密码 end / -->
+<!-- / 确认删除 start / -->
+<div id="delAccount" style="display:none;">
+    <div class="dia-header">
+        <span class="dia-title">确认信息</span>
+        <a class="dia-close dia-cha" href="javascript:;" title="关闭">×</a>
+    </div>
+    <div class="dia-main">
+        <form>
+            <table>
+                <tr>
+                    <td>确认要删除此帐号信息？</td>
+                </tr><tr>
+                    <td>
+                        <input type="button" value="取消" class="dia-close cancel-button" />
+                        <input type="submit" value="确认" class="bright-button" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<!-- / 确认删除 end / -->
+<!-- / 批量新增账号 start / -->
+<div id="batchAddAccount" style="display:none;">
+    <div class="dia-header">
+        <span class="dia-title">批量新增账号</span>
+        <a class="dia-close dia-cha" href="javascript:;" title="关闭">×</a>
+    </div>
+    <div class="dia-main">
+        <form>
+            <table>
+                <tr>
+                    <td>1.请先<a hrer="#" class="down-link">下载模版</a></td>
+                </tr><tr>
+                    <td>2.根据模版填写店员信息</td>
+                </tr><tr>
+                    <td>3.导入模版</td>
+                </tr><tr>
+                    <td>
+                        <input type="input" class="input" name="updwtfile" id="updwtfile" placeholder="请选择已填写的模版" onclick="dwtpath.click()" />
+                        <input type="file" id="dwtpath" style="display:none" onchange="updwtfile.value=this.value">
+                        <input type="button" value="导入" class="bright-button" style="width:96px;height:34px;line-height:34px;vertical-align:-3px;"/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<!-- / 批量新增账号 end / -->
+<!-- / 提示信息 start / -->
+<div id="warnInfo" style="display:none;">
+    <div class="dia-header">
+        <span class="dia-title"></span>
+        <a class="dia-close dia-cha" href="javascript:;" title="关闭">×</a>
+    </div>
+    <div class="dia-main">
+        <form>
+            <table>
+            </table>
+        </form>
+    </div>
+</div>
+<!-- / 提示信息 end / -->
+<script type="text/javascript" src="js/account_man.js"></script>

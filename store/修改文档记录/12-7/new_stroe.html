@@ -1,0 +1,85 @@
+<div class="data-dia" id="new_store" style='overflow:auto'>
+    <form style='width:100%'>
+        <div class="data-content">
+            <h2 class="page-header">
+                新增门店
+                <a class='close_log' href="javascript:;"></a>
+            </h2>
+            <div class="list" style="border-top:none;margin-top:0">
+                <div class="top_left">
+                    <ul>
+                        <li><span class="required-field">*</span><span>门店名称：</span><input type="text" /></li>
+                        <li><span class="required-field">*</span><span>门店类型：</span><input type="text" /></li>
+                        <li><span class="required-field">*</span><span>上级门店：</span><input class='pro_store' data-role='pro_store' type="text" /></li>
+                        <li><span class="required-field">*</span><span>门店状态：</span><input type="text" /></li>
+                        <li><span class="required-field">*</span><span>门店电话：</span><input type="text" /></li>
+                        <li><span class="required-field">*</span><span>联系人：</span><input type="text" /></li>
+                    </ul>
+                </div>
+                <div class="btm_right">
+                    <ul>
+                        <li>
+                            <span class="required-field">*</span>
+                            <span style="margin-left:-5px">门店名称：</span>
+                            <select>
+                                <option value="选项">选项</option>
+                                <option value="选项">选项</option>
+                            </select>
+                            <select>
+                                <option value="选项">选项</option>
+                                <option value="选项">选项</option>
+                            </select>
+                        </li>
+                        <li>
+                            <span style='line-height:100px;height: 100px;float:left' class="required-field">*</span>
+                            <span style='line-height:100px;margin-left:-20px;float:left'>门店logo：</span>
+                            <a href="javascript:;" class="file" style="float:left">
+                                选择文件
+                                <input type="file" name="" id="" style="height:100%;cursor:pointer;background:#ddd">
+                            </a>
+                            <span style='line-height:100px;color:#999;float:left'>（建议尺寸：300*200）</span>
+                        </li>
+                        <li class="ssq">
+                            <span class="required-field">*</span>
+                            <span style="margin-left:-5px">门店地址：</span>
+                            <select>
+                                <option value="请选择省">请选择省</option>
+                                <option value="请选择省">广东</option>
+                            </select>
+                            <select>
+                                <option value="请选择市">请选择市</option>
+                                <option value="请选择市">深圳</option>
+                            </select>
+                            <select>
+                                <option value="请选择区">请选择区</option>
+                                <option value="请选择区">南山区</option>
+                            </select>
+                            <select>
+                                <option value="请选择街道">请选择街道</option>
+                            </select>
+                            <input type="text" placeholder='详细地址（无需写省、市、区、接到信息）' />
+                            <span class='beizhu'>点击地图，标注准确位置！</span>
+                        </li>
+                        <li>
+                            <span style="margin-left: 5px">地图标注：</span>
+                            <div id='baiduMap_info' style="vertical-align: top"></div>
+                        </li>
+                        <li>
+                            <span style="margin-left: 15px" >经纬度：</span>
+                            <input type='text' readonly/>
+                        </li>
+                        <li class='sub'>
+                            <input type='submit' value='取消'/>
+                            <input type='submit' value='确认'/>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    $('.pro_store').click(function(){
+        dialog(this);
+    })
+</script>

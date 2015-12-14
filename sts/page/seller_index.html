@@ -1,0 +1,89 @@
+<link rel="stylesheet" href="css/jquery.Jcrop.css" type="text/css" />
+<style type="text/css">
+    input.orange-button,input.bright-button,input.cancel-button{width: 148px;height: 45px;line-height: 45px;font-size: 16px;}
+    .cancel-button{margin-right: 20px;}
+    
+    .section .sec-main{margin-top: 15px;}
+    .section .sec-main table td{height: 70px;text-align: left;padding-left: 20px;}
+    .section .sec-main table .label{background-color: #f8f8f8;padding-left:0;text-align: center;}
+    .section .sec-main .oper-btn{width: 100%;margin-top:30px; text-align: center;}
+    .section .sec-main .edit-info table{border: none;}
+    .section .sec-main .edit-info table tr{border: none;}
+    .section .sec-main .edit-info table td{border: none;padding-left: 0;height: 54px;}
+    .section .sec-main .edit-info .label{background-color: #fff;}
+    .section .sec-main .edit-info .input{width: 300px;}
+    .section .sec-main .edit-info .img-preview{display: block;margin:10px 0;width: 320px;height: 200px; text-align: center;border: solid 1px #ddd;border-radius: 2px;cursor: pointer;}
+    .section .sec-main .edit-info .p1{color: #808080;margin-top: 70px;}
+    .section .sec-main .edit-info .p1 b{font-size: 24px;vertical-align: -3px;color: #999;}
+    .section .sec-main .edit-info .p2{color: #999;margin-top: 5px;}
+    .section .sec-main .edit-info{display: none;}
+    .section .sec-main .save-btn{display: none;}
+</style>
+
+<div class="sec-header">
+    <p>商家信息</p>
+</div>
+<div class="sec-main">
+    <div class="info">
+        <table>
+            <tr>
+                <td width="10%" class="label">商家信息</td>
+                <td width="40%">天津美味信息技术有限公司</td>
+                <td width="10%" class="label">状&emsp;&emsp;态</td>
+                <td width="40%">启用</td>
+            </tr><tr>
+            <td class="label">联系方式</td>
+            <td>15100000000</td>
+            <td class="label">邮&emsp;&emsp;箱</td>
+            <td>启用</td>
+        </tr><tr>
+            <td class="label">地&emsp;&emsp;址</td>
+            <td colspan="3">四川省成都市青羊区光华东三路414号中铁西城</td>
+        </tr><tr>
+            <td class="label">LOGO</td>
+            <td colspan="3"><img width="300" height="130" src="http://image.meilele.com/mll_logo.gif" alt="logo"></td>
+        </tr>
+        </table>
+    </div>
+    <div class="edit-info">
+        <form name="theForm">
+            <table>
+                <tr>
+                    <td width="10%" class="label left">商家信息</td>
+                    <td width="40%"><input type="text" class="input" value="天津美味信息技术有限公司" /></td>
+                    <td width="10%" class="label left">地&emsp;&emsp;址</td>
+                    <td colspan="3"><input type="text" class="input" value="四川省成都市青羊区光华东三路414号中铁西城" /></td>
+                </tr><tr>
+                <td class="label left">联系方式</td>
+                <td><input type="text" class="input" value="15100000000" /></td>
+                <td class="label left">邮&emsp;&emsp;箱</td>
+                <td><input type="text" class="input" value="***@126.com" /></td>
+            </tr><tr>
+
+            </tr><tr>
+                <td class="label left">LOGO</td>
+                <td colspan="3">
+                    <span id="imgPreview" class="img-preview" onclick="upImgBox();">
+                        <p class="p1"><b>+</b>&nbsp;上传图片</p>
+                        <p class="p2">(建议尺寸：300×200)</p>
+                    </span>
+                </td>
+            </tr>
+            </table>
+        </form>
+    </div>
+    <div class="oper-btn">
+        <input type="button" class="bright-button edit-btn" value="编&nbsp;&nbsp;辑" onclick="toEdit(this)" />
+        <input type="button" class="orange-button save-btn" value="保&nbsp;&nbsp;存" />
+    </div>
+</div>
+<script type="text/javascript" src="js/jquery.Jcrop.js"></script>
+<script type="text/javascript" src="js/imgUploadPre.js"></script>
+<script type="text/javascript">
+function toEdit(objBtn){
+    $(objBtn).hide();
+    $(objBtn).siblings().show();
+    $('.sec-main .info').hide();
+    $('.sec-main .edit-info').show();
+}
+</script>

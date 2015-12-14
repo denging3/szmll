@@ -1,0 +1,84 @@
+<style type="text/css">
+    #pro_store .data-content{width:376px;height:645px;padding:0px}
+    #pro_store .data-content .page-header{margin-bottom:0px}
+    #pro_store .data-content .page-header .close_log{position:relative;left:-20px}
+    #pro_store .pro_store_search{position:relative;width:100%;height:85px;text-align:center;background:#f5f5f5}
+    #pro_store .pro_store_search .pro_icon{display:inline-block;position:absolute;width: 24px;height: 24px;top:30px;right:40px;background:url(images/search.png) no-repeat 50%;}
+    #pro_store .pro_store_search input{width:316px;height:34px;margin:25px auto;background:#fff;-webkit-box-sizing:border-box;padding-left:10px}
+
+    #pro_store .data-content .pro_ztree{padding:20px 30px;overflow:auto;height:370px;border:1px solid #ddd}
+    .pro_sub{text-align:center;padding:20px 0;}
+    .pro_sub button{width:148px;height:45px;margin:0px;border:1px solid #ddd}
+    .pro_sub button:hover{border:1px solid #ddd;color:#000}
+    .pro_sub button:last-child{background: #2bc486;color:#fff;margin-left: 20px;margin-left:16px;border:1px solid #2bc486}
+</style>
+<div class="data-dia" id="pro_store" style='overflow:auto;display:none;z-index:1002;'>
+    <div class="data-content">
+        <h2 class="page-header">
+            选择门店
+            <a class="close_log" href="javascript:;"></a>
+        </h2>
+        <div class='pro_store_search'>
+            <input type='text' value='' placeholder='输入门店信息'/>
+            <a href="javascript:;" class='pro_icon'></a>
+        </div>
+        <div class='pro_ztree'>
+            <ul id="pro_store_tree" class="ztree"></ul>
+        </div>
+        <div class='pro_sub'>
+            <button>取消</button>
+            <button>确认</button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    /*-------z-tree-------*/
+    var setting = {
+        edit: {
+            enable: true,
+            showRemoveBtn: false,
+            showRenameBtn: false
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        }
+    };
+
+    var zNodes =[
+        { id:1, pId:0, name:"随意拖拽 1", open:true},
+        { id:11, pId:1, name:"随意拖拽 1-1"},
+        { id:12, pId:1, name:"随意拖拽 1-2", open:true},
+        { id:121, pId:12, name:"随意拖拽 1-2-1"},
+        { id:122, pId:12, name:"随意拖拽 1-2-2"},
+        { id:123, pId:12, name:"随意拖拽 1-2-3"},
+        { id:13, pId:1, name:"禁止拖拽 1-3", open:true, drag:false},
+        { id:131, pId:13, name:"禁止拖拽 1-3-1", drag:false},
+        { id:132, pId:13, name:"禁止拖拽 1-3-2", drag:false},
+        { id:133, pId:13, name:"随意拖拽 1-3-3"},
+        { id:2, pId:0, name:"随意拖拽 2", open:true},
+        { id:21, pId:2, name:"随意拖拽 2-1"},
+        { id:22, pId:2, name:"禁止拖拽到我身上 2-2", open:true, drop:false},
+        { id:221, pId:22, name:"随意拖拽 2-2-1"},
+        { id:222, pId:22, name:"随意拖拽 2-2-2"},
+        { id:223, pId:22, name:"随意拖拽 2-2-3"},
+        { id:23, pId:2, name:"随意拖拽 2-3"}
+    ];
+
+    function showIconForTree(treeId, treeNode) {
+        return !treeNode.isParent;
+    };
+
+    $(document).ready(function(){
+        $.fn.zTree.init($("#pro_store_tree"), setting, zNodes);
+    });
+    $('.pro_sub').on('click',function(){
+        var check_value = $('.curSelectedNode .node_name').text();
+        $('#pro_store').fadeOut();
+        $('.pro_store').val(check_value);
+        setTimeout(function () {
+            $('#pro_store .fix').detach();
+        }, 500)
+    })
+</script>

@@ -1,0 +1,104 @@
+<div id="mainMap"></div>
+<div class="map_info">
+    <h2>云南共<span>12</span>家门店</h2>
+
+    <div class="info_list">
+        <a href="#"><p>太原万柏林区体验馆</p><span>></span></a>
+        <a href="#"><p>太原万柏林区体验馆</p><span>></span></a>
+        <a href="#"><p>太原万柏林区体验馆</p><span>></span></a>
+        <a href="#"><p>太原万柏林区体验馆</p><span>></span></a>
+    </div>
+    <div class="change_page">
+        <button>上一页</button>
+        <button>下一页</button>
+    </div>
+</div>
+
+<script>
+    var myChart = echarts.init(document.getElementById('mainMap'));
+    var option = {
+        tooltip: {
+            trigger: 'item',
+            backgroundColor: '#ff7b05',
+            color: '#fff',
+            borderRadius: 2,
+        },
+        legend: {
+            show: false,
+            data: ['门店数量'],
+        },
+        dataRange: {
+            show: false,
+            min: 0,
+            max: 2500,
+            color: ['#ddd', '#d8d8d8'],
+            text: ['高', '低'],           // 文本，默认为数值文本
+            calculable: true,
+        },
+        series: [
+            {
+                name: '门店数量',
+                type: 'map',
+                mapType: 'china',
+                roam: false,
+                itemStyle: {
+                    normal: {
+                        label: {
+                            show: true, textStyle: {
+                                color: '#666',
+                                fontSize: 12
+                            }
+                        }, borderColor: '#fff', borderWidth: 2
+                    },
+                    emphasis: {
+                        label: {
+                            show: true,
+                            textStyle: {
+                                color: '#fff',
+                                fontSize: 12
+                            }
+                        },
+                        color: '#2bc486', borderColor: '#fff', borderWidth: 2,
+                    }
+                },
+                data: [
+                    {name: '北京', value: Math.round(Math.random() * 1000)},
+                    {name: '天津', value: Math.round(Math.random() * 1000)},
+                    {name: '上海', value: Math.round(Math.random() * 1000)},
+                    {name: '重庆', value: Math.round(Math.random() * 1000)},
+                    {name: '河北', value: Math.round(Math.random() * 1000)},
+                    {name: '河南', value: Math.round(Math.random() * 1000)},
+                    {name: '云南', value: Math.round(Math.random() * 1000)},
+                    {name: '辽宁', value: Math.round(Math.random() * 1000)},
+                    {name: '黑龙江', value: Math.round(Math.random() * 1000)},
+                    {name: '湖南', value: Math.round(Math.random() * 1000)},
+                    {name: '安徽', value: Math.round(Math.random() * 1000)},
+                    {name: '山东', value: Math.round(Math.random() * 1000)},
+                    {name: '新疆', value: Math.round(Math.random() * 1000)},
+                    {name: '江苏', value: Math.round(Math.random() * 1000)},
+                    {name: '浙江', value: Math.round(Math.random() * 1000)},
+                    {name: '江西', value: Math.round(Math.random() * 1000)},
+                    {name: '湖北', value: Math.round(Math.random() * 1000)},
+                    {name: '广西', value: Math.round(Math.random() * 1000)},
+                    {name: '甘肃', value: Math.round(Math.random() * 1000)},
+                    {name: '山西', value: Math.round(Math.random() * 1000)},
+                    {name: '内蒙古', value: Math.round(Math.random() * 1000)},
+                    {name: '陕西', value: Math.round(Math.random() * 1000)},
+                    {name: '吉林', value: Math.round(Math.random() * 1000)},
+                    {name: '福建', value: Math.round(Math.random() * 1000)},
+                    {name: '贵州', value: Math.round(Math.random() * 1000)},
+                    {name: '广东', value: Math.round(Math.random() * 1000)},
+                    {name: '青海', value: Math.round(Math.random() * 1000)},
+                    {name: '西藏', value: Math.round(Math.random() * 1000)},
+                    {name: '四川', value: Math.round(Math.random() * 1000)},
+                    {name: '宁夏', value: Math.round(Math.random() * 1000)},
+                    {name: '海南', value: Math.round(Math.random() * 1000)},
+                    {name: '台湾', value: Math.round(Math.random() * 1000)},
+                    {name: '香港', value: Math.round(Math.random() * 1000)},
+                    {name: '澳门', value: Math.round(Math.random() * 1000)}
+                ],
+            }
+        ],
+    };
+    myChart.setOption(option);
+</script>

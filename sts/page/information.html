@@ -1,0 +1,237 @@
+<style type="text/css">
+    /*-------------public--------------*/
+    html, body {margin: 0;padding: 0;width: 100%;height: 100%;min-width:1000px;}
+    div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, pre, a, code, del, em, img, strong, sub, sup, b, u, i, dl, dt, dd, ol, ul, li, fieldset, form, label, table, tbody, tfoot, thead, tr, th, td {padding: 0;margin: 0;border: 0;outline: 0;font-size: 14px;font-family: Arial, '微软雅黑';font-weight: 200;text-decoration: none;list-style: none;vertical-align: baseline;color: #333;}
+    .flex{text-align: center;border: 1px solid #e7e7e7;border-right:none;display: inline-block;-webkit-box-sizing:border-box;float:left}
+    .flex:last-of-type{border-right: 1px solid #e7e7e7;}
+    .main_content{width: 975px;margin:0 auto;height:535px}
+    .main_content .demo_name{width:215px}
+    .main_content .demo_name ul li p{width:30%;text-align:left;padding-left:3px;text-align:left;-webkit-box-sizing:border-box;}
+    .main_content .demo_name ul li span{display:inline-block;width:7px;height:11px;background:url(images/right_point.png);}
+    .main_content .demo_info{width:360px;height:535px}
+    .main_content .demo_info ul li span{display: inline-block;width:16px;height: 16px;background:url("images/check.png") no-repeat 0px 0px;cursor:pointer}
+    .main_content .demo_info ul li .img_check{background:url("images/check.png") no-repeat 0px -16px;cursor:pointer}
+    .main_content .demo_info ul li img{margin-left:10px}
+    .main_content .demo_info ul li p{margin-left:10px;width:52%;min-width:150px;text-align:left;}
+    .main_content .demo_check{width:400px;height:535px;}
+    .main_content .flex ul{display:block;width:100%}
+    .main_content .flex ul li{padding:20px;text-align:center;}
+    .main_content .demo_info ul li{padding-bottom:0px;}
+    .main_content .demo_info ul .demo_main_info{overflow:auto;height:482px}
+    .main_content .flex ul .demo_title{width:100%;background:#f5f5f5;padding:15px 0}
+    .main_content .flex ul li *{display:inline-block;vertical-align: middle}
+    .main_content .demo_check ul li .demo_st{position: relative;margin-bottom:10px}
+    .main_content .demo_check .demo_list{padding:20px;border:1px solid #ddd;border-radius:10px;overflow: hidden;height:408px;width:330px;overflow-y: auto;}
+    .main_content .demo_check ul li .demo_st p{position:absolute;width:100%;height: 35px;background:rgba(0,0,0,0.7);left:0px;bottom:0px;line-height:35px;color:#fff;font-size:14px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;padding:0 5px;-webkit-box-sizing:border-box;}
+    .main_content .demo_check ul li .demo_st img{width:320px;height:175px}
+    .main_content .demo_check ul .deme_title_info{position:relative;width:100%;border-top:1px solid #ddd;padding:5px 0;height:50px;display:-webkit-box;-webkit-box-align:center}
+    .main_content .demo_check ul .deme_title_info img{width:50px;height:50px;margin-left:10px}
+    .main_content .demo_check ul .close_demo{position:absolute;top:-6.5px;right:-6.5px;display:inline-block;background:url(images/list_close.png) no-repeat 50% 50%;width:13px;height:13px;}
+    .main_content .demo_check ul .deme_title_info .close_demo{top:-8px}
+    .main_content .demo_check ul .deme_title_info:last-of-type{border-bottom:1px solid #ddd}
+    .main_content .demo_check ul .deme_title_info p{width:260px;height:50px;line-height:20px;font-size: 16px;text-align: left;display:table-cell;}
+
+    .arrow-nav { position: relative;padding: 5px 0 20px 80px; display: none;}
+    .arrow-nav .arrow-nav-title { font-size: 14px; font-weight: bold; color: #2bc486}
+    .arrow-nav .arrow-out{position: absolute;bottom: -1px;  left: 78px; display: inline-block; width: 0; height: 0; border-width: 14px; border-style: dashed; border-color: transparent; border-top-width: 0; border-bottom-color: #ddd; border-bottom-style: solid;}
+    .arrow-nav .arrow-in{position: absolute;bottom: -1px;  left: 79px; display: inline-block; width: 0; height: 0; border-width: 13px; border-style: dashed; border-color: transparent; border-top-width: 0; border-bottom-color: #f5f5f5; border-bottom-style: solid;}
+    
+</style>
+<div class="arrow-nav">
+    <span class="arrow-nav-title" id="arrowNavTitle"></span>
+    <span class="arrow-out"></span>
+    <span class="arrow-in"></span>
+</div>
+<div class="main_content demo-content">
+    <div class="demo_name flex">
+        <ul>
+            <li class="demo_title">模板名称</li>
+            <div class='demo_title_list'>
+                <li>
+                    <img src="images/yh-1.png" alt=""/>
+                    <p>优惠券</p>
+                    <span></span>
+                </li>
+            </div>
+        </ul>
+    </div>
+    <div class="demo_info flex">
+        <ul>
+            <li class="demo_title">图文消息</li>
+            <div class='demo_main_info'>
+                <!-- 这是加入列表内容的 -->
+                <li data-list='1'>
+                    <span></span>
+                    <img src="images/bacimg.png" alt=""/>
+                    <p>美乐乐微信推广金秋10月代金券</p>
+                </li>
+                <li data-list='2'>
+                    <span></span>
+                    <img src="images/bacimg.png" alt=""/>
+                    <p>美乐乐微信推广金秋11月代金券</p>
+                </li>
+                <li data-list='3'>
+                    <span></span>
+                    <img src="images/bacimg.png" alt=""/>
+                    <p>美乐乐微信推广金秋12月代金券</p>
+                </li>
+                <li data-list='4'>
+                    <span></span>
+                    <img src="images/bacimg.png" alt=""/>
+                    <p>美乐乐微信推广金秋10月代金券</p>
+                </li>
+                <li data-list='5'>
+                    <span></span>
+                    <img src="images/bacimg.png" alt=""/>
+                    <p>美乐乐微信推广金秋11月代金券</p>
+                </li>
+                <li data-list='6'>
+                    <span></span>
+                    <img src="images/bacimg.png" alt=""/>
+                    <p>美乐乐微信推广金秋12月代金券</p>
+                </li>
+                <li data-list='7'>
+                    <span></span>
+                    <img src="images/bacimg.png" alt=""/>
+                    <p>美乐乐微信推广金秋10月代金券</p>
+                </li>
+                <li data-list='8'>
+                    <span></span>
+                    <img src="images/bacimg.png" alt=""/>
+                    <p>美乐乐微信推广金秋11月代金券</p>
+                </li>
+                <li data-list='9'>
+                    <span></span>
+                    <img src="images/bacimg.png" alt=""/>
+                    <p>美乐乐微信推广金秋12月代金券</p>
+                </li>
+                <!-- 这是加入列表内容的 -->
+            </div>
+        </ul>
+    </div>
+    <div class="demo_check flex">
+        <ul>
+            <li class="demo_title">预览</li>
+            <li>
+                <div class="demo_list">
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    $.fn.extend({
+        check_first:function(){
+                $('.demo_list>div').attr('class','deme_title_info');
+                $('.demo_list>div').eq(0).attr('class','demo_st');
+        },
+        del_list:function(type){
+            $.fn.check_first();
+            $(this).on(type,function(){
+                var n = $(this).parent(),
+                    l = n.data('list');
+                $('.demo_info li').each(function(i){
+                    if($(this).data('list')==l){
+                        $(this).children('span').attr('class','');
+                    }
+                })
+                n.remove();
+                $.fn.check_first();
+            });
+        },
+        check_list:function(type){
+            $(this).on(type,function(){
+                if($(this).hasClass('img_check')==true){
+                    var t = $(this).nextAll('p').text();
+                    var i = $(this).next('img').attr('src');
+                    var d = $(this).parent().data('list');
+                    if($('.img_check').length==1){
+                        $('.demo_list').append("<div class='demo_st' data-list='"+d+"'>"+
+                        "<a class='close_demo' href='javascript:;'></a>"+
+                        "<p>"+t+"</p>"+
+                        "<img src="+i+" alt=''/>"+
+                        "</div>");
+                    }else{
+                        $('.demo_list').append("<div class='deme_title_info' data-list='"+d+"'>"+
+                        "<a class='close_demo' href='javascript:;'></a>"+
+                        "<p>"+t+"</p>"+
+                        "<img src="+i+" alt=''/>"+
+                        "</div>");
+                    }
+                }else{
+                    var s = $(this).parent().data('list');
+                    $('.demo_list>div').each(function(i){
+                        if($(this).data('list')==s){
+                            $(this).remove();
+                        }
+                    })
+                };
+                $('.close_demo').del_list('click');
+            })
+            $.fn.check_first();
+        },
+        addFooterOper:function(buttons){
+            //添加操作按钮
+            //buttons 为对象数组
+            //[{value: '删除回复',className: 'cancel-button',cbFun: {function...}},{value: '确  认',className: 'bright-button'}]
+            //默认buttons值
+            var defaultBtn = [{
+                value: '删除回复',className: 'cancel-button',cbFun: delFeed
+            },{
+                value: '确  认',className: 'bright-button',cbFun: confirmFeed }];
+            buttons = buttons || defaultBtn;
+            var html = '<div class="feed-footer"><div class="feed-oper">';
+            for(var k in buttons) {
+                if ( k != 0 ) {
+                    html += '&emsp;'
+                }
+                html += '<input type="button" id="feedOperBtn_' + k + '" value="' + buttons[k].value + '" class="' + buttons[k].className + '" />'
+            }
+            html += '</div></div>';
+            $(this).after(html);
+            //操作按钮添加回调方法
+            for(var kk in buttons) {
+                if ( typeof buttons[kk].cbFun == 'function' ) {
+                    $('#feedOperBtn_' + kk).on('click',buttons[kk].cbFun);
+                }
+            }
+        },
+        /*以下为java新增方法*/
+        fsaf:function(type){
+            // console.log(this)
+        }
+    });
+    function weFeedShow(title,opButtons){
+        $('#arrowNavTitle').text(title);
+        $('.arrow-nav').show();
+        $('.main_content').addFooterOper(opButtons);
+    }
+    /**
+     * [delFeed 删除回复]
+     */
+    function delFeed(){
+        //TODO
+        //待完善删除回复
+    }
+    /**
+     * [confirmFeed 回复确认]
+     */
+    function confirmFeed(){
+        //TODO
+        //待完善确认回复
+        $.lightBox({
+            width: 290,
+            title: '提示',
+            html: '<p style="text-align:center;">保存成功</p>'
+        });
+    }
+    !function() {
+        $('.demo_info span').on('click',function(){
+            $(this).toggleClass('img_check');
+        });
+        $('.demo_info span').check_list('click');
+        /*java 附加函数*/
+        $('.demo_title_list li').fsaf('click');
+    }();
+</script>

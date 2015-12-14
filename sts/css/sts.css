@@ -1,0 +1,108 @@
+/* *********************
+    *tab菜单切换公告部分
+    * ***********************/
+.act {
+    border-bottom: 1px solid #2bc486;
+}
+
+.act a {
+    color: #2bc486;
+}
+
+.tab {
+    margin-left: 30px;
+}
+
+.tab>div:first-child{
+    border-bottom: 1px solid #ddd;
+}
+
+.tab ul li a {
+    font-size: 14px;
+}
+
+.tab ul li {
+    display: inline-block;
+    padding: 27px 0 10px 0;
+    width: 95px;
+    text-align: center;
+    margin-bottom: -1px;
+    margin-right: 10px;
+}
+.mt20{margin-top: 20px}
+.mt30{margin-top: 30px;}
+.mb20{margin-bottom: 20px;}
+.align-right{text-align: right;}
+.no-margin-right{margin-right: 0!important;}
+.no-margin-left{margin-left: 0!important;}
+.button{display:inline-block;background-color: #fff;border: 1px solid #ddd;border-radius: 2px;outline: none;cursor: pointer;height: 32px;margin-right: 10px;font-size: 12px;}
+.light-button {display:inline-block;background-color: #fff;border: 1px solid #2bc486;color: #2bc486;border-radius: 2px;outline: none;cursor: pointer;height: 32px;margin-right: 10px;font-size: 12px;}
+.cancel-button{display:inline-block;background-color: #ddd;border: 1px solid #ddd;color: #666;border-radius: 2px;outline: none;cursor: pointer;height: 32px;margin-right: 10px;font-size: 12px;}
+.bright-button{display:inline-block;background-color: #2bc486;border: 1px solid #2bc486;color: #fff;border-radius: 2px;outline: none;cursor: pointer;height: 32px;margin-right: 10px;font-size: 12px;}
+.input,.select{display: inline-block;height: 32px;border: 1px solid #e8e8e8;background-color: #fff;color: #999;padding: 0 10px;font-size: 12px;}
+table tr:first-child td{background-color: #fff;}
+table,table tr,table td{border: none;}
+
+/** tab切换页面主体内容样式 **/
+.tab-content{width: 910px;}
+.tab-content .search-box{margin:20px 0;background-color: #fff;}
+.tab-content .search-box .p-oper{margin-top: 20px;text-align: right;}
+.tab-content .search-box label{margin:0 10px 0 15px;}
+.tab-content table{width: 100%;color: #666;border-top: 1px solid #ddd;border-left: 1px solid #ddd;}
+.tab-content table tr{border-right: 1px solid #ddd;border-bottom: 1px solid #ddd;}
+.tab-content table tr td{background-color: #fff;border: none;}
+.tab-content table td,.tab-content table th{vertical-align: middle;}
+.tab-content table thead th{height: 50px;background-color: #eee;font-weight: bold;font-size: 12px;}
+.tab-content table tr td{height: 55px;background-color: #fff;font-size: 12px;}
+.tab-content table .odd td{background-color: #f8f8f8;}
+.tab-content table td a{padding: 3px 5px;border: 1px solid #ddd;border-radius:2px;background-color: transparent;color: #666;}
+.tab-content table .odd td a{border-color: #2bc486;color: #2bc486;}
+a.red-button{border-color: #e7441f!important;color: #e7441f!important;}
+
+.page-bar{width: 550px;margin: 0 auto;margin-top: 40px;}
+.page-bar a,.page-bar strong {display: inline-block;  line-height: 26px;height: 26px; border: 1px solid #ddd; color: #666;border-radius: 1px;width: 28px;text-align: center;}
+.page-bar span{border: none;display: inline-block;  line-height: 26px;height: 26px; color: #666;}
+.page-bar a:hover{background-color: #2bc486;color: #fff;border-color: #2bc486;}
+.page-bar strong{background-color: #2bc486;color: #fff;border-color: #2bc486;}
+.page-bar input{width: 22px;line-height: 26px;height: 26px;padding: 0 3px;border:1px solid #ddd;border-radius:2px;margin: 0 5px;background-color: #fff;}
+
+/** 弹框样式 **/
+#addStoreDia .data-content{width: 600px;padding: 10px 20px;color: #666;}
+#editRoleDia .data-content,#resetPassDia .data-content{width: 355px;padding: 10px 20px;color: #666;}
+#editRoleDia .dia-main,#resetPassDia .dia-main{margin: 10px 30px;}
+#staffinfoDia .data-content{width: 500px;color: #666;}
+#staffinfoDia .dia-main{margin: 10px 20px;}
+#staffinfoDia table tr{height: 26px;}
+#editStaffinfoDia .data-content,#addStaffDia .data-content{width: 610px;padding: 10px 20px;color: #666;}
+#editStaffinfoDia table td,#addStaffDia table td{padding:0 0;}
+#stopUseDia .data-content{width: 400px;padding: 10px 30px;color: #666;}
+#stopUseDia table tr{height: 42px;}
+#stopUseDia table td{text-align: center;}
+#batchAddStaffDia .data-content{width: 390px;padding: 10px 30px;color: #666;}
+#batchAddStaffDia .dia-main{margin: 10px 30px;}
+#batchAddStaffDia table tr{height: 38px;}
+#warnInfoDia .data-content{width: 330px;padding: 10px 30px;color: #666;}
+#warnInfoDia table tr{height: 38px;}
+#warnInfoDia table td{text-align: center;}
+
+.data-dia .dia-header{height: 44px;line-height: 44px;border-bottom: solid 1px #e8e8e8;}
+.data-dia .dia-header .dia-title{font-size: 25px;}
+.data-dia .dia-header .dia-cha{position: absolute;display: inline-block;font-size:20px;width: 15px;height: 15px;right: 20px;top: 6px;color: #666;}
+.data-dia .dia-main{margin: 10px 10px;}
+.data-dia table{width: 100%;}
+.data-dia table tr{height: 54px;}
+.data-dia table td{text-align: left;padding: 10px 0;}
+.data-dia .required-field{color: red;padding-right: 3px;}
+.data-dia .warn-tips{color: #f60;padding-top: 2px;}
+.data-dia .gray-tips{color: #999;padding-top: 2px;}
+.data-dia td a.down-link{color: #26a8e2;cursor: pointer;}
+.data-dia .input{width: 180px;}
+.data-dia .select{width: 202px;}
+.data-dia .select option{padding-top:20px;}
+.data-dia .address .select{margin-right:5px;}
+.data-dia table .store-logo .tips{color:#999;}
+.data-dia .img-preview{display: inline-block;width: 150px;height: 100px;line-height:100px;text-align:center;border:solid 1px #ddd;border-radius: 2px;color: #666;cursor: pointer;}
+.data-dia .img-preview b{font-size: 24px;vertical-align: -3px;}
+.data-dia input[type="radio"]{display: none;}
+.data-dia .radio-input{display: inline-block;cursor: pointer;padding-left: 22px;background:url(/common/images/radio.png) no-repeat left bottom;background-size: 16px;}
+.data-dia .radio-input.check{background-position: left top;}
