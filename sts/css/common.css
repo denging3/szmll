@@ -575,7 +575,7 @@ select::-ms-expand {
     font-size: 12px;
     text-align: center;
 }
-.input,.select {
+.input,.select,.textarea {
     display: inline-block;
     height: 32px;
     border: 1px solid #e8e8e8;
@@ -681,6 +681,7 @@ a.red-button {
     color: #e7441f!important;
 }
 /* ****************弹框内部内容样式****************** */
+.data-dia .data-content{max-height: 760px;overflow-y:auto;}
 .data-dia .dia-header {
     height: 44px;
     line-height: 44px;
@@ -688,6 +689,8 @@ a.red-button {
 }
 .data-dia .dia-header .dia-title {
     font-size: 25px;
+    display: block;
+    text-align: center;
 }
 .data-dia .dia-header .dia-cha {
     position: absolute;
@@ -757,26 +760,24 @@ a.red-button {
 .data-dia .dia-main .img-block {
     float: left;
 }
-.data-dia .dia-main .block1 {
-    width:290px;
-}
+
 #imgDragPane {
-    -webkit-box-sizing:border-box;
-    width: 290px;
-    background-color: #fff;
+    background-color: #b2b2b2;
     border-radius: 4px;
+    padding-top: 30px;
 }
 #imgDragContainer {
-    width: 290px;
-    height: 200px;
     margin-left: -1px;
     border:dotted 1px #ddd;
     background-color: #fff;
 }
 #imgDragContainer .p1 {
-    margin-top: 70px;
+    margin-top: 25%;
     color: #808080;
     text-align: center;
+    border-bottom: none;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 #imgDragContainer .p1 b {
     font-size: 24px;
@@ -787,26 +788,13 @@ a.red-button {
     color: #999;
     margin-top: 5px;
     text-align: center;
+    border-bottom: none;
+    padding-top: 0;
 }
 
-.jcrop-holder #preview-pane {
-    display: block;
-    position: absolute;
-    z-index: 2000;
-    top: -30px;
-    right: -275px;
-    background-color: white;
-    border-radius: 2px;
-}
-#preview-pane .preview-container {
-    width: 210px;
-    height: 140px;
-    overflow: hidden;
-}
 .data-dia .dia-main .block1 .file-btn {
     display:block;
-    width:288px;
-    eight:32px;
+    height:32px;
     line-height:32px;
     border:solid 1px #ddd;
     border-radius:2px;
@@ -829,9 +817,6 @@ a.red-button {
     margin-left: 28px;
 }
 .data-dia .dia-main .block2 .img-fi-preview {
-    display: block;
-    width: 210px;
-    height: 140px;
     border: solid 1px #ddd;
     border-radius: 2px;
     position: relative;

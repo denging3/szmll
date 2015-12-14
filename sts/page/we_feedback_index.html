@@ -6,7 +6,7 @@
 .sec-header .tab-menu-0 ul .first { margin-left: 0;}
 .sec-header .tab-menu-0 ul .last { border-right: none;}
 .sec-header .tab-menu-0 ul .current { background-color: #2bc486; color: #fff;}
-.sec-header .tab-menu-1 { width: 975px; border-bottom: 1px solid #ddd;}
+.sec-header .tab-menu-1 { width: 966px; border-bottom: 1px solid #ddd;}
 .sec-header .tab-menu-1 ul li { display: inline-block; padding: 20px 0 10px 0 ; width: 95px; text-align: center; margin-bottom: -1px; margin-right: 10px; font-size: 14px;}
 .sec-header .tab-menu-1 ul .current { color: #2bc486; border-bottom: 1px solid #2bc486;}
 .sec-header .tab-menu-2 ul li { display: inline-block; margin: 20px 0 10px 10px; width: 95px; text-align: center; font-size: 14px; background: url(images/radio.png) no-repeat left -16px; background-size: 16px;}
@@ -62,7 +62,7 @@ i.icon20-white-add{display: inline-block;width: 20px;height: 20px;background: ur
 
 .feed-footer input { width: 138px; font-size: 16px;height: 45px;line-height: 45px;}
 </style>
-
+<link rel="stylesheet" type="text/css" href="css/msg_imgtext.css" />
 <div class="sec-header">
     <p>微信回复管理</p>
     <div class="tab-menu-0">
@@ -97,14 +97,14 @@ i.icon20-white-add{display: inline-block;width: 20px;height: 20px;background: ur
             display: [{curIndex:0,dataUrl:['1-1-1','2-0-1','3-0-0']},
                 {curIndex:0,dataUrl:['1-1-1','1-2-0']},
                 {curIndex:0,dataUrl:['1-1-1','1-1-2']}],
-            pageLoad: 'page/information_dy.html',
+            pageLoad: 'page/msg_imgtext.html',
             callString: 'weFeedShow("运营",null);'
         },
         '1-1-2': {
             display: [{curIndex:0,dataUrl:['1-1-1','2-0-1','3-0-0']},
                 {curIndex:0,dataUrl:['1-1-1','1-2-0']},
                 {curIndex:1,dataUrl:['1-1-1','1-1-2']}],
-            pageLoad: 'page/text_msg.html'
+            pageLoad: 'page/msg_text.html'
         },
         '1-2-0': {
             display: [{curIndex:0,dataUrl:['1-1-1','2-0-1','3-0-0']},
