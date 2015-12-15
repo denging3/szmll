@@ -1,24 +1,3 @@
-<style type="text/css">
-.data-dia .edit-rule-main {margin-top: 10px;}
-.data-dia .edit-rule-main table { font-size: 14px; color: #666; margin-top: 10px;}
-.data-dia .edit-rule-main table td { vertical-align: middle; height: 70px;}
-.data-dia .edit-rule-main .lab { font-size: 14px; color: #666; width: 80px; }
-.data-dia .edit-rule-main .input { width: 680px; }
-.data-dia .edit-rule-main .textarea {width: 810px;height: 78px;}
-.data-dia .edit-rule-main .keyw-tips {display: inline-block;width: 830px;height: 34px;line-height: 26px;text-align: right;}
-.data-dia .edit-rule-main .fir-create-access {padding-right: 20px;}
-.data-dia .edit-rule-main .create-access a {display: inline-block;width: 400px;height: 206px;line-height:206px;text-align:center;color:#666;border: dotted 2px #ddd;border-radius: 2px;}
-.data-dia .create-access a:hover {border-color: #aaa;}
-.data-dia .edit-rule-main .msg-contain { display: inline-block; width: 830px; height: 118px; border: solid 1px #ddd; border-radius: 2px; margin:10px 0;}
-.data-dia .edit-rule-main .msg-contain .msg-span { display: inline-block; width: 660px; height: 98px; border-right: solid 1px #ddd; margin: 10px; vertical-align: middle;}
-.data-dia .edit-rule-main .msg-contain dl { display: inline-block; width: 134px; float: none; height: 90px; border-bottom: none;text-align: center;}
-.data-dia .edit-rule-main .msg-contain dd{display: inline-block;margin-top: 8px;padding: 0 3px;}
-.data-dia .edit-rule-main .msg-span .msg-span-intext{display: inline-block;width: 470px;height: 100px;vertical-align: 30px;}
-.data-dia a.green-link{  padding: 3px 5px; border: 1px solid #2bc486; border-radius: 2px;color: #2bc486;}
-.data-dia a.red-link{  padding: 3px 5px; border: 1px solid red; border-radius: 2px;color: red;}
-.data-dia a.gray-link{  padding: 3px 5px; border: 1px solid #ddd; border-radius: 2px;color: #666;}
-.data-dia .emotion-editor{width: 585px;}
-</style>
 <div class="main-content">
     <div class="keyword-setting setting-box">
         <p class="tips">设置关键词自动回复，用户发送的消息内如果有您设置的关键字，即可把您设置在此规则名中回复的内容自动发送给订阅用户。</p>
@@ -141,9 +120,7 @@
     $('.addTextMsg').load('page/msg_text.html',function(){
         removeFooter();
     });
-    $('.addMsgItem').load('page/msg_imgtext.html',function(){
-        weFeedShow('运营',[]);
-    });
+    $('.addMsgItem').load('page/msg_imgtext.html');
 }();
 function editRule(){
         $.lightBox({
@@ -186,15 +163,20 @@ function addMsgItem(ruleid){
         title: '添加图文消息',
         html: $('.addMsgItem').html()
     });
+
+    //绑定图文选择事件
+    $.msgDemo($('#addMsgItemDia'));
 }
 function editMsgItem(id,src,desc){
     $.lightBox({
         width: 980,
         closeOther: false,
         boxID: 'addMsgItem',
-        title: '添加图文消息',
+        title: '编辑图文消息',
         html: $('.addMsgItem').html()
     });
+    //绑定图文选择事件
+    $.msgDemo($('#addMsgItemDia'));
     //TODO 补充接口后完善
 }
 function createMsgH(){

@@ -1,9 +1,4 @@
-<div class="arrow-nav">
-    <span class="arrow-nav-title" id="arrowNavTitle"></span>
-    <span class="arrow-out"></span>
-    <span class="arrow-in"></span>
-</div>
-<div class="main_content demo-content">
+<div class="msg-content demo-content">
     <div class="demo_name flex">
         <ul>
             <li class="demo_title">模板名称</li>
@@ -82,117 +77,14 @@
 </div>
 
 <script>
-    $.fn.extend({
-        check_first:function(){
-                $('.demo_list>div').attr('class','deme_title_info');
-                $('.demo_list>div').eq(0).attr('class','demo_st');
-        },
-        del_list:function(type){
-            $.fn.check_first();
-            $(this).on(type,function(){
-                var n = $(this).parent(),
-                    l = n.data('list');
-                $('.demo_info li').each(function(i){
-                    if($(this).data('list')==l){
-                        $(this).children('span').attr('class','');
-                    }
-                })
-                n.remove();
-                $.fn.check_first();
-            });
-        },
-        check_list:function(type){
-            $(this).on(type,function(){
-                if($(this).hasClass('img_check')==true){
-                    var t = $(this).nextAll('p').text();
-                    var i = $(this).next('img').attr('src');
-                    var d = $(this).parent().data('list');
-                    if($('.img_check').length==1){
-                        $('.demo_list').append("<div class='demo_st' data-list='"+d+"'>"+
-                        "<a class='close_demo' href='javascript:;'></a>"+
-                        "<p>"+t+"</p>"+
-                        "<img src="+i+" alt=''/>"+
-                        "</div>");
-                    }else{
-                        $('.demo_list').append("<div class='deme_title_info' data-list='"+d+"'>"+
-                        "<a class='close_demo' href='javascript:;'></a>"+
-                        "<p>"+t+"</p>"+
-                        "<img src="+i+" alt=''/>"+
-                        "</div>");
-                    }
-                }else{
-                    var s = $(this).parent().data('list');
-                    $('.demo_list>div').each(function(i){
-                        if($(this).data('list')==s){
-                            $(this).remove();
-                        }
-                    })
-                };
-                $('.close_demo').del_list('click');
-            })
-            $.fn.check_first();
-        },
-        addFooterOper:function(buttons){
-            //添加操作按钮
-            //buttons 为对象数组
-            //[{value: '删除回复',className: 'cancel-button',cbFun: {function...}},{value: '确  认',className: 'bright-button'}]
-            //默认buttons值
-            var defaultBtn = [{
-                value: '删除回复',className: 'cancel-button',cbFun: delFeed
-            },{
-                value: '确  认',className: 'bright-button',cbFun: confirmFeed }];
-            buttons = buttons || defaultBtn;
-            var html = '<div class="feed-footer"><div class="feed-oper">';
-            for(var k in buttons) {
-                if ( k != 0 ) {
-                    html += '&emsp;'
-                }
-                html += '<input type="button" id="feedOperBtn_' + k + '" value="' + buttons[k].value + '" class="' + buttons[k].className + '" />'
-            }
-            html += '</div></div>';
-            $(this).after(html);
-            //操作按钮添加回调方法
-            for(var kk in buttons) {
-                if ( typeof buttons[kk].cbFun == 'function' ) {
-                    $('#feedOperBtn_' + kk).on('click',buttons[kk].cbFun);
-                }
-            }
-        },
-        /*以下为java新增方法*/
-        fsaf:function(type){
-            // console.log(this)
-        }
-    });
-    function weFeedShow(title,opButtons){
-        $('#arrowNavTitle').text(title);
-        $('.arrow-nav').show();
-        $('.main_content').addFooterOper(opButtons);
-    }
-    /**
-     * [delFeed 删除回复]
-     */
-    function delFeed(){
-        //TODO
-        //待完善删除回复
-    }
-    /**
-     * [confirmFeed 回复确认]
-     */
-    function confirmFeed(){
-        //TODO
-        //待完善确认回复
-        $.lightBox({
-            width: 290,
-            title: '提示',
-            html: '<p style="text-align:center;">保存成功</p>'
-        });
-    }
-    !function() {
-        $('.demo_info span').on('click',function(){
-            $(this).toggleClass('img_check');
-        });
-        $('.demo_info span').check_list('click');
-        /*java 附加函数*/
-        $('.demo_title_list li').fsaf('click');
-    }();
+    // !function() {
+    //     $('.demo_info span').on('click',function(){
+    //         console.log('aaaaaaaaaaaa');
+    //         console.log($(this));
+    //         $(this).toggleClass('img_check');
+    //     });
+    //     $('.demo_info span').check_list('click');
+    //     /*java 附加函数*/
+    //     $('.demo_title_list li').fsaf('click');
+    // }();
 </script>

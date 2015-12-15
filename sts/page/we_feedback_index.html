@@ -1,4 +1,7 @@
 <style type="text/css">
+/* ***************************
+* 微回复内容导航
+* ****************************/
 .sec-header ul li{cursor: pointer;}
 .sec-header .tab-menu-0 { margin-top: 15px;}
 .sec-header .tab-menu-0 ul { display: inline-block; border: solid 1px #2bc486; border-radius: 2px;}
@@ -6,61 +9,105 @@
 .sec-header .tab-menu-0 ul .first { margin-left: 0;}
 .sec-header .tab-menu-0 ul .last { border-right: none;}
 .sec-header .tab-menu-0 ul .current { background-color: #2bc486; color: #fff;}
-.sec-header .tab-menu-1 { width: 966px; border-bottom: 1px solid #ddd;}
+.sec-header .tab-menu-1 { width: 960px; border-bottom: 1px solid #ddd;}
 .sec-header .tab-menu-1 ul li { display: inline-block; padding: 20px 0 10px 0 ; width: 95px; text-align: center; margin-bottom: -1px; margin-right: 10px; font-size: 14px;}
 .sec-header .tab-menu-1 ul .current { color: #2bc486; border-bottom: 1px solid #2bc486;}
-.sec-header .tab-menu-2 ul li { display: inline-block; margin: 20px 0 10px 10px; width: 95px; text-align: center; font-size: 14px; background: url(images/radio.png) no-repeat left -16px; background-size: 16px;}
-.sec-header .tab-menu-2 ul .current { background-position: left 3px;}
+.sec-header .tab-menu-2 ul li { display: inline-block; margin: 20px 0 10px 10px; width: 95px; height:16px;line-height:16px;text-align: center; font-size: 14px; background: url(images/radio.png) 0 -18px no-repeat; background-size: 16px;}
+.sec-header .tab-menu-2 ul .current { background-position: 0 0;}
 .sec-header .none {display: none;}
 
-/*关注自动回复-文字消息*/
-.main-content .emotion-editor{width: 975px;}
-.main-content .emotion-editor .edit-area{height: 270px;padding: 20px;border: solid 1px #ddd;font-size: 14px;color: #666;overflow-y: auto; overflow-x: hidden;}
-.main-content .emotion-editor .editor-toolbar{height: 36px;line-height: 36px;padding: 0 20px;border: solid 1px #ddd;border-top:none;}
-.main-content .emotion-editor .editor-toolbar p{float: right;font-size: 14px;color: #666;}
+/* ***************************
+* 文字消息模块
+* ****************************/
+.msg-content .emotion-editor .edit-area{height: 270px;padding: 20px;border: solid 1px #ddd;font-size: 14px;color: #666;overflow-y: auto; overflow-x: hidden;}
+.msg-content .emotion-editor .editor-toolbar{height: 36px;line-height: 36px;padding: 0 20px;border: solid 1px #ddd;border-top:none;}
+.msg-content .emotion-editor .editor-toolbar p{float: right;font-size: 14px;color: #666;padding: 0;}
 
-/*有参关注自动回复*/
-.main-content .qrcode-setting{width: 975px;}
+/* ***************************
+* 添加规则按钮
+* ****************************/
+.main-content .setting-box {margin-top: 10px;}
 .main-content .setting-box p{margin-bottom: 20px;}
 .main-content .setting-box .tips{padding-left: 30px;height: 56px;line-height: 56px;font-size: 14px;color: #333;background-color: #e9f9f3;}
 .main-content .lit-orange{width: 120px;line-height: 34px;background-color: #ff811a;}
-.main-content span b{font-size: 24px;vertical-align: -3px;font-weight: normal;}
-/*关键词自动回复*/
-.main-content .keyword-setting {margin-top: 10px;}
+
+/* ***************************
+* 图文消息内容模块
+* ****************************/
+.msg-contents .msg-item{display: none;}
+.msg-contents .cur-item{display: block;}
+/* ***************************
+* 回复列表
+* ****************************/
 .main-content .info-list .kspan{display: inline-block;padding: 0 5px;background-color: #e9f9f3;}
-/*有参关注自动回复-添加规则弹窗*/
+
+/* ***************************
+* 添加规则弹窗
+* ****************************/
 .data-dia p{padding: 5px 0;}
 .data-dia p .lab{display: inline-block;width: 80px;}
 .data-dia p .input{width: 734px;}
 .data-dia p .choose-qr-btn{display:inline-block;width: 754px;height: 60px;line-height: 60px;text-align: center;border:solid 1px #ddd; border-radius: 2px;cursor: pointer;}
-i.icon20-gray-add{display: inline-block;width: 20px;height: 20px;background: url("images/base_z2968da.png") 0 -2950px no-repeat;vertical-align: -5px;}
-i.icon20-white-add{display: inline-block;width: 20px;height: 20px;background: url("images/base_z2968da.png") 0 -4662px no-repeat;vertical-align: -5px;}
+.data-dia .radio-wefeed{display: inline-block; cursor: pointer; padding-left: 22px; background: url(images/radio.png) 0 -16px no-repeat;background-size: 16px;}
+.data-dia .radio-current{background-position: 0 2px;}
+.data-dia .rule-main .emotion-editor{margin-top:20px;}
+
+/* ***************************
+* 选择二维码弹窗内容
+* ****************************/
 #chooseQrDia .data-content { padding: 10px 0; }
 #chooseQrDia .dia-main {margin-top: 0;}
-.data-dia .qr-choose-box { position: relative;}
-.data-dia .dia-main dl {width: 50%; height: 400px; float: left; border-bottom: solid 1px #ddd;}
-.data-dia .dia-main .spera { display: inline-block; width: 1px; height: 100%; position: absolute; top: 0; left: 50%; border-right: solid 1px #ddd; }
-.data-dia .qr-choose-box dt { height: 40px; line-height: 40px; padding-left: 30px; background-color: #f4f4f4; color: #666; font-size: 14px; font-weight: bold; }
-.data-dia .qr-choose-box dt span { font-size: 12px;}
-.data-dia .qr-choose-box dd { padding: 20px 30px; }
-.data-dia .qr-search-box { position: relative; margin-bottom: 20px;}
-.data-dia .qr-search-box .input { width: 220px;padding-right: 40px; }
-.data-dia .qr-search-box .qr-search-btn { display: inline-block; width: 20px; height: 20px; position: absolute; background: url("images/base_z2968da.png") 0 -4337px no-repeat; top: 7px; right: 10px; cursor: pointer; }
-.data-dia .qr-choose-box .table-box {width:100%;height: 270px;overflow-y: auto;}
-.data-dia .qr-choose-box .search-list td { height: 34px; vertical-align: middle; text-align: center; color: #666; }
-.data-dia .qr-choose-box .search-list td span { display: inline-block; width: 16px;
+#chooseQrDia .qr-choose-box { position: relative;}
+#chooseQrDia .qr-choose-box .spera { display: inline-block; width: 1px; height: 100%; position: absolute; top: 0; left: 50%; border-right: solid 1px #ddd; }
+#chooseQrDia .qr-choose-box dl {width: 50%; height: 400px; float: left; border-bottom: solid 1px #ddd;}
+#chooseQrDia .qr-choose-box dt { height: 40px; line-height: 40px; padding-left: 30px; background-color: #f4f4f4; color: #666; font-size: 14px; font-weight: bold; }
+#chooseQrDia .qr-choose-box dt span { font-size: 12px;}
+#chooseQrDia .qr-choose-box dd { padding: 20px 30px; }
+#chooseQrDia .qr-search-box { position: relative; margin-bottom: 20px;}
+#chooseQrDia .qr-search-box .input { width: 220px;padding-right: 40px; }
+#chooseQrDia .qr-search-box .qr-search-btn { display: inline-block; width: 20px; height: 20px; position: absolute; background: url("images/base_z2968da.png") 0 -4337px no-repeat; top: 7px; right: 10px; cursor: pointer; }
+#chooseQrDia .qr-choose-box .table-box {width:100%;height: 270px;overflow-y: auto;}
+#chooseQrDia .qr-choose-box .search-list td { height: 34px; vertical-align: middle; text-align: center; color: #666; }
+#chooseQrDia .qr-choose-box .search-list td span { display: inline-block; width: 16px;
   height: 16px; background: url("images/check.png") 0 0 no-repeat ; cursor: pointer; }
-.data-dia .qr-choose-box .search-list td .checked {background-position: 0 -16px;}
-.data-dia .qr-choose-box dd ul li{cursor: pointer;height: 34px;line-height: 34px;position: relative;padding-left: 10px;}
-.data-dia .qr-choose-box dd ul li span {color: #666}
-.data-dia .qr-choose-box dd ul .del-span { display: inline-block; width: 20px; height: 20px; background: url("images/base_z2968da.png") 0 -2570px no-repeat ; cursor: pointer; vertical-align: -10px; position: absolute;top:10px; right:10px;}
-.data-dia .qr-choose-box .hover-li {border: solid 1px #2bc486;border-radius: 2px;}
-.data-dia .qr-choose-box .hover-li span{ color: #2bc486;}
-.data-dia .qr-choose-box .hover-li .del-span{ background-position: 0 -1824px;}
+#chooseQrDia .qr-choose-box .search-list td .checked {background-position: 0 -16px;}
+#chooseQrDia .qr-choose-box dd ul li{cursor: pointer;height: 34px;line-height: 34px;position: relative;padding-left: 10px;}
+#chooseQrDia .qr-choose-box dd ul li span {color: #666}
+#chooseQrDia .qr-choose-box dd ul .del-span { display: inline-block; width: 20px; height: 20px; background: url("images/base_z2968da.png") 0 -2570px no-repeat ; cursor: pointer; vertical-align: -10px; position: absolute;top:10px; right:10px;}
+#chooseQrDia .qr-choose-box .hover-li {border: solid 1px #2bc486;border-radius: 2px;}
+#chooseQrDia .qr-choose-box .hover-li span{ color: #2bc486;}
+#chooseQrDia .qr-choose-box .hover-li .del-span{ background-position: 0 -1824px;}
+
+/* ***************************
+* 关键词-添加规则弹窗
+* ****************************/
+.data-dia .edit-rule-main {margin-top: 10px;}
+.data-dia .edit-rule-main table { font-size: 14px; color: #666; margin-top: 10px;}
+.data-dia .edit-rule-main table td { vertical-align: middle; height: 70px;}
+.data-dia .edit-rule-main .lab { font-size: 14px; color: #666; width: 80px; }
+.data-dia .edit-rule-main .input { width: 680px; }
+.data-dia .edit-rule-main .textarea {width: 810px;height: 78px;}
+.data-dia .edit-rule-main .keyw-tips {display: inline-block;width: 830px;height: 34px;line-height: 26px;text-align: right;}
+.data-dia .edit-rule-main .fir-create-access {padding-right: 20px;}
+.data-dia .edit-rule-main .create-access a {display: inline-block;width: 400px;height: 206px;line-height:206px;text-align:center;color:#666;border: dotted 2px #ddd;border-radius: 2px;}
+.data-dia .edit-rule-main .create-access a:hover {border-color: #aaa;}
+.data-dia .edit-rule-main .msg-contain { display: inline-block; width: 830px; height: 118px; border: solid 1px #ddd; border-radius: 2px; margin:10px 0;}
+.data-dia .edit-rule-main .msg-contain .msg-span { display: inline-block; width: 660px; height: 98px; border-right: solid 1px #ddd; margin: 10px; vertical-align: middle;}
+.data-dia .edit-rule-main .msg-contain dl { display: inline-block; width: 134px; float: none; height: 90px; border-bottom: none;text-align: center;}
+.data-dia .edit-rule-main .msg-contain dd{display: inline-block;margin-top: 8px;padding: 0 3px;}
+.data-dia .edit-rule-main .msg-span .msg-span-intext{display: inline-block;width: 470px;height: 100px;vertical-align: 30px;}
+
+/* ***************************
+* 通用
+* ****************************/
 .feed-footer .feed-oper { margin: 20px 0 10px 0; text-align: center;}
+.feed-footer input,.data-dia .dia-footer input{ width: 138px; font-size: 16px;height: 45px;line-height: 45px;}
 
-
-.feed-footer input { width: 138px; font-size: 16px;height: 45px;line-height: 45px;}
+i.icon20-gray-add{display: inline-block;width: 20px;height: 20px;background: url("images/base_z2968da.png") 0 -2950px no-repeat;vertical-align: -5px;}
+i.icon20-white-add{display: inline-block;width: 20px;height: 20px;background: url("images/base_z2968da.png") 0 -4662px no-repeat;vertical-align: -5px;}
+.data-dia a.green-link{  padding: 3px 5px; border: 1px solid #2bc486; border-radius: 2px;color: #2bc486;}
+.data-dia a.red-link{  padding: 3px 5px; border: 1px solid red; border-radius: 2px;color: red;}
+.data-dia a.gray-link{  padding: 3px 5px; border: 1px solid #ddd; border-radius: 2px;color: #666;}
 </style>
 <link rel="stylesheet" type="text/css" href="css/msg_imgtext.css" />
 <div class="sec-header">
@@ -86,7 +133,14 @@ i.icon20-white-add{display: inline-block;width: 20px;height: 20px;background: ur
     </div>
 </div>
 <div class="sec-main">
+    <div class="page-content" id="js-page1-1-1"></div>
+    <div class="page-content" id="js-page1-1-2"></div>
+    <div class="page-content" id="js-page1-2-0"></div>
+    <div class="page-content" id="js-page2-0-1"></div>
+    <div class="page-content" id="js-page2-0-2"></div>
+    <div class="page-content" id="js-page3-0-0"></div>
 </div>
+<script type="text/javascript" src="js/msg_imgtext.js"></script>
 <script type="text/javascript">
 
 !function(){
@@ -94,37 +148,47 @@ i.icon20-white-add{display: inline-block;width: 20px;height: 20px;background: ur
     var pageParam = ( /page=/.test(pageQuery[0]) ) ? ( pageQuery[0].replace('page=','') ) : '1-1-1';
     window._pageConf ={
         '1-1-1': {
+            pageIndex: '1-1-1',
             display: [{curIndex:0,dataUrl:['1-1-1','2-0-1','3-0-0']},
                 {curIndex:0,dataUrl:['1-1-1','1-2-0']},
                 {curIndex:0,dataUrl:['1-1-1','1-1-2']}],
-            pageLoad: 'page/msg_imgtext.html',
-            callString: 'weFeedShow("运营",null);'
+            pageLoad: 'page/msg_imgtext_kinds.html',
+            callFunc: function() {
+                $("#js-page1-1-1").addSettingModual();
+                $("#js-page1-1-1").bindNavEvent();
+                $("#js-page1-1-1").addFooterOper(null);
+            }
         },
         '1-1-2': {
+            pageIndex: '1-1-2',
             display: [{curIndex:0,dataUrl:['1-1-1','2-0-1','3-0-0']},
                 {curIndex:0,dataUrl:['1-1-1','1-2-0']},
                 {curIndex:1,dataUrl:['1-1-1','1-1-2']}],
             pageLoad: 'page/msg_text.html'
         },
         '1-2-0': {
+            pageIndex: '1-2-0',
             display: [{curIndex:0,dataUrl:['1-1-1','2-0-1','3-0-0']},
                 {curIndex:1,dataUrl:['1-1-1','1-2-0']},
                 {}],
             pageLoad: 'page/param_feedback.html'
         },
         '2-0-1': {
+            pageIndex: '2-0-1',
             display: [{curIndex:1,dataUrl:['1-1-1','2-0-1','3-0-0']},
                 {},
                 {curIndex:0,dataUrl:['2-0-1','2-0-2']}],
             pageLoad: 'page/param_feedback.html'
         },
         '2-0-2': {
+            pageIndex: '2-0-2',
             display: [{curIndex:1,dataUrl:['1-1-1','2-0-1','3-0-0']},
                 {},
                 {curIndex:1,dataUrl:['2-0-1','2-0-2']}],
-            pageLoad: 'page/text_msg.html'
+            pageLoad: 'page/msg_text.html'
         },
         '3-0-0': {
+            pageIndex: '3-0-0',
             display: [{curIndex:2,dataUrl:['1-1-1','2-0-1','3-0-0']},{},{}],
             pageLoad: 'page/keyword_feedback.html'
         }
@@ -132,6 +196,10 @@ i.icon20-white-add{display: inline-block;width: 20px;height: 20px;background: ur
     var curConf = window._pageConf[pageParam];
     goPage(curConf);
 
+    $('.sec-header li').on('click',function(){
+        var pageParam = $(this).attr('data-role');
+        goPage(window._pageConf[pageParam]);
+    });
 }();
 function goPage(curPage){
     var display = curPage.display;
@@ -147,16 +215,14 @@ function goPage(curPage){
             $('.tab-menu-' + k).hide();
         }
     }
-    if ( curPage.callString ) {
-        $('.sec-main').load(curPage.pageLoad,function(){
-            eval(curPage.callString);
-        });
-    } else {
-        $('.sec-main').load(curPage.pageLoad);
+    if ( !$('#js-page'+curPage.pageIndex).text() ) {
+        if ( curPage.callFunc ) {
+            $( '#js-page' + curPage.pageIndex ).load(curPage.pageLoad,curPage.callFunc);
+        } else {
+            $( '#js-page' + curPage.pageIndex ).load(curPage.pageLoad);
+        }
     }
-    $('.sec-header li').on('click',function(){
-        var pageParam = $(this).attr('data-role');
-        goPage(window._pageConf[pageParam]);
-    })
+    $('.sec-main .page-content').hide();
+    $('#js-page'+curPage.pageIndex).show();
 }
 </script>

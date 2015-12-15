@@ -1,10 +1,5 @@
-<style type="text/css">
-.data-dia .radio-wefeed{display: inline-block; cursor: pointer; padding-left: 22px; background: url(images/radio.png) no-repeat left -16px;background-size: 16px;}
-.data-dia .radio-current{background-position: left 3px;}
-.data-dia .rule-main .emotion-editor{margin-top:20px;}
-</style>
 <div class="main-content">
-    <div class="qrcode-setting setting-box">
+    <div class="setting-box">
         <p class="tips">设置带参数二维码的回复规则，当用户扫描带参数二维码，即可把您设置在此规则名中回复的内容自动发送给订阅用户。</p>
         <p><span class="orange-button lit-orange js-add-rule"><i class="icon20-white-add"></i>添加规则</span></p>
     </div>
@@ -123,46 +118,52 @@
 window.__chosedQR = {id:[2],desc:['2015美丽金秋...']};
 !function(){
     //添加规则弹框内容中调用公共模块 information.html
-    $('.js-main1').load('page/msg_imgtext.html',function(){
-        //information中方法weFeedShow
-        weFeedShow('运营',[]);
-    });
+    $('.js-main1').load('page/msg_imgtext_kinds.html');
     $('.js-main2').load('page/msg_text.html',function(){removeFooter();});
 
-    $('.js-add-rule').on('click',function(){
-        
-        //初始化选定规则
-        window.__chosedQR = { id: [],desc: [] };
-        initChoedQR();
-
-        $.lightBox({
-            width: 975,
-            boxID: 'addQrRule',
-            title: '添加规则',
-            html: $('.addQrRule').html(),
-            buttons: [{
-                value: '重  置',
-                className: 'dia-close cancel-button'
-            },{
-                value: '确  认',
-                className: 'bright-button',
-                callbackFun: function(){
-                    console.log('do some');
-                }
-            }]
-        });
-
-        //选择二维码事件
-        choQREvent();
-            
-        $('.data-dia .radio-wefeed').on('click',function(){
-            $('.data-dia .radio-wefeed').removeClass('radio-current');
-            var index = $(this).attr('data-role');
-            $('.data-dia .rule-main').children().hide().eq(index).show();
-            $(this).addClass('radio-current');
-        });
-    });
+    $('.js-add-rule').on('click',addQrRule);
 }();
+function loadFeedContent(pObj){
+    $(pObj).find.('.js-main1').load('page/msg_imgtext_kinds.html');
+    $(pObj).find.('.js-main2').load('page/msg_text.html',function(){removeFooter();});
+    $(pObj).find.('.js-add-rule').on('click',addQrRule);
+}
+function addQrRule(){
+    //初始化选定规则
+    window.__chosedQR = { id: [],desc: [] };
+    initChoedQR();
+
+    $.lightBox({
+        width: 975,
+        boxID: 'addQrRule',
+        title: '添加规则',
+        html: $('.addQrRule').html(),
+        buttons: [{
+            value: '重  置',
+            className: 'dia-close cancel-button'
+        },{
+            value: '确  认',
+            className: 'bright-button',
+            callbackFun: function(){
+                console.log('do some');
+            }
+        }]
+    });
+
+    //选择二维码事件
+    choQREvent();
+    
+    //图文模块添加事件
+    $('#addQrRuleDia').addSettingModual();
+    $('#addQrRuleDia').bindNavEvent();
+
+    $('.data-dia .radio-wefeed').on('click',function(){
+        $('.data-dia .radio-wefeed').removeClass('radio-current');
+        var index = $(this).attr('data-role');
+        $('.data-dia .rule-main').children().hide().eq(index).show();
+        $(this).addClass('radio-current');
+    });
+}
 /**
  * [editQrRule 编辑规则弹框展示]
  * @param  {[string]} ruleInfo [表示当前规则信息，各数据项以'|'分隔，依次是规则ID|规则名|配置qrid..]
@@ -209,6 +210,9 @@ function editQrRule(ruleInfo){
 
     //选择二维码事件
     choQREvent();
+    //图文模块添加事件
+    $('#addQrRuleDia').addSettingModual();
+    $('#addQrRuleDia').bindNavEvent();
 
     $('.data-dia .radio-wefeed').on('click',function(){
         $('.data-dia .radio-wefeed').removeClass('radio-current');

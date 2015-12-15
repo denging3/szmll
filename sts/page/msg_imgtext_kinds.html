@@ -1,0 +1,83 @@
+<!-- if kinds of modual 运营。门店。活动-->
+<div class="arrow-nav arrow-nav-0">
+    <ul class="arrow-nav-title">
+      <li class="cur-li" data-role="0">运营</li>
+      <li data-role="1">客服</li>
+      <li data-role="2">门店</li>
+    </ul>
+    <span class="arrow-out"></span>
+    <span class="arrow-in"></span>
+</div>
+<!-- if kinds of modual end -->
+<div class="msg-contents">
+    <div class="msg-item cur-item" data-role="business"></div>
+    <div class="msg-item" data-role="custservice"></div>
+    <div class="msg-item" data-role="store"></div>
+</div>
+
+<script>
+// $.fn.extend({
+//     addSettingModual: function() {
+//         var divs = $(this).find('.msg-item');
+//         $(divs).each( function() {
+//             var dataRole = $(this).attr('data-role');
+//             //TODO
+//             //获取数据加载模块
+//             $(this).load('page/msg_imgtext.html');
+//         });
+//     },
+//     bindNavEvent: function() {
+//         var that = this;
+//         $(this).find('.arrow-nav li').on('click',function() {
+//             $(this).siblings().removeClass('cur-li');
+//             $(this).addClass('cur-li');
+
+//             var index = $(this).attr('data-role');
+//             $(that).find('.arrow-nav').attr('class','arrow-nav arrow-nav-'+index);
+//             $(that).find('.msg-item').removeClass('cur-item').eq(index).addClass('cur-item');
+//         });
+//     },addFooterOper:function(buttons){
+//         //添加操作按钮
+//         //buttons 为对象数组
+//         //[{value: '删除回复',className: 'cancel-button',cbFun: {function...}},{value: '确  认',className: 'bright-button'}]
+//         //默认buttons值
+//         var defaultBtn = [{
+//             value: '删除回复',className: 'cancel-button',cbFun: delFeed
+//         },{
+//             value: '确  认',className: 'bright-button',cbFun: confirmFeed }];
+//         buttons = buttons || defaultBtn;
+//         var html = '<div class="feed-footer"><div class="feed-oper">';
+//         for(var k in buttons) {
+//             if ( k != 0 ) {
+//                 html += '&emsp;'
+//             }
+//             html += '<input type="button" id="feedOperBtn_' + k + '" value="' + buttons[k].value + '" class="' + buttons[k].className + '" />'
+//         }
+//         html += '</div></div>';
+//         $(this).append(html);
+//         //操作按钮添加回调方法
+//         for(var kk in buttons) {
+//             if ( typeof buttons[kk].cbFun == 'function' ) {
+//                 $('#feedOperBtn_' + kk).on('click',buttons[kk].cbFun);
+//             }
+//         }
+//     }
+// });
+// function delFeed(){
+//     //TODO
+//     //待完善删除回复
+// }
+// /**
+//  * [confirmFeed 回复确认]
+//  */
+// function confirmFeed(){
+//     //TODO
+//     //待完善确认回复
+//     $.lightBox({
+//         width: 290,
+//         title: '提示',
+//         html: '<p style="text-align:center;">保存成功</p>'
+//     });
+// }
+// 
+</script>
