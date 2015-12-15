@@ -140,89 +140,114 @@ i.icon20-white-add{display: inline-block;width: 20px;height: 20px;background: ur
     <div class="page-content" id="js-page2-0-2"></div>
     <div class="page-content" id="js-page3-0-0"></div>
 </div>
+<!-- 添加二维码规则弹框内容 start -->
+<div class="addQrRule" style="display:none;">
+    <p>
+        <span class="lab">规则名</span>
+        <input type="text" class="input js-rulename" placeholder="输入规则名，最多60个字，规则名是唯一的" />
+        <span class="rulename-tips">规则名最多为60个字</span>
+    </p>
+    <p>
+        <span class="lab">选择二维码</span>
+        <span class="choose-qr-btn js-cho-qr"><i class="icon20-gray-add"></i>选择二维码</span>
+    </p>
+    <p>
+        <span class="lab">回复内容</span>
+        <span>
+            <span class="radio-wefeed radio-current" data-role="0">图文消息</span>&emsp;&emsp;
+            <span class="radio-wefeed" data-role="1">文字消息</span>
+        </span>
+    </p>
+    <div class="rule-main">
+        <div class="js-main1"></div>
+        <div class="js-main2" style="display:none;"></div>
+    </div>
+</div>
+<!-- 添加二维码规则弹框内容 end -->
+<!-- 选择二维码弹框内容 start -->
+<div class="chooseQRcode" style="display:none;">
+    <div class="qr-choose-box clearfix">
+        <dl>
+            <dt>二维码列表</dt>
+            <dd>
+                <div class="qr-search-box">
+                    <input type="input" class="input" placeholder="请输入二维码ID或描述进行搜索" />
+                    <span class="qr-search-btn js-search-qr"></span>
+                </div>
+                <div class="table-box">
+                    <table class="js-qrlist search-list">
+                        <thead>
+                            <tr>
+                                <td width="20%"></td>
+                                <td>二维码ID</td>
+                                <td>描述</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </dd>
+        </dl>
+        <dl>
+            <dt>已选择二维码<span class="js-choosed-num">（7条）</span></dt>
+            <dd>
+                <ul class="js-qrlist-choed">
+                    <li>
+                        <span>1.2050年周年庆</span>
+                        <span class="js-del-choed del-span" data-role="2"></span>
+                    </li>
+                </ul>
+            </dd>
+        </dl>
+        <span class="spera"></span>
+    </div>
+</div>
+<!-- 选择二维码弹框内容 end -->
+<!-- 添加/编辑关键词规则弹框内容 start -->
+<div class="addRule" style="display:none">
+    <div class="edit-rule-main">
+        <table>
+            <tr>
+                <td class="lab">规则名</td>
+                <td>
+                    <input type="text" class="input js-rulename" />
+                    <span class="rulename-tips">规则名最多为60个字</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="lab">关键词</td>
+                <td>
+                    <textarea class="textarea js-keywords"></textarea>
+                    <span class="js-keyw-tips keyw-tips">多个关键字使用空格隔开，还可输入30个字</span>
+                </td>
+            </tr>
+            <tr class="js-add-content">
+                <td>回复内容</td>
+                <td>
+                    <span class="create-access fir-create-access">
+                        <a class="js-add-msg" href="javascript:;" onclick="addMsgItem();" data-role="add-mulmsg">
+                            <i class="icon20-gray-add"></i>
+                            <strong>添加图文消息</strong>
+                        </a>
+                    </span>
+                    <span class="create-access">
+                        <a class="js-add-msg" href="javascript:;" onclick="addTextMsg();" data-role="add-textmsg">
+                            <i class="icon20-gray-add"></i>
+                            <strong>添加文字消息</strong>
+                        </a>
+                    </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<!-- 添加/编辑关键词规则弹框内容 end -->
+<!-- 添加编辑文字消息内容 start -->
+<div class="addTextMsg" style="display:none;"></div>
+<!-- 添加编辑文字消息内容 end -->
+<!-- 添加编辑图文消息 start -->
+<div class="addMsgItem" style="display:none;"></div>
+<!-- 添加编辑图文消息 end -->
 <script type="text/javascript" src="js/msg_imgtext.js"></script>
-<script type="text/javascript">
-
-!function(){
-    var pageQuery = window.location.search.substr(1).split('&');
-    var pageParam = ( /page=/.test(pageQuery[0]) ) ? ( pageQuery[0].replace('page=','') ) : '1-1-1';
-    window._pageConf ={
-        '1-1-1': {
-            pageIndex: '1-1-1',
-            display: [{curIndex:0,dataUrl:['1-1-1','2-0-1','3-0-0']},
-                {curIndex:0,dataUrl:['1-1-1','1-2-0']},
-                {curIndex:0,dataUrl:['1-1-1','1-1-2']}],
-            pageLoad: 'page/msg_imgtext_kinds.html',
-            callFunc: function() {
-                $("#js-page1-1-1").addSettingModual();
-                $("#js-page1-1-1").bindNavEvent();
-                $("#js-page1-1-1").addFooterOper(null);
-            }
-        },
-        '1-1-2': {
-            pageIndex: '1-1-2',
-            display: [{curIndex:0,dataUrl:['1-1-1','2-0-1','3-0-0']},
-                {curIndex:0,dataUrl:['1-1-1','1-2-0']},
-                {curIndex:1,dataUrl:['1-1-1','1-1-2']}],
-            pageLoad: 'page/msg_text.html'
-        },
-        '1-2-0': {
-            pageIndex: '1-2-0',
-            display: [{curIndex:0,dataUrl:['1-1-1','2-0-1','3-0-0']},
-                {curIndex:1,dataUrl:['1-1-1','1-2-0']},
-                {}],
-            pageLoad: 'page/param_feedback.html'
-        },
-        '2-0-1': {
-            pageIndex: '2-0-1',
-            display: [{curIndex:1,dataUrl:['1-1-1','2-0-1','3-0-0']},
-                {},
-                {curIndex:0,dataUrl:['2-0-1','2-0-2']}],
-            pageLoad: 'page/param_feedback.html'
-        },
-        '2-0-2': {
-            pageIndex: '2-0-2',
-            display: [{curIndex:1,dataUrl:['1-1-1','2-0-1','3-0-0']},
-                {},
-                {curIndex:1,dataUrl:['2-0-1','2-0-2']}],
-            pageLoad: 'page/msg_text.html'
-        },
-        '3-0-0': {
-            pageIndex: '3-0-0',
-            display: [{curIndex:2,dataUrl:['1-1-1','2-0-1','3-0-0']},{},{}],
-            pageLoad: 'page/keyword_feedback.html'
-        }
-    };
-    var curConf = window._pageConf[pageParam];
-    goPage(curConf);
-
-    $('.sec-header li').on('click',function(){
-        var pageParam = $(this).attr('data-role');
-        goPage(window._pageConf[pageParam]);
-    });
-}();
-function goPage(curPage){
-    var display = curPage.display;
-    for(var k in display){
-        if ( display[k].dataUrl ) {
-            $('.tab-menu-' + k).show();
-            $('.tab-menu-' + k).find('li').removeClass('current')
-            $('.tab-menu-' + k).find('li').eq(display[k].curIndex).addClass('current');
-            $('.tab-menu-' + k).find('li').each(function(i){
-                $(this).attr('data-role',display[k].dataUrl[i]);
-            });
-        } else {
-            $('.tab-menu-' + k).hide();
-        }
-    }
-    if ( !$('#js-page'+curPage.pageIndex).text() ) {
-        if ( curPage.callFunc ) {
-            $( '#js-page' + curPage.pageIndex ).load(curPage.pageLoad,curPage.callFunc);
-        } else {
-            $( '#js-page' + curPage.pageIndex ).load(curPage.pageLoad);
-        }
-    }
-    $('.sec-main .page-content').hide();
-    $('#js-page'+curPage.pageIndex).show();
-}
-</script>
+<script type="text/javascript" src="js/we_feedback.js"></script>

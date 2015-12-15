@@ -105,7 +105,7 @@ $.fn.extend({
             $(that).find('.msg-item').removeClass('cur-item').eq(index).addClass('cur-item');
         });
     },
-    addFooterOper:function(buttons){
+    addFooterOper: function(buttons){
         //添加操作按钮
         //buttons 为对象数组
         //[{value: '删除回复',className: 'cancel-button',cbFun: {function...}},{value: '确  认',className: 'bright-button'}]
@@ -131,7 +131,24 @@ $.fn.extend({
             }
         }
     },
-    
+    bindwordValid: function(){
+        //文字输入框字数验证
+        ////验证文字输入
+        var MAX_INPUT_WORD = 600;
+        var pdiv = $(this);
+        var leftWordDom = $(this).find('.js-left-word'),
+            editorAreaDom =$(this).find('.js-editorArea');
+        $(leftWordDom).text( MAX_INPUT_WORD - $(editorAreaDom).text().length );
+        $(editorAreaDom).bind('input',function(){
+            var text = this.innerText;
+            if ( text.length > MAX_INPUT_WORD ) {
+                $(this).text(text.slice(0,-1));
+                $(leftWordDom).text(0);
+            } else {
+                $(leftWordDom).text( MAX_INPUT_WORD - text.length );
+            }
+        });
+    }
 });
 /**
  * [delFeed 删除回复]
