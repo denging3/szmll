@@ -1,9 +1,9 @@
 /*-------------public--------------*/
 html, body {width:640px;font-family: Arial,'微软雅黑';font-size:40px;margin:0;padding:0;border:0;outline:0;line-height:1.5;vertical-align:baseline;background:transparent}
 
-div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, pre, a, code, del, em, img, strong, sub, sup, b, u, i, dl, dt, dd, ol, ul, li, fieldset, form, label, table, tbody, tfoot, thead, tr, th, td {padding: 0;margin: 0;border: 0;outline: 0;font-weight: 200;text-decoration: none;list-style: none;vertical-align: baseline;color: #333;font-size:40px;}
+div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, pre, a, code, del, em, img, strong, sub, sup, b, u, i, dl, dt, dd, ol, ul, li, fieldset, form, label, table, tbody, tfoot, thead, tr, th, td {padding: 0;margin: 0;border: 0;outline: 0;font-weight: 200;text-decoration: none;list-style: none;vertical-align: baseline;color: #333;font-size:40px;-webkit-tap-highlight-color:transparent;}
 
-a:visited{background:transparent;}
+a:visited{background:none;}
 
 .data-dia, .data-dia > .fix {position: fixed;top: 0px;left: 0px;width:640px;height: 100%;z-index: 1001;}
 
@@ -40,9 +40,48 @@ a:visited{background:transparent;}
 .banner .main_content .main_info .list_info h3{font-size:35px;}
 .banner .main_content .main_info .list_info p{font-size:20px;}
 
-.content .info_list{width:640px;height:240px;border-top:1px solid #e8e8e8;border-bottom:1px solid #e8e8e8;background:#fff}
+.content .info_list{width:640px;height:240px;border-top:1px solid #e8e8e8;border-bottom:1px solid #e8e8e8;background:#fff;margin-left:-20px;margin-bottom:30px;}
 .content .info_list li{height:80px;width:560px;line-height:80px;font-size:25px;margin:0 20px;position:relative;padding:0 20px}
 .content .info_list li:not(:last-child){border-bottom:1px solid #e8e8e8}
 .content .info_list li .info_list_right{background:url(../images/all.png) no-repeat 0px 0px;-webkit-transform:rotate(180deg);display:inline-block;width:40px;height:40px;vertical-align:middle;position:relative;left:430px;}
 
 .content button{width:600px;height:80px;margin:60px 20px 60px 20px;border:none;background:#ff7f02;border-radius:5px;font-size:30px;font-family:'微软雅黑';color:#333;outline:none;}
+
+.stamp_banner {width: 640px;height: 310px;z-index: 100;padding: 30px 0 0 0;border-bottom: 1px solid #dcdcdc;position: relative;background: url("../images/banner_bg.png") no-repeat;}
+.stamp_banner .head_portrait {width: 150px;margin: 0 auto;}
+.stamp_banner .head_portrait .pic {width: 150px;height: 150px;border-radius: 80px;overflow: hidden;}
+.stamp_banner .head_portrait p {width: 100%;text-align: center;line-height: 35px;}
+.stamp_banner .head_portrait p:nth-child(2) {font-size: 25px;color: #333;}
+.stamp_banner .head_portrait p:nth-child(3) {font-size: 20px;color: #88898e;}
+.stamp_banner .head_portrait span {font-size: 20px;color: #88898e;}
+.stamp_banner .banner_title {width: 100%;margin: 0 auto;position: absolute;bottom: 0;}
+.stamp_banner .banner_title .active {color: #333;}
+.stamp_banner .banner_title ul li {width: 33%;float: left;text-align: center;color: #88898e;font-size: 23px;height: 42px;line-height:30px;position:relative;}
+.stamp_banner .banner_title ul li span,
+.stamp_banner .banner_title ul li em {width: 0;height: 0;display: inline-block;border-style: solid;border-width: 0 8px 8px 8px;position:absolute;}
+.stamp_banner .banner_title ul li span {bottom: 0px;left: 50%;margin-left: -5px;;border-color: transparent transparent #dcdcdc transparent;}
+.stamp_banner .banner_title ul li span em {bottom: -10px;left: -8px;z-index: 10;border-color: transparent transparent #f4f4f4 transparent;}
+.stamp_banner .banner_title ul li .on {display: none;}
+
+.stamp_wrap {width: auto;padding: 20px;}
+.stamp_wrap .stamp_bg {width: auto;height: 230px;margin-bottom: 30px;padding: 20px 20px 0 20px;background: url("../images/stamp_bg.png") no-repeat;}
+.stamp_wrap .bg1 {background-position: 0 0;}
+.stamp_wrap .bg2 {background-position: 0 -250px;}
+.stamp_wrap .bg3 {background-position: 0 -500px;}
+.stamp_wrap .stamp_title {height: 70px;line-height: 65px;}
+.stamp_wrap .stamp_title > * {float: left;}
+.stamp_wrap .stamp_title i {display: inline-block;width: 65px;height: 65px;background: url("../images/logo_house.png") no-repeat;}
+.stamp_wrap .stamp_title p {font-size: 25px;margin-left: 10px;color: #fff;}
+.stamp_wrap .stamp_info {width: 540px;height: 80px;margin: 0 auto;margin-top: 30px;}
+.stamp_wrap .stamp_info p {width: 240px;height: 80px;font-size: 50px;color: #fff;float: left;line-height: 80px;text-align: center;}
+.stamp_wrap .stamp_info p span {font-size: 80px;color: #fff;}
+.stamp_wrap .stamp_info .line {display: inline-block;width: 1px;height: 100%;background: #fff;opacity: .5;}
+.stamp_wrap .stamp_info .list {display: inline-block;width: 280px;float: right;}
+.stamp_wrap .stamp_info .list h3,.stamp_wrap .stamp_info .list h4 {color: #fff;line-height: 40px;text-align: center;}
+.stamp_wrap .stamp_info .list h3 {font-size: 35px;}
+.stamp_wrap .stamp_info .list h4 {font-size: 20px;font-weight: lighter;}
+
+.content_made{width:598px;height:399px;text-align:center;padding-top:35px;background:#fff;border:1px solid #ddd;border-top:none;border-bottom-left-radius:5px;border-bottom-right-radius:5px;}
+.content_made *{font-size:20px;color:#999}
+.content_made span{display: inline-block;width:290px;height:290px;background:url(../images/all.png) no-repeat -235px -805px;margin-bottom:20px}
+.mar-top{margin-top:55px;}
