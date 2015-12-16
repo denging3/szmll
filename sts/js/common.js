@@ -8,10 +8,12 @@ $(document).ready(function () {
     if($('#sidebar').length>0){
         $.fn.setSectionMargin('#sidebar', '#section', 80, 220);
         /*显示/隐藏下拉菜单*/
-        $.fn.showList('#sysInfo', [{'name': '商家信息', 'url': 'javascript:;'}, {
+        var nav = [{'name': '商家信息', 'url': 'javascript:;'}, {
             'name': '帐号管理',
             'url': 'javascript:;'
-        }, {'name': '第三方接入', 'url': 'javascript:;'}]);
+        }, {'name': '第三方接入', 'url': 'javascript:;'}]
+        
+        $.fn.showList('#sysInfo',nav);
 
         /*
          *arguments 左边导航栏传递列表数据格式
@@ -298,6 +300,7 @@ $.fn.extend({
  *     boxID:{string},//必填参数 表示弹出对话框的id为boxID + 'Dia'
  *     width:{number},//div.data-content的宽度
  *     closeOther: {boolean},//是否关闭之前弹框，默认关闭之前全部弹框
+ *     isDelwFade: {boolean},//关闭弹框时是否删除弹框dom，默认true默认删除
  *     title:{string},//弹框标题
  *     html:{string},//插入到div.data-content .dia-main的html内容，
  *     buttons:{arrgy} [{value: '确认',className: 'dia-close',callbackFun: {function}},{...}...]//操作按钮
@@ -318,7 +321,8 @@ $.lightBox.prototype = {
         // TODO 扩展多层弹框
         this.setting = $.extend( {
             width: 760,
-            closeOther: true
+            closeOther: true,
+            isDelwFade: true
         },setting  );
         this.setting.buttons = this.setting.buttons || ([{value: '确定', className: 'dia-close bright-button'}]);
         //默认删除之前弹框
@@ -334,6 +338,7 @@ $.lightBox.prototype = {
         for(var kk in this.setting.buttons){
             if ( typeof this.setting.buttons[kk].callbackFun == 'function' ){
                 $(btnIDpr + kk).on('click',this.setting.buttons[kk].callbackFun);
+                $(btnIDpr + kk)[0].lightBox = this;
             }
         }
 
@@ -345,8 +350,10 @@ $.lightBox.prototype = {
             that.dom.fadeOut();
             setTimeout(function(){
                 $(that.dom).find('.fix').detach();
-                //删除dom
-                $(that.dom).remove();
+
+                if ( that.setting.isDelwFade ) {
+                    $(that.dom).remove();
+                }
             },500);
         });
 
@@ -409,12 +416,19 @@ $.lightBox.getCurDia = function(curDom){
         return null;
     }
 }
-$.lightBox.closeBox = function(curObj){
-    var diaObj = $.lightBox.getCurDia(curObj)
+$.lightBox.showBox = function(lightBoxId){
+    $('#' + lightBoxId).prepend('<div class="fix"></div>');
+    $('#' + lightBoxId).fadeIn();
+    $('#' + lightBoxId).css('display','flex');
+}
+$.lightBox.closeBox = function(thisLightBox){
+    var diaObj = thisLightBox.dom;
     $(diaObj).fadeOut();
     setTimeout(function(){
         $(diaObj).find('.fix').detach();
-        $(diaObj).remove();
+        if ( thisLightBox.setting.isDelwFade ) {
+            $(diaObj).remove();
+        }
     },500);
 }
 $.lightBox.closeALL = function(){
@@ -432,61 +446,68 @@ $.lightBox.closeALL = function(){
  * 使用时需按顺序分别引入 css/jquery.Jcrop.css js/jquery.Jcrop.js 和 js/imgUploadPre.js
  */
 function upImgBox(boxSize,boxTitle,boxButtons) {
-    //设置大小
-    var boxSize = $.extend({
-        boxWidth: 530,
-        maxWidth: 290,
-        maxHeight: 200,
-        minWidth: 210,
-        minHeight: 140
-    },boxSize);
-    var boxSizeString = '({maxWidth:'+ boxSize.maxWidth 
-        +',maxHeight:' + boxSize.maxHeight + 
-        ',minWidth:' + boxSize.minWidth + 
-        ',minHeight:' + boxSize.minHeight + '})';
-    
-    //默认的弹框内容
-    var defaultContentH = '<div class="img-block block1">'
-        + '<form name="imgUpForm" method="post" enctype="multipart/form-data">'
-            + '<div id="imgDragPane" style="width:'+boxSize.maxWidth+'px;height:'+(boxSize.maxHeight+30)+'px;">'
-                + '<div id="imgDragContainer" style="width:'+boxSize.maxWidth+'px;height:'+boxSize.maxHeight+'px;">'
-                    + '<p class="p1"><b>+</b>&nbsp;上传图片</p>'
-                    + '<p class="p2">(建议尺寸：300×200)</p>'
-            + '</div></div>'
-            + '<span class="file-btn" onclick="filepath.click()"style="width:'+(boxSize.maxWidth-2)+'px;"><b>+</b>上传本地图片</span>'
-            + '<input type="hidden" name="upfile" id="upfile" />'
-            + '<input type="file" id="filepath" style="display:none" onchange="previewImage(this,\'upfile\',eval('+boxSizeString+'))">'
-            + '<input type="hidden" id="imgLeft" name="imgLeft" />'
-            + '<input type="hidden" id="imgTop" name="imgTop" />'
-            + '<input type="hidden" id="imgW" name="imgW" />'
-            + '<input type="hidden" id="imgH" name="imgH">'
-            + '<input type="hidden" name="cutW" value="'+boxSize.minWidth+'">'
-            + '<input type="hidden" name="cutH" value="'+boxSize.minHeight+'">'
-            + '<span class="file-tips">支持图片类型jpg、jpeg、png</span>'
-        + '</form></div>'
-        + '<div class="img-block block2">'
-            + '<div class="img-fi-preview">'
-                + '<div id="preview-pane">'
-                    + '<div class="preview-container" style="width:'+boxSize.minWidth+'px;height:'+boxSize.minHeight+'px;overflow:hidden;">'
-                        + ' <img id="imgPre" class="jcrop-preview" />'
-            + '</div></div></div>'
-            + '<span class="label">预览效果</span>'
-        + '</div>';
-    var defaultBut = [{
-        value: '取消',
-        className: 'dia-close cancel-button'
-    },{
-        value: '确认',
-        className: 'bright-button',
-        callbackFun: imgUpLoad
-    }];
-    $.lightBox({
-        boxID: 'upImg',
-        width: boxSize.boxWidth,
-        title: boxTitle || '更换图片',
-        html: defaultContentH,
-        buttons: boxButtons || defaultBut
-    });
+    //判断是否已打开图片选择对话框
+    if ( $('#upImgDia') && $('#upImgDia')[0] ) {
+        $.lightBox.showBox('upImgDia');
+    } else {
+        //新建图片选择弹框
+        //设置大小
+        var boxSize = $.extend({
+            boxWidth: 530,
+            maxWidth: 290,
+            maxHeight: 200,
+            minWidth: 210,
+            minHeight: 140
+        },boxSize);
+        var boxSizeString = '({maxWidth:'+ boxSize.maxWidth 
+            +',maxHeight:' + boxSize.maxHeight + 
+            ',minWidth:' + boxSize.minWidth + 
+            ',minHeight:' + boxSize.minHeight + '})';
+        
+        //默认的弹框内容
+        var defaultContentH = '<div class="img-block block1">'
+            + '<form name="imgUpForm" method="post" enctype="multipart/form-data">'
+                + '<div id="imgDragPane" style="width:'+boxSize.maxWidth+'px;height:'+(boxSize.maxHeight+30)+'px;">'
+                    + '<div id="imgDragContainer" style="width:'+boxSize.maxWidth+'px;height:'+boxSize.maxHeight+'px;">'
+                        + '<p class="p1"><b>+</b>&nbsp;上传图片</p>'
+                        + '<p class="p2">(建议尺寸：300×200)</p>'
+                + '</div></div>'
+                + '<span class="file-btn" onclick="filepath.click()"style="width:'+(boxSize.maxWidth-2)+'px;"><b>+</b>上传本地图片</span>'
+                + '<input type="hidden" name="upfile" id="upfile" />'
+                + '<input type="file" id="filepath" style="display:none" onchange="previewImage(this,\'upfile\',eval('+boxSizeString+'))">'
+                + '<input type="hidden" id="imgLeft" name="imgLeft" />'
+                + '<input type="hidden" id="imgTop" name="imgTop" />'
+                + '<input type="hidden" id="imgW" name="imgW" />'
+                + '<input type="hidden" id="imgH" name="imgH">'
+                + '<input type="hidden" name="cutW" value="'+boxSize.minWidth+'">'
+                + '<input type="hidden" name="cutH" value="'+boxSize.minHeight+'">'
+                + '<span class="file-tips">支持图片类型jpg、jpeg、png</span>'
+            + '</form></div>'
+            + '<div class="img-block block2">'
+                + '<div class="img-fi-preview">'
+                    + '<div id="preview-pane">'
+                        + '<div class="preview-container" style="width:'+boxSize.minWidth+'px;height:'+boxSize.minHeight+'px;overflow:hidden;">'
+                            + ' <img id="imgPre" class="jcrop-preview" />'
+                + '</div></div></div>'
+                + '<span class="label">预览效果</span>'
+            + '</div>';
+        var defaultBut = [{
+            value: '取消',
+            className: 'dia-close cancel-button'
+        },{
+            value: '确认',
+            className: 'bright-button',
+            callbackFun: imgUpLoad
+        }];
+        $.lightBox({
+            boxID: 'upImg',
+            width: boxSize.boxWidth,
+            isDelwFade: false,
+            title: boxTitle || '更换图片',
+            html: defaultContentH,
+            buttons: boxButtons || defaultBut
+        });
+    }
 }
 function imgUpLoad(){
     if( !$('#upfile').val() ) {

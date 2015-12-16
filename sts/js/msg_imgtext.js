@@ -1,9 +1,9 @@
-$.msgDemo = function(pdiv) {
-    return new $.msgDemo.prototype.init( pdiv );
+$.msgDemo = function(pdiv,checkedIds) {
+    return new $.msgDemo.prototype.init( pdiv,checkedIds );
 }
 $.msgDemo.prototype = {
     constructor:$.msgDemo,
-    init: function(pdiv) {
+    init: function(pdiv,checkedIds) {
         this.pdiv = pdiv;
         var that = this;
 
@@ -14,6 +14,7 @@ $.msgDemo.prototype = {
         $(this.pdiv).find('.demo_info span').on('click',function(){
             that.check_list(this);
         });
+        this.defaultChecked(checkedIds);
     },
     check_first: function() {
         var demoListDiv = $(this.pdiv).find('.demo_list>div');
@@ -69,12 +70,38 @@ $.msgDemo.prototype = {
         }
         this.check_first();
     },
+    defaultChecked: function(checkedIds){
+        var that = this;
+        if( checkedIds && checkedIds.length ) {
+
+            checkedIds = ',' + checkedIds + ',';
+            $(this.pdiv).find('.demo_info span').each(function(){
+                var d = $(this).parent().data('list');
+                if ( checkedIds.indexOf(',' + d + ',') != -1 ){
+                    that.check_list(this);
+                }
+            })
+        }
+    },
     /*以下为java新增方法*/
     fsaf:function(clickObj){
         // console.log(this)
     }
 }
 $.msgDemo.prototype.init.prototype = $.msgDemo.prototype;
+$.msgDemo.getDemoChecked = function(pdiv) {
+    var checkSpans = $(pdiv).find('.demo_info span');
+    var checkedInfos = [],t,i,d;
+    $(checkSpans).each(function(){
+        if ( $(this).hasClass('img_check') == true ) {
+            t = $(this).nextAll('p').text();
+            i = $(this).next('img').attr('src');
+            d = $(this).parent().data('list');
+            checkedInfos.push({msgID:d,imgSrc:i,desc:t,msgType: 'msg'})
+        }
+    });
+    return checkedInfos;
+}
 $.fn.extend({
     addSettingModual: function() {
         //添加各模块内容 this为当前添加dom的父级节点
@@ -131,10 +158,10 @@ $.fn.extend({
             }
         }
     },
-    bindwordValid: function(){
+    bindwordValid: function(maxWords){
         //文字输入框字数验证
         ////验证文字输入
-        var MAX_INPUT_WORD = 600;
+        var MAX_INPUT_WORD = maxWords || 600;
         var pdiv = $(this);
         var leftWordDom = $(this).find('.js-left-word'),
             editorAreaDom =$(this).find('.js-editorArea');
@@ -142,7 +169,7 @@ $.fn.extend({
         $(editorAreaDom).bind('input',function(){
             var text = this.innerText;
             if ( text.length > MAX_INPUT_WORD ) {
-                $(this).text(text.slice(0,-1));
+                $(this).text(text.slice(0,MAX_INPUT_WORD));
                 $(leftWordDom).text(0);
             } else {
                 $(leftWordDom).text( MAX_INPUT_WORD - text.length );

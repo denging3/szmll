@@ -86,7 +86,7 @@
 .data-dia .edit-rule-main table td { vertical-align: middle; height: 70px;}
 .data-dia .edit-rule-main .lab { font-size: 14px; color: #666; width: 80px; }
 .data-dia .edit-rule-main .input { width: 680px; }
-.data-dia .edit-rule-main .textarea {width: 810px;height: 78px;}
+.data-dia .edit-rule-main .textarea {width: 810px;height: 78px;padding: 10px;}
 .data-dia .edit-rule-main .keyw-tips {display: inline-block;width: 830px;height: 34px;line-height: 26px;text-align: right;}
 .data-dia .edit-rule-main .fir-create-access {padding-right: 20px;}
 .data-dia .edit-rule-main .create-access a {display: inline-block;width: 400px;height: 206px;line-height:206px;text-align:center;color:#666;border: dotted 2px #ddd;border-radius: 2px;}
@@ -213,6 +213,7 @@ i.icon20-white-add{display: inline-block;width: 20px;height: 20px;background: ur
                 <td>
                     <input type="text" class="input js-rulename" />
                     <span class="rulename-tips">规则名最多为60个字</span>
+                    <input type="hidden" class="js-imgmsg-ids" />
                 </td>
             </tr>
             <tr>
@@ -226,13 +227,13 @@ i.icon20-white-add{display: inline-block;width: 20px;height: 20px;background: ur
                 <td>回复内容</td>
                 <td>
                     <span class="create-access fir-create-access">
-                        <a class="js-add-msg" href="javascript:;" onclick="addMsgItem();" data-role="add-mulmsg">
+                        <a class="js-add-msg" href="javascript:;" onclick="addMsgItem(this);" data-role="add-mulmsg">
                             <i class="icon20-gray-add"></i>
                             <strong>添加图文消息</strong>
                         </a>
                     </span>
                     <span class="create-access">
-                        <a class="js-add-msg" href="javascript:;" onclick="addTextMsg();" data-role="add-textmsg">
+                        <a class="js-add-msg" href="javascript:;" onclick="addTextMsg(this);" data-role="add-textmsg">
                             <i class="icon20-gray-add"></i>
                             <strong>添加文字消息</strong>
                         </a>

@@ -224,7 +224,7 @@ select::-ms-expand {
 
 /*--公共左边导航--- */
 #content {
-    overflow: hidden;
+	overflow: hidden;
 }
 
 #sidebar {
@@ -491,6 +491,7 @@ select::-ms-expand {
 #section {
     border-top: 1px solid #e8e8e8;
     text-align: left;
+    margin-left:165px;
     padding-bottom: 2000px;
     margin-bottom: -2000px;
 }
