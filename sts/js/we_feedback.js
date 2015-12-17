@@ -63,7 +63,13 @@
                 {curIndex:1,dataUrl:['2-0-1','2-0-2']}],
             pageLoad: 'page/msg_text.html',
             callFunc: function(){
-                $("#js-page2-0-2").addFooterOper(null);
+                //添加操作按钮
+                $("#js-page2-0-2").addFooterOper([{
+                        value: '删除回复',className: 'cancel-button',cbFun: delFeed
+                    },{
+                        value: '确  认',className: 'bright-button',cbFun: confirmTextFeed }]);
+
+                //绑定验证事件
                 $('#js-page2-0-2').bindwordValid();
             }
         },
@@ -95,10 +101,12 @@
 /**
  * [goPage 微回复导航页面跳转]
  * @param  {object} curPage : {pageIndex:{string}当前导航位置；display：对象数组表示当前页面各级导航信息；pageLoad: 加载的html路径；callFunc: 加载完成后调用方法；}
+ * @param  {array}  initValue [初始化值的方法]
+ * initValue参数格式：[{selector:'#js-page2-2-2 .js-editorArea',value: '这是一个初始化实例',domType: 'text'},{}...]
  */
-function goPage(curPage){
+function goPage(curPage,initValue){
     var display = curPage.display;
-    for(var k in display){
+    for ( var k in display ) {
         if ( display[k].dataUrl ) {
             $('.tab-menu-' + k).show();
             $('.tab-menu-' + k).find('li').removeClass('current')
@@ -110,15 +118,50 @@ function goPage(curPage){
             $('.tab-menu-' + k).hide();
         }
     }
+    
     if ( !$('#js-page'+curPage.pageIndex).text() ) {
-        if ( curPage.callFunc ) {
-            $( '#js-page' + curPage.pageIndex ).load(curPage.pageLoad,curPage.callFunc);
+        if ( initValue ) {
+            if ( curPage.callFunc ) {
+                $( '#js-page' + curPage.pageIndex ).load(curPage.pageLoad,function() {
+                    initVals(initValue);
+                    curPage.callFunc();
+                });
+            } else {
+                $( '#js-page' + curPage.pageIndex ).load(curPage.pageLoad,function() {
+                    initVals(initValue);
+                });
+            }
         } else {
-            $( '#js-page' + curPage.pageIndex ).load(curPage.pageLoad);
+            if ( curPage.callFunc ) {
+                $( '#js-page' + curPage.pageIndex ).load(curPage.pageLoad,curPage.callFunc);
+            } else {
+                $( '#js-page' + curPage.pageIndex ).load(curPage.pageLoad);
+            }
+        }
+    } else {
+        if ( initValue ) {
+            initVals(initValue);
         }
     }
+
     $('.sec-main .page-content').hide();
     $('#js-page'+curPage.pageIndex).show();
+}
+/**
+ * [initVals 初始化元素值]
+ * @param  {array} initValue [初始化值对象数组。对象的项分别是dom的选择表达式，dom的值，dom类型若为text则dom.text()修改值，为input则dom.val()修改值]
+ * initValue参数格式：[{selector:'#js-page2-2-2 .js-editorArea',value: '这是一个初始化实例',domType: 'text'},{}...]
+ */
+function initVals(initValue) {
+    for ( var kk in initValue ) {
+        if ( $(initValue[kk].selector)[0] ) {
+            if ( initValue[kk].domType == 'input' ) {
+                $(initValue[kk].selector).val(initValue[kk].value);
+            } else {
+                $(initValue[kk].selector).text(initValue[kk].value);
+            }
+        }
+    }
 }
 //TODO默认存储当前已选择的二维码信息
 window.__chosedQR = {id:[2],desc:['2015美丽金秋...']};

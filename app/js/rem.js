@@ -28,6 +28,6 @@
     }, !1), a.addEventListener("pageshow", function(a) {
         a.persisted && (clearTimeout(e), e = setTimeout(b, 300))
     }, !1), "complete" === f.readyState ? f.body.style.fontSize = 12 * c + "px" : f.addEventListener("DOMContentLoaded", function() {
-        f.body.setAttribute('fontSize', 12 * c + "px")
+        f.body.style.fontSize = 12 * c + "px"
     }, !1), b()
 }(window);

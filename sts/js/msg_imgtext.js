@@ -147,14 +147,16 @@ $.fn.extend({
             if ( k != 0 ) {
                 html += '&emsp;'
             }
-            html += '<input type="button" id="feedOperBtn_' + k + '" value="' + buttons[k].value + '" class="' + buttons[k].className + '" />'
+            html += '<input type="button" data-page="' + $(this).attr('id') + '" value="' + buttons[k].value + '" class="' + buttons[k].className + '" />'
         }
         html += '</div></div>';
-        $(this).append(html);
+        var htmlDom = $(html);
+        $(this).append(htmlDom);
+        var buttonsDom = $(htmlDom).find('input');
         //操作按钮添加回调方法
         for(var kk in buttons) {
             if ( typeof buttons[kk].cbFun == 'function' ) {
-                $('#feedOperBtn_' + kk).on('click',buttons[kk].cbFun);
+                $(buttonsDom[kk]).on('click',buttons[kk].cbFun);
             }
         }
     },
@@ -189,10 +191,23 @@ function delFeed(){
  */
 function confirmFeed(){
     //TODO
-    //待完善确认回复
-    $.lightBox({
-        width: 290,
-        title: '提示',
-        html: '<p style="text-align:center;">保存成功</p>'
-    });
+}
+/**
+ * [confirmTextFeed 回复确认]
+ */
+function confirmTextFeed(){
+    var pageId = $(this).data('page');
+    if ( pageId ) {
+        var text = $('#' + pageId).find('.js-editorArea').text();
+        console.log(text);
+        //TODO
+        //提交回复内容
+        
+        //提交成功后提示
+        $.lightBox({
+            width: 290,
+            title: '提示',
+            html: '<p style="text-align:center;">保存成功</p>'
+        });
+    }
 }
