@@ -29,7 +29,7 @@
     <div  class="tab_content" id="js_tabInfo">
         <div class="js_appmsgArea inner ">
             <div class="tab_cont_cover jsMsgSendTab" data-index="0">
-                <div class="media_cover" data-role= "settingInfo"  onclick="dialogset(this)">
+                <div class="media_cover" data-role= "settingInfo" id="js_appImgPop" >
                         <span class="create_access">
                             <a class="add_gray_wrp jsMsgSenderPopBt" href="javascript:;" data-type="10" data-index="0">
                                 <i class="icon36_common add_gray"></i>
@@ -75,5 +75,6 @@
         $('.tab_panel .tab_content').hide();
         var tab = $(this).parent().data('tab');
         $(tab).parent().show();
+        
     });
 </script>

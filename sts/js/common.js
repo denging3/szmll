@@ -1,143 +1,135 @@
-var u = 'url(images/common.png)';
-var s = 'url(images/menu.png)';
+
 $(window).resize(function () {
-    $.fn.setsideBarHeigh('#sidebar', 111);
-    $.fn.setsideBarHeigh('#sts_sidebar', 111);
+    $('#sidebar').setsideBarHeigh( 111);
+    $('#sts_sidebar').setsideBarHeigh(111);
 });
 $(document).ready(function () {
-    if($('#sidebar').length>0){
-        $.fn.setSectionMargin('#sidebar', '#section', 80, 220);
-        /*显示/隐藏下拉菜单*/
-        var nav = [{'name': '商家信息', 'url': 'javascript:;'}, {
-            'name': '帐号管理',
-            'url': 'javascript:;'
-        }, {'name': '第三方接入', 'url': 'javascript:;'}]
-        
-        $.fn.showList('#sysInfo',nav);
-
-        /*
-         *arguments 左边导航栏传递列表数据格式
-         *u 设置为变量，为导航菜单雪碧图路径
-         */
-        $.fn.sideBar('#sidebar', [{
+	var setting = {
+	"msg":"1",
+	"commonIco":"../common/images/common.png",
+	"sysIco":"images/menu.png",
+	"common":[{
             'name': '首页',
             'links': 'index',
-            'bg': u,
             'list': ''
         },
-            {
-                'name': '运营',
-                'links': 'operation',
-                'bg': u + ' 0px -64px',
-                'list': [{
-                    'name': '运营模块',
-                    'links': 'Coupons',
-                    'list': [{'name': '优惠券', 'bg': u + ' 0px -165px', 'href': '#'}]
-                }
-                ]
-            },
-            {
-                'name': '电商',
-                'links': 'ec',
-                'bg': u + ' 0px -96px',
-                'list': [{
-                    'name': '电商1',
-                    'links': 'ec1',
-                    'list': [{'name': '优惠券1', 'bg': u + ' 0px -165px', 'href': '#'}, {
-                        'name': '优惠券3',
-                        'bg': u + ' 0px -165px',
-                        'href': '#'
-                    }]
-                }
-                ]
-            },
-            {
-                'name': '门店',
-                'links': 'store',
-                'bg': u + ' 0px -128px',
-                'list': [{
-                    'name': '门店1',
-                    'links': 'store1',
-                    'list': [{'name': '优惠券1', 'bg': u + ' 0px -165px', 'href': '#'}, {
-                        'name': '优惠券3',
-                        'bg': u + ' 0px -165px',
-                        'href': '#'
-                    }]
-                }, {
-                    'name': '门店2',
-                    'links': 'store2',
-                    'list': [{'name': '优惠券2', 'bg': u + ' 0px -165px', 'href': '#'}]
-                }, {
-                    'name': '门店3',
-                    'links': 'store3',
-                    'list': ''
-                }
-                ]
-            },
-            {
-                'name': '客流',
-                'links': 'custom',
-                'bg': u + ' 0px -32px',
-                'list': [{
-                    'name': '客户',
-                    'links': 'youhuiquan',
-                    'list': [{'name': '优惠券1', 'bg': u + ' 0px -165px', 'href': '#'}, {
-                        'name': '优惠券3',
-                        'bg': u + ' 0px -165px',
-                        'href': '#'
-                    }]
-                }, {
-                    'name': '管理',
+        {
+            'name': '运营',
+            'links': 'operation',
+            'list': [{
+                'name': '运营模块',
+                'links': 'Coupons',
+                'list': [{'name': '优惠券',  'href': '#'}]
+            }
+            ]
+        },
+        {
+            'name': '电商',
+            'links': 'ec',
+            'list': [{
+                'name': '电商1',
+                'links': 'ec1',
+                'list': [{'name': '优惠券1', 'href': '#'}, {
+                    'name': '优惠券3',
+                    'href': '#'
+                }]
+            }
+            ]
+        },
+        {
+            'name': '门店',
+            'links': 'store',
+            'list': [{
+		                'name': '门店1',
+		                'links': 'store1',
+		                'list': [{'name': '优惠券1', 'href': '#'}, {'name': '优惠券3','href': '#'
+		                   		 }]
+	                 }, {
+	                    'name': '门店2',
+	                    'links': 'store2',
+	                    'list': [{'name': '优惠券2', 'href': '#'}]
+	                }, {
+	                    'name': '门店3',
+	                    'links': 'store3',
+	                    'list': ''
+	                }]
+        },
+        {
+            'name': '客流',
+            'links': 'custom',
+            'list': [{
+	                'name': '客户',
+	                'links': 'youhuiquan',
+	                'list': [{'name': '优惠券1',  'href': '#'}, {'name': '优惠券3','href': '#'}]
+	                },
+	                {'name': '管理',
                     'links': 'kehuguanli',
-                    'list': [{'name': '优惠券2', 'bg': u + ' 0px -165px', 'href': '#'}]
-                }
-                ]
-            }]);
-    }else{
-        /*显示/隐藏下拉菜单*/
-        $.fn.setSectionMargin('#sidebar', '#section', 165, 165);
-        $.fn.Sts_showList('#sysInfo', [{'name': '商家信息', 'url': 'javascript:;'}, {
-            'name': '帐号管理',
-            'url': 'javascript:;'
-        }, {'name': '第三方接入', 'url': 'javascript:;'}]);
-
-        /*
-         *arguments 左边导航栏传递列表数据格式
-         *u 设置为变量，为导航菜单雪碧图路径
-         */
-        $.fn.Sts_sideBar('#sts_sidebar', [{
+                    'list': [{'name': '优惠券2',  'href': '#'}]
+	                }]
+         }],
+	"sys":[{
             'name': '商家信息',
             'links': 'index',
-            'bg': s,
-            'list': ''
+            'list': []
         },
-            {
-                'name': '账号管理',
-                'links': 'operation',
-                'bg': s + ' 0px -15px',
+          {
+            'name': '账号管理',
+            'links': 'operation',
+            'list': []
+          },
+          {
+            'name': '第三方接入',
+            'links': 'ec',
+            'list': [{
+                'name': '微信接口',
+                'links': '',
                 'list': ''
-            },
-            {
-                'name': '第三方接入',
-                'links': 'ec',
-                'bg': s + ' 0px -29px',
-                'list': [{
-                    'name': '微信接口',
+            	},
+                {
+                    'name': '微信菜单',
                     'links': '',
                     'list': ''
                 },
-                    {
-                        'name': '微信菜单',
-                        'links': '',
-                        'list': ''
-                    },
-                    {
-                        'name': '微回复',
-                        'links': '',
-                        'list': ''
-                    }
-                ]
-            }]);
+                {
+                    'name': '微回复',
+                    'links': '',
+                    'list': ''
+                }]
+            }],
+	"rightNav":[{'name': '商家信息', 'url': 'javascript:;'}, {'name': '帐号管理','url': 'javascript:;'}, {'name': '第三方接入', 'url': 'javascript:;'}]
+}
+	
+	/*
+	 *	$.fn.sideBarInit(url);
+	 * 
+	 * 参数
+	 *  	url  请求数据地址
+	 * 返回数据data
+	 * 		data.msg  0 没数据  1 成功
+	 * 		data.common 后台数据
+	 *      data.sys   系统导航
+	 *      data.rightNav 右顶角列表
+	 *      data.commonIco 后台导航图标
+	 *      data.sysIco  系统导航图标
+	 */
+	
+     $('#sysInfo').showList(setting.rightNav);
+    
+    if($('#sidebar').length>0){
+        $('#sidebar').setSectionMargin('#section', 80, 220);
+        /*
+         *arguments 左边导航栏传递列表数据格式
+         *u 设置为变量，为导航菜单雪碧图路径
+         */
+        $('#sidebar').sideBar(setting.common,setting.commonIco );
+    }else{
+        /*显示/隐藏下拉菜单*/
+        $('#sidebar').setSectionMargin('#section', 165, 165);
+        /*
+         *arguments 左边导航栏传递列表数据格式
+         *u 设置为变量，为导航菜单雪碧图路径
+         */
+        $('#sts_sidebar').Sts_sideBar(setting.sys,setting.sysIco);
     }
 });
 
@@ -145,70 +137,120 @@ $(document).ready(function () {
 
 /*
  *导航菜单
- *obj 前台只需要<div id="sidebar" class="clearfix"></div>将id值作为参数，会在该div下创建菜单栏
  *_data 将导航菜单以json数据保存为参数传递，自动生成一级，二级，三级菜单
  */
+
 $.fn.extend({
-    sideBar: function (obj, _data) {
+	sideBarInit:function(u){
+		var setting = {
+			"msg":"1",
+			"commonIco":"../common/images/common.png",
+			"sysIco":"images/menu.png",
+			"common":[],
+			"sys":[],
+			"rightNav":[]
+		}
+		$.ajax({
+			type:"post",
+			url:u,
+			async:true,
+			success:function(result){
+				var oresult = JSON.parse(result);  
+				var oData =$.extend(setting, oresult);
+				if(oData.msg == 1){	
+					if($('#sidebar').length >0 ){
+					   $('#sidebar').sideBar(oData.common,oData.commonIco);
+					   $('#sysInfo').showList( oData.rightNav);
+					   $('#sidebar').setSectionMargin('#section', 80, 220);
+					}else{
+					   $('#sts_sidebar').Sts_sideBar(oData.sys,oData.sysIco);
+					   $('#sysInfo').showList( oData.rightNav);
+					   $('#sts_sidebar').setSectionMargin('#section', 165, 165);
+					}
+				}else{
+					console.log('没有数据');
+				}
+			}
+		});
+	},
+    sideBar: function ( _data,_picUrl) {
         if (_data.length > 0) {
-            $(obj).append('<ul class="first_lev" id="first_lev"></ul>');
+            $(this).append('<ul class="first_lev" id="first_lev"></ul>');
+            var L = 0;
             for (var i = 0, ii = _data.length; i < ii; i++) {
-                $('#first_lev').append('<li class="fir_li" data-link=' + _data[i].links + '><a style="background:' + _data[i].bg + ' ;"></a><span>' + _data[i].name + '</span></li>');
+                $('#first_lev').append('<li class="fir_li" data-link=' + _data[i].links + '><a style="background:url(' + _picUrl + ')0 '+ i*(-32)+'px;"></a><span>' + _data[i].name + '</span></li>');
                 if (_data[i].list.length > 0) {
                     var html;
-                    html = '<ul class="second_lev" id=' + _data[i].links + ' style="display:none;">';
+                    html = '<ul class="second_lev close" id=' + _data[i].links + '>';
                     for (var k = 0, kk = _data[i].list.length; k < kk; k++) {
                         html += '<li class="sec_li" data-link="' + _data[i].list[k].links + '"><span>' + _data[i].list[k].name + '</span><a class="arrow"></a>';
                         if (_data[i].list[k].list.length > 0) {
                             if (k == 0) {
                                 html += '<ul class="third_lev" id="' + _data[i].list[k].links + '">';
                             } else {
-                                html += '<ul class="third_lev" id="' + _data[i].list[k].links + '"  style="display: none;">';
+                                html += '<ul class="third_lev close" id="' + _data[i].list[k].links + '">';
                             }
-                            for (var y = 0, yy = _data[i].list[k].list.length; y < yy; y++) {
-                                html += '<li class="thir_li"><span style="background:' + _data[i].list[k].list[y].bg + ';"></span><a href="' + _data[i].list[k].list[y].href + '">' + _data[i].list[k].list[y].name + '</a></li>';
+                            for (var y = 0, yy = _data[i].list[k].list.length; y < yy; y++) {	
+                                html += '<li class="thir_li"><span style="background:url(' + _picUrl + ') -50px '+ L*(-14) +'px;"></span><a href="' + _data[i].list[k].list[y].href + '">' + _data[i].list[k].list[y].name + '</a></li>';
+                                L++;
                             }
                             html += '</ul>';
                         }
                     }
                     html += '</ul>';
-                    $(obj).append(html);
+                    $(this).append(html);
                 }
             }
-            $.fn.dropDown('.first_lev li', '.second_lev');
-            $.fn.dropDown('.second_lev li', '.third_lev');
-            $.fn.setsideBarHeigh('#sidebar', 111);
+            $('.first_lev li').dropDown('.second_lev');
+            $('.second_lev li').dropDownArr('.third_lev');
+            $(this).setsideBarHeigh(105);
         }
     },
 
     /*
-     *展开下级菜单
-     *obj 点击的对象
+     *展开一级菜单
      *target 显示的对象
      */
-    dropDown: function (obj, target) {
-        $(obj).on('click', function () {
+    dropDown: function (target) {
+        $(this).on('click', function () {
             var id = $(this).data('link');
-            $(target).css('display', 'none');
-            $('#' + id).css('display', 'block');
+            $(target).removeClass('close').addClass('close');
+            $('#' + id).removeClass('close').addClass('open');
             if ($('#section')) {
-                $.fn.setSectionMargin('#sidebar', '#section', 80, 220);
+                $('#sidebar').setSectionMargin('#section', 80, 220);
+            }
+        })
+    },
+    
+     /*
+     *展开二级菜单
+     *target 显示的对象
+     */
+    dropDownArr: function (target) {
+        $(this).on('click', function () {
+            var id = $(this).data('link');
+            $(this).parent().find('.arrow').css('transform','rotate(0deg)');
+            $(this).find('.arrow').css('transform','rotate(90deg)');
+            $(this).parent().find(target).removeClass('close').addClass('close');
+            $('#' + id).removeClass('close').addClass('open');
+            if ($('#section')) {
+                $('#sidebar').setSectionMargin('#section', 80, 220);
             }
         })
     },
 
     /*设置左边栏的高度*/
-    setsideBarHeigh: function (obj, val) {
+    setsideBarHeigh: function (val) {
         var h = $(window).height() - val;
-        var ch = $(obj).height();
+        var ch = $(this).height();
         if (ch < h) {
             $('.first_lev,.second_lev').css('height', h + 'px');
         }
     },
 
     /*设置target的左边距*/
-    setSectionMargin: function (obj, target, first_left, sec_left) {
-        if ($(obj).width() > first_left) {
+    setSectionMargin: function (target, first_left, sec_left) {
+        if ($(this).width() > first_left) {
             $(target).css('margin-left', sec_left + 'px')
         } else {
             $(target).css('margin-left', first_left + 'px');
@@ -217,11 +259,10 @@ $.fn.extend({
 
     /*
      *显示页头系统设置显示/隐藏下拉单功能
-     *obj 要实现的目标id
      *data 显示/隐藏下拉菜单的链接列表
      */
-    showList: function (obj, data) {
-        $(obj).on('mouseover', function () {
+    showList: function (data) {
+        $(this).on('mouseover', function () {
             $(this).find('.sys_tips').show();
         }).on('mouseout', function () {
             $(this).find('.sys_tips').hide();
@@ -232,16 +273,15 @@ $.fn.extend({
                 list += '<li><a href="' + data[i].url + '" target="blank">' + data[i].name + '</a></li>'
             }
             ;
-            $(obj).find('.sys_list').append(list);
+            $(this).find('.sys_list').append(list);
         }
     },
     /*
      *显示页头系统设置显示/隐藏下拉单功能
-     *obj 要实现的目标id
      *data 显示/隐藏下拉菜单的链接列表
      */
-    Sts_showList: function (obj, data) {
-        $(obj).on('mouseover', function () {
+    Sts_showList: function (data) {
+        $(this).on('mouseover', function () {
             $(this).find('.sys_tips').show();
         }).on('mouseout', function () {
             $(this).find('.sys_tips').hide();
@@ -252,7 +292,7 @@ $.fn.extend({
                 list += '<li><a href="' + data[i].url + '" target="blank">' + data[i].name + '</a></li>'
             }
             ;
-            $(obj).find('.sys_list').append(list);
+            $(this).find('.sys_list').append(list);
         }
     },
     /*
@@ -260,23 +300,23 @@ $.fn.extend({
      *obj 点击的对象
      *target 显示的对象
      */
-    Sts_dropDown: function (obj, target) {
-        $(obj).on('click', function () {
+    Sts_dropDown: function (target) {
+        $(this).on('click', function () {
             var id = $(this).data('link');
             $(this).siblings().find('.arrow').css('-webkit-transform','rotate(0deg)');
             $(this).find('.arrow').css('-webkit-transform','rotate(90deg)');
             $(target).css('display', 'none');
             $('#' + id).css('display', 'block');
             if ($('#section')) {
-                $.fn.setSectionMargin('#sts_sidebar', '#section', 165,165);
+                $('#sts_sidebar').setSectionMargin('#section', 165,165);
             }
         })
     },
-    Sts_sideBar: function (obj, _data) {
+    Sts_sideBar: function ( _data,_picUrl) {
         if (_data.length > 0) {
-            $(obj).append('<ul class="first_lev" id="first_lev"></ul>');
+            $(this).append('<ul class="first_lev" id="first_lev"></ul>');
             for (var i = 0, ii = _data.length; i < ii; i++) {
-                $('#first_lev').append('<li class="fir_li" data-link=' + _data[i].links + '><a style="background:' + _data[i].bg + ' ;"></a><span>' + _data[i].name + '</span><a class="arrow"></a></li>');
+                $('#first_lev').append('<li class="fir_li" data-link=' + _data[i].links + '><a style="background:url(' + _picUrl + ') 0 '+ i*(-15)+'px;"></a><span>' + _data[i].name + '</span><a class="arrow"></a></li>');
                 if (_data[i].list.length > 0) {
                     var html;
                     html = '<ul class="second_lev" id=' + _data[i].links + ' style="display:none;">';
@@ -287,8 +327,8 @@ $.fn.extend({
                     $('#first_lev').append(html);
                 }
             }
-            $.fn.Sts_dropDown('.first_lev li', '.second_lev');
-            $.fn.setsideBarHeigh('#sts_sidebar', 111);
+            $('.first_lev li').Sts_dropDown('.second_lev');
+            $('#sts_sidebar').setsideBarHeigh(105);
         }
     },
 });
@@ -438,6 +478,94 @@ $.lightBox.closeALL = function(){
         $('.data-dia').remove();
     },500);
 }
+/**
+ * [upImgBox 上传图片弹框]
+ * @param  {object} boxSize   [弹框宽度,默认宽度530] {boxWidth:[number],maxWidth:[number],maxHeight:[number],minWidth:[number],minHeight:[number]}
+ * @param  {string} upImgBoxId [删除图片的boxid]
+ * @param  {string} boxTitle   [弹框标题，默认为“更换图片”]
+ * @param  {object} boxButtons [弹框下部操作按钮，默认按钮有取消和确认提交。格式如$.lightBox]
+ * 使用时需按顺序分别引入 css/jquery.Jcrop.css js/jquery.Jcrop.js 和 js/imgUploadPre.js
+ */
+function upImgBox(boxSize,upImgBoxId,boxTitle,boxButtons) {
+    upImgBoxId = upImgBoxId || 'upImg';
+    var upImgDiaId = upImgBoxId + 'Dia';
+    //判断是否已打开图片选择对话框
+    if ( $('#' + upImgDiaId) && $('#' + upImgDiaId)[0] ) {
+        $.lightBox.showBox(upImgDiaId);
+    } else {
+        //新建图片选择弹框
+        //设置大小
+        var boxSize = $.extend({
+            boxWidth: 530,
+            maxWidth: 290,
+            maxHeight: 200,
+            minWidth: 210,
+            minHeight: 140
+        },boxSize);
+        var boxSizeString = '({maxWidth:'+ boxSize.maxWidth 
+            +',maxHeight:' + boxSize.maxHeight + 
+            ',minWidth:' + boxSize.minWidth + 
+            ',minHeight:' + boxSize.minHeight + '})';
+        
+        //默认的弹框内容
+        var defaultContentH = '<div class="img-block block1">'
+            + '<form name="imgUpForm" method="post" enctype="multipart/form-data">'
+                + '<div id="imgDragPane" style="width:'+boxSize.maxWidth+'px;height:'+(boxSize.maxHeight+30)+'px;">'
+                    + '<div id="imgDragContainer" style="width:'+boxSize.maxWidth+'px;height:'+boxSize.maxHeight+'px;">'
+                        + '<p class="p1"><b>+</b>&nbsp;上传图片</p>'
+                        + '<p class="p2">(建议尺寸：'+boxSize.maxWidth+'×'+boxSize.maxHeight+')</p>'
+                + '</div></div>'
+                + '<span class="file-btn" onclick="filepath.click()"style="width:'+(boxSize.maxWidth-2)+'px;"><b>+</b>上传本地图片</span>'
+                + '<input type="hidden" name="upfile" id="upfile" />'
+                + '<input type="file" id="filepath" style="display:none" onchange="previewImage(this,\'upfile\',eval('+boxSizeString+'))">'
+                + '<input type="hidden" id="imgLeft" name="imgLeft" />'
+                + '<input type="hidden" id="imgTop" name="imgTop" />'
+                + '<input type="hidden" id="imgW" name="imgW" />'
+                + '<input type="hidden" id="imgH" name="imgH">'
+                + '<input type="hidden" name="cutW" value="'+boxSize.minWidth+'">'
+                + '<input type="hidden" name="cutH" value="'+boxSize.minHeight+'">'
+                + '<span class="file-tips">支持图片类型jpg、jpeg、png</span>'
+            + '</form></div>'
+            + '<div class="img-block block2">'
+                + '<div class="img-fi-preview">'
+                    + '<div id="preview-pane">'
+                        + '<div class="preview-container" style="width:'+boxSize.minWidth+'px;height:'+boxSize.minHeight+'px;overflow:hidden;">'
+                            + ' <img id="imgPre" class="jcrop-preview" />'
+                + '</div></div></div>'
+                + '<span class="label">预览效果</span>'
+            + '</div>';
+        var defaultBut = [{
+            value: '取消',
+            className: 'dia-close cancel-button'
+        },{
+            value: '确认',
+            className: 'bright-button',
+            callbackFun: imgUpLoad
+        }];
+        $.lightBox({
+            boxID: upImgBoxId,
+            width: boxSize.boxWidth,
+            isDelwFade: false,
+            title: boxTitle || '更换图片',
+            html: defaultContentH,
+            buttons: boxButtons || defaultBut
+        });
+    }
+}
+function imgUpLoad(){
+    if( !$('#upfile').val() ) {
+        alert('还未选择更换图片哟！');
+        return;
+    }
+    var imgPreDom = $('#imgPre')[0];
+    $('#imgTop').val(parseFloat(imgPreDom.style.marginTop));
+    $('#imgLeft').val(parseFloat(imgPreDom.style.marginLeft));
+    $('#imgW').val(imgPreDom.width);
+    $('#imgH').val(imgPreDom.height);
+
+    document.imgUpForm.submit();
+}
+
 
 function dialog(obj) {
     var r = $(obj).data('role');

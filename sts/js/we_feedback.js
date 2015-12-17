@@ -11,10 +11,22 @@
     var pageQuery = window.location.search.substr(1).split('&');
     var pageParam = ( /page=/.test(pageQuery[0]) ) ? ( pageQuery[0].replace('page=','') ) : '1-1-1';
     window._pageConf ={
+        '1-0-0': {
+            pageIndex: '1-0-0',
+            defaultFunc: function() {
+                goPage(window._pageConf['1-1-1']);
+            }
+        },
+        '1-1-0': {
+            pageIndex: '1-1-0',
+            defaultFunc: function() {
+                goPage(window._pageConf['1-1-2']);
+            }
+        },
         '1-1-1': {
             pageIndex: '1-1-1',
-            display: [{curIndex:0,dataUrl:['1-1-1','2-0-1','3-0-0']},
-                {curIndex:0,dataUrl:['1-1-1','1-2-0']},
+            display: [{curIndex:0,dataUrl:['1-0-0','2-0-0','3-0-0']},
+                {curIndex:0,dataUrl:['1-1-0','1-2-0']},
                 {curIndex:0,dataUrl:['1-1-1','1-1-2']}],
             pageLoad: 'page/msg_imgtext_kinds.html',
             callFunc: function() {
@@ -22,11 +34,12 @@
                 $("#js-page1-1-1").bindNavEvent();
                 $("#js-page1-1-1").addFooterOper(null);
             }
+
         },
         '1-1-2': {
             pageIndex: '1-1-2',
-            display: [{curIndex:0,dataUrl:['1-1-1','2-0-1','3-0-0']},
-                {curIndex:0,dataUrl:['1-1-1','1-2-0']},
+            display: [{curIndex:0,dataUrl:['1-0-0','2-0-0','3-0-0']},
+                {curIndex:0,dataUrl:['1-1-0','1-2-0']},
                 {curIndex:1,dataUrl:['1-1-1','1-1-2']}],
             pageLoad: 'page/msg_text.html',
             callFunc: function(){
@@ -36,7 +49,7 @@
         },
         '1-2-0': {
             pageIndex: '1-2-0',
-            display: [{curIndex:0,dataUrl:['1-1-1','2-0-1','3-0-0']},
+            display: [{curIndex:0,dataUrl:['1-0-0','2-0-0','3-0-0']},
                 {curIndex:1,dataUrl:['1-1-1','1-2-0']},
                 {}],
             pageLoad: 'page/param_feedback.html',
@@ -44,9 +57,15 @@
                 $('#js-page1-2-0').find('.js-add-rule').on('click',addQrRule);
             }
         },
+        '2-0-0': {
+            pageIndex: '2-0-0',
+            defaultFunc: function(){
+                goPage(window._pageConf['2-0-2'],[{selector:'#js-page2-0-2 .js-editorArea',value: '这是一个初始化实例aaaa',domType: 'text'}]);
+            }
+        },
         '2-0-1': {
             pageIndex: '2-0-1',
-            display: [{curIndex:1,dataUrl:['1-1-1','2-0-1','3-0-0']},
+            display: [{curIndex:1,dataUrl:['1-0-0','2-0-0','3-0-0']},
                 {},
                 {curIndex:0,dataUrl:['2-0-1','2-0-2']}],
             pageLoad: 'page/msg_imgtext_kinds.html',
@@ -58,7 +77,7 @@
         },
         '2-0-2': {
             pageIndex: '2-0-2',
-            display: [{curIndex:1,dataUrl:['1-1-1','2-0-1','3-0-0']},
+            display: [{curIndex:1,dataUrl:['1-0-0','2-0-0','3-0-0']},
                 {},
                 {curIndex:1,dataUrl:['2-0-1','2-0-2']}],
             pageLoad: 'page/msg_text.html',
@@ -71,11 +90,14 @@
 
                 //绑定验证事件
                 $('#js-page2-0-2').bindwordValid();
+            },
+            initFunc: function(){
+                return [{selector:'#js-page2-0-2 .js-editorArea',value: '这是另一个实例',domType: 'text'}]
             }
         },
         '3-0-0': {
             pageIndex: '3-0-0',
-            display: [{curIndex:2,dataUrl:['1-1-1','2-0-1','3-0-0']},{},{}],
+            display: [{curIndex:2,dataUrl:['1-0-0','2-0-0','3-0-0']},{},{}],
             pageLoad: 'page/keyword_feedback.html',
             callFunc: function(){
                 $('#js-page3-0-0').find('.js-add-rule').on('click',addRule);
@@ -105,6 +127,17 @@
  * initValue参数格式：[{selector:'#js-page2-2-2 .js-editorArea',value: '这是一个初始化实例',domType: 'text'},{}...]
  */
 function goPage(curPage,initValue){
+    //当page配置中存在默认执行函数时则执行该方法
+    //用于获取参数跳转到其他页面
+    if( curPage.defaultFunc ) {
+        curPage.defaultFunc();
+        return;
+    }
+    //无初始值且page配置中存在initFunc时调用方法设置初始值
+    if ( !initValue && curPage.initFunc ) {
+        initValue = curPage.initFunc();
+    }
+
     var display = curPage.display;
     for ( var k in display ) {
         if ( display[k].dataUrl ) {
@@ -120,7 +153,7 @@ function goPage(curPage,initValue){
     }
     
     if ( !$('#js-page'+curPage.pageIndex).text() ) {
-        if ( initValue ) {
+        if ( initValue && initValue.length ) {
             if ( curPage.callFunc ) {
                 $( '#js-page' + curPage.pageIndex ).load(curPage.pageLoad,function() {
                     initVals(initValue);
@@ -139,7 +172,7 @@ function goPage(curPage,initValue){
             }
         }
     } else {
-        if ( initValue ) {
+        if ( initValue && initValue.length ) {
             initVals(initValue);
         }
     }

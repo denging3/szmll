@@ -25,6 +25,12 @@
  #delAccountDia table tr{height: 42px;}
  #delAccountDia table td{text-align: center;}
  .data-dia .status-tips{padding-top: 12px;}
+.page-bar .prev,.page-bar .next{width:60px}
+
+ div#section{-webkit-box-sizing:border-box;padding:30px}
+ .section .sec-header{padding:0}
+ .section .sec-header p{width:100%}
+ .section .sec-main{width:100%;margin-left:0px}
 </style>
 
 <div class="sec-header">
@@ -104,8 +110,8 @@
             </tbody>
         </table>
     </div>
-    <div class="page-bar">
-        <a class="prev" href="#" style="width:66px;">&lt; 上一页</a>
+    <div id='fov' class="page-bar">
+        <!-- <a class="prev" href="#" style="width:66px;">&lt; 上一页</a>
         <a href="#">1</a>
         <strong>2</strong>
         <a href="#">3</a>
@@ -116,7 +122,7 @@
         <span class="no-border">到第<input  onkeyup="__goPageE(this,event);">页</span>
         <a class="button" href="javascript:;" onclick="__goPage(this);" style="width:50px;">确定</a>
         <span class="total-info">共20页</span>
-        <span class="total-info">198项</span>
+        <span class="total-info">198项</span> -->
     </div>
 </div>
 <!-- / 弹窗div start / -->
@@ -359,3 +365,17 @@
 </div>
 <!-- / 提示信息 end / -->
 <script type="text/javascript" src="js/account_man.js"></script>
+<script type="text/javascript">
+    function pageselectCallback(page_id, jq) {
+        alert(page_id); //回调函数，进一步使用请参阅说明文档
+    }
+    $("#fov").pagination(100 , {
+        callback: pageselectCallback,//PageCallback() 为翻页调用次函数。
+        prev_text: " 上一页",
+        next_text: "下一页 ",
+        items_per_page: 10, //每页的数据个数
+        num_display_entries: 4, //两侧首尾分页条目数
+        current_page: 1,   //当前页码
+        num_edge_entries: 2 //连续分页主体部分分页条目数
+    });
+</script>

@@ -41,6 +41,7 @@ $('#creatMeseege').click(function(){
     msg.sendMsg(this);
 });
 $('#edit').load('page/msg_tab.html');
+
 $('.frm_radio_label').on('click',function(){
     $('.frm_radio_label').removeClass('selected');
     var type=$(this).data('type');
@@ -48,3 +49,10 @@ $('.frm_radio_label').on('click',function(){
     $('.menu_content').hide();
     $(type).show();
 });
+
+function getVaule(){
+	var a = 123;
+	return a;
+}
+
+var MAXID= '5';

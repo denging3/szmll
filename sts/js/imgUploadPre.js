@@ -157,8 +157,10 @@ function clacImgZoomParam3(realWidth,realHeight,rate) {
         tempWidth = realWidth;
         tempHeight = tempWidth / rate;
     }
+    console.log(tempHeight+ '...' + tempWidth);
     return clacImgZoomParam(realWidth,realHeight,tempWidth,tempHeight);
 }
+
 /**
  * [upImgBox 上传图片弹框]
  * @param  {object} boxSize   [弹框宽度,默认宽度530] {boxWidth:[number],maxWidth:[number],maxHeight:[number],minWidth:[number],minHeight:[number]}
@@ -234,10 +236,10 @@ function upImgBox(boxSize,upImgBoxId,boxTitle,boxButtons) {
     }
 }
 /**
- * [imgUpLoad 图片上传方法]
- * imgLeft：图片预览左偏移，imgTop：图片预览上偏移
- * imgW：图片预览宽度，imgH：图片预览高度
- * cutW：图片裁剪框宽度，cutH：图片裁剪框搞定
+ * [imgUpLoad 上传图片处理]
+ * imgLeft：图片预览左偏移；mgTop：图片预览上偏移
+ * imgW：图片预览时宽度；mgH：图片预览时高度
+ * cutW：裁剪框宽度；cutH：裁剪框高度
  */
 function imgUpLoad(){
     if( !$('#upfile').val() ) {

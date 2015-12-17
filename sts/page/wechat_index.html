@@ -4,8 +4,11 @@
 				<div id='menuBoxData' style="display: none;"></div>
 				<!---------------------内容区域-------------------------------->
 				<div class="wechat_menu">
-					<div  class="wechat_tips">
+					<div  id="wechat_publis_tips">
 					     <p><span></span>菜单已发布<br>12小时后可在手机查看菜单内容</p>
+					</div>
+					<div  id="wechat_edite_tips">
+					     <p><span></span>菜单编辑中<br>菜单未发布，可点击"保存并发布"同步到手机。若停用菜单，请<a href="javascript:;">点击这里</a></p>
 					</div>
 					<p class="weset_tips" >可添加最多3个一级菜单，每个一级菜单下可添加最多5个子菜单</p>
 					<div class="wechat_content clearfix">
@@ -118,6 +121,7 @@
 										</div>
 										<div id='js_errTips' style='display:none;' class="msg_sender_msg mini_tips warn"></div>
 									</div>
+									<span id="js_fault_tips" style="display: none;">请设置当前菜单的内容</span>
 								</div>
 							</div>
 							<!--------------------设置菜单结束---------------------->
@@ -194,6 +198,25 @@
 	           			</p>
 			        </div>
 		   		 </div>
+		   		 <!----------------------确认删除一级菜单弹窗---------------------------->
+				<div class="data-dia" id="delParentMenuBox">
+			        <div class="data-content">
+			        	<h1 class="dia_header" >
+	               			<span class="tips_title">确认信息</span><a class='close_log' href="javascript:;"></a>
+	           			</h1>
+	           			<p class="tips_content">
+	           				<img src="images/warn_ico.png" />
+	           				<span class="tips_info">
+		           				<span class="tips_info_title">子菜单确认</span><br />
+		           				<span class="tips_info_cont">添加子菜单后，一级菜单的内容将被清除.</span>
+	           				</span>
+	           			</p>
+	           			<p>
+		           			<input type="button" class="cancel" value="取消">
+		           			<input type="button" class="confirm" id="jsAddChild" value="确定">
+	           			</p>
+			        </div>
+		   		 </div>
 		   		<!-----------------------保存信息弹窗-------------------------->
 		   		<div class="data-dia" id="saveMenuBox">
 			        <div class="data-content">
@@ -255,15 +278,15 @@
 			        		<div class="pre_content">
 			        			<ul class="show_list">
 			        				<!--------------动态加载------------->
-				        				<li class="show_item clearfix">
+				        				<!--<li class="show_item clearfix">
 				        					<img src="images/warn_ico.png" />
 				        					<div class="show_content">
-				        						<!--从设置的图文信息中获取-->
 				        						<div class="preview_list">
 													<div class="demo_st clearfix" data-list="1">
 														<a class="close_demo" href="javascript:;"></a>
 														<p>美乐乐微信推广金秋10月代金券</p>
-														<img src="images/bacimg.png" alt=""></div>
+														<img src="images/bacimg.png" alt="">	
+													</div>
 														<div class="deme_title_info" data-list="1">
 															<a class="close_demo" href="javascript:;"></a>
 															<p>美乐乐微信推广金秋10月代金券</p>
@@ -274,10 +297,9 @@
 															<p>美乐乐微信推广金秋10月代金券</p>
 															<img src="images/bacimg.png" alt="">	
 														</div>
-				        						</div>
-				        						<!--从设置的图文信息中获取-->
+				        						</div>	
 				        					</div>
-				        				</li>
+				        				</li>-->
 			        				<!-----------------动态加载结束--------------->
 			        			</ul>
 			        		</div>

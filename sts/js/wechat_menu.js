@@ -1,11 +1,13 @@
-$(document).ready(function(){
-	$('.setting_info').load('page/information.html');
-});
 
 /*初始化配置*/
 var IsDrag = 'off';
-$('#js_status_2').css('display','block');
 binParentClick();
+$('#js_status_2,#wechat_edite_tips').css('display','block');
+$('#js_status_1').on('click',function(){
+	$('#js_fault_tips').css('display','none');
+})
+
+
 
 /*添加父级菜单*/
 function binParentClick(){
@@ -16,12 +18,12 @@ function binParentClick(){
 		var liId ='menu_'+$('.parent_menu_list>li').length;
 		var pL = $('.parent_menu_list>li').length;
 		var html = '<li class="parent_menu_item grid_item current" id='+ liId +'>'
-					+'<a class="parent_menu_link">'
+					+'<a class="parent_menu_link"><i class="menu_ico_dot"></i><i class="sort_gray"></i>'
 						+'<span class="js_title">菜单名称</span>'
 					+'</a>'
 					+'<div class="child_menu_box">'
 						+'<ul class="child_menu_list" id="child_'+ liId +'">'
-							+'<li class="js_addMenuBox2" >'
+							+'<li class="js_addMenuBox2" data-role="delParentMenuBox">'
 								+'<a href="javascript:void(0);" class="js_subView ">'
 									+'<span class="child_menu_innder"><i class="addmenu_gray sub_addmenu"></i></span>'
 								+'</a>'
@@ -29,33 +31,49 @@ function binParentClick(){
 						+'</ul>'
 						+'<span class="arrowl arrow_out"></span><span class="arrowl arrow_in"></span>'
 					+'</div>'
-				+'</li>';
-		
+				+'</li>';		
 		$(this).before(html);
 		setClass();
 		resetCurrent();
 		delDisabled('#js_saveBtn',pL,0);
 		delDisabled('#js_stortable',pL,1);
-		$('.editor_inner').css('display','none');
-		$('#js_status_1').css('display','block').attr('data-id',liId);
-		$('.frm_msg').css('display','none');
-		$('#js_rightBox').attr('data-id',liId);
+		binChildClick();
+		saveCacheData(liId,'p');
+		dataInSetting(liId);
+		$('#js_appImgPop').on('click',function(e){
+			$('#settingInfo').find('.setting_info').load('page/information.html');
+			dialogset(this);
+		})
+		
+		$('.editor_inner,#js_fault_tips,#wechat_publis_tips,.frm_msg').css('display','none');
+		$('#js_status_1,#wechat_edite_tips').css('display','block').attr('data-id',liId);
+		$('#js_rightBox,#js_status_1').attr('data-id',liId);
 		$('#js_menuTitle1,#js_menuTitle2').html('菜单名称');
 		$('#input_title').val('菜单名称');
-		binChildClick();
-		saveCacheData(liId);
-		dataInSetting(liId);
 	});
 }
+
 
 /* 添加子菜单 */
 function binChildClick(){
 	$('.js_addMenuBox2').on('click',function(e){
+		e.stopImmediatePropagation();
 		updateCacheData();
+		var pId = $(this).parents('.parent_menu_item').attr('id');
+		var cacheData = $('#'+pId).data();
+		if(cacheData.url != '' || cacheData.picMessage.length >0 || cacheData.message.msg != '' ){
+			dialogadd(this,pId);
+			return false;
+		}
+		addChild(this);
+		return false;
+	})
+}
+
+function addChild(obj){
 		$('.current').removeClass('current').addClass('child_current');
-		var e = event || window.event;
-		var pId = $(this).parents('li').attr('id');
-		var liId = Date.parse(new Date())+ '_childmenu_'+pId+ '_' + $(this).prevAll().length;
+		var pId = $(obj).parents('li').attr('id');
+		var liId = Date.parse(new Date())+ '_childmenu_'+pId+ '_' + $(obj).prevAll().length;
 		var cL = $('.child_menu_list li').length;
 		var html = '<li class="current" id="'+ liId +'">'
 				+'<a href="javascript:void(0);"  class="js_subView">'
@@ -64,20 +82,18 @@ function binChildClick(){
 					+'</span>'
 				+'</a>'
 			 +'</li>';			 
-		$(this).before(html);
+		$(obj).before(html);
 		resetChildCurrent();
 		delDisabled('#js_stortable',cL,1);	
-		$('.editor_inner').css('display','none');
-		$('#js_status_1').css('display','block').attr('data-id',liId);
-		$('#js_rightBox').attr('data-id',liId);
-		$('#js_menuTitle1,#js_menuTitle2').html('子菜单名称');
-		$('#input_title').val('子菜单名称');
-		$('.frm_msg').css('display','none');
 		saveCacheData(liId);
 		dataInSetting(liId);
-		e.stopImmediatePropagation();
-		return false;
-	})
+		
+		$('#'+pId).find('.menu_ico_dot').css('display','inline-block');
+		$('.editor_inner,#wechat_publis_tips,#js_fault_tips,.frm_msg').css('display','none');
+		$('#js_status_1,#wechat_edite_tips').css('display','block');
+		$('#js_rightBox,#js_status_1').attr('data-id',liId);
+		$('#js_menuTitle1,#js_menuTitle2').html('子菜单名称');
+		$('#input_title').val('子菜单名称');
 }
 
 /* 重置菜单的宽度 */
@@ -87,7 +103,6 @@ function setClass(){
 	var sizeOf = '';
 	if(listLeng == 1){
 		sizeOf = 'sizeof1';
-		//$('.js_addMenuBox>.parent_menu_link').html('+<span class="js_addMenuTips">添加菜单</span>');
 		$('.js_addMenuTips').html('添加菜单');
 	}else if(listLeng == 2){
 		sizeOf = 'sizeof2';
@@ -110,16 +125,14 @@ function resetChildCurrent(){
 			var menuTitle =  $(this).find('.js_title').html();
 			$('.current').removeClass('current').addClass('child_current');
 			$(this).addClass('current');
-			$('.frm_msg').css('display','none');
-			$('.editor_inner').css('display','none');
-			$('#js_status_1').css('display','block').attr('data-id',liId);
-			$('#js_rightBox').attr('data-id',liId);
+			$('.frm_msg,.editor_inner,#js_fault_tips,.msg_tab>.preview_list,#wechat_publis_tips').css('display','none');
+			$('.msg_tab>.jsMsgSendTab,#wechat_edite_tips,#js_status_1').css('display','block');	
+			$('#js_rightBox,#js_status_1').attr('data-id',liId);
 			$('#js_menuTitle1').html(menuTitle);
 			$('#input_title').val(menuTitle);
-			$('#js_menuTitle2').html('子菜单名称');
-			$('.msg_tab .preview_list').css('display','none');
-			$('.msg_tab .jsMsgSendTab').css('display','block');	
+			$('#js_menuTitle2').html('子菜单名称');	
 			dataInSetting(liId);
+			e.stopImmediatePropagation();
 			return false;
 		}	
 	})
@@ -133,10 +146,10 @@ function resetCurrent(){
 			var menuTitle =  $(this).find('.js_title').html();
 			var liLength = $(this).find('ul>li').length;
 			$('.current').removeClass('current');
+			$(this).addClass('current');
 			$('.child_current').removeClass('child_current');
-			$('.frm_msg').css('display','none');
-			$(this).addClass('current');			
-			$('.editor_inner').css('display','none');
+			$('#js_fault_tips,.editor_inner,.frm_msg,#wechat_publis_tips').css('display','none');
+			$('#wechat_edite_tips').css('display','block');
 			$('#js_rightBox').attr('data-id',liId);
 			if(liLength>1){
 				$('#js_status_3').css('display','block').attr('data-id',liId);
@@ -150,13 +163,12 @@ function resetCurrent(){
 				$('#js_menuTitle2').html('菜单名称');
 			}
 			dataInSetting(liId);
+			e.stopImmediatePropagation();
 			
 		}else{
-			updateCacheData();
 			$('.current').removeClass('current');
 			$('.child_current').removeClass('child_current');
 			$(this).addClass('child_current');	
-			dataInSetting(liId);
 		}
 	})
 }
@@ -167,7 +179,6 @@ function delDisabled(obj,objnum,bnum){
 		$(obj).removeAttr('disabled');
 	}
 }
-
 
 /*检查是否输入,并更改菜单名称*/
 function checkLength(obj,maxlen,target,text){
@@ -203,13 +214,16 @@ $('#input_title').on('keyup',function(){
 $('#jsDelBt').on('click',function(){
 	$('.editor_inner').css('display','none');
 	var liId = $('#js_rightBox').attr('data-id');
-	$('#'+liId).remove();
-	$('#js_status_1').css('display','none');
-	setClass();
-	
+	var oO = $('#'+liId).parents('li');
 	var pL = $('.parent_menu_item').length;
 	var cL = $('.child_menu_list li').length;
-
+	$('#'+liId).remove();
+	var oL = oO.find('li').length;
+	setClass();
+	$('#js_status_1').css('display','none');
+	if(oL<2){
+		oO.find('.menu_ico_dot').css('display','none');
+	}	
 	if(pL<2){
 		$('#js_status_2').css('display','block');	
 	}else{
@@ -228,33 +242,40 @@ $('#js_stortable').on('click',function(){
 	updateCacheData();
 	joinData();
 	initMenuData();
-	$('#js_stortable,.setting_btn').css('display','none');
-	$('#js_saveSort').css('display','inline-block');
+	$('#js_stortable,.setting_btn,.menu_ico_dot').css('display','none');
+	$('#js_saveSort,.sort_gray').css('display','inline-block');
 	$('.current').removeClass('current')
 	$('.editor_inner').css('display','none');
 	$('#js_status_4').css('display','block');
+	$('.parent_menu_item').each(function(i,value){
+		if($(this).find('li').length < 2){
+			$(this).find('.child_menu_box').remove();
+		}
+	})
 	$('.js_addMenuBox,.js_addMenuBox2').remove();
 	setClass();
-	IsDrag = 'on';	
-	$( "#parent_menu" ).sortable({
+	IsDrag = 'on';
+	if(IsDrag == 'on'){
+		$( "#parent_menu" ).sortable({
 	   	axis:"x",
         cursor: "move",
         cursorAt: {left:40,bottom:5},
         items :">li",  
         opacity: 0.8,    
-    });
-    $('.parent_menu_list>li').each(function(i,value){
-		var pId = $(this).attr('id');
-		var cId =$('#'+pId).find('ul').attr('id');
-		$("#"+cId).sortable({
-		  revert:true,
-	   	  axis:"y",
-          cursor: "move",
-          cursorAt: {left:40,bottom:5},
-          items :"li",             
-          opacity: 0.8,                      
-         });		
-	 });
+	    });
+	    $('.parent_menu_list>li').each(function(i,value){
+			var pId = $(this).attr('id');
+			var cId =$('#'+pId).find('ul').attr('id');
+			$("#"+cId).sortable({
+			  revert:true,
+		   	  axis:"y",
+	          cursor: "move",
+	          cursorAt: {left:40,bottom:5},
+	          items :"li",             
+	          opacity: 0.8,                      
+	         });		
+		 });
+	}
 })
 
 /*跳出弹窗*/
@@ -274,18 +295,69 @@ $('#js_delBtn2').on('click',function(){
 		'删除后菜单下设置的内容将被删除',
 		'images/warn_ico.png');
 })
+
+/*保存数据时做检测,检测不通过跳回到第一条为空的数据*/
 $('#js_saveBtn').on('click',function(){
+	joinData();
+	var msgImg = $('.js_appmsgArea').find('.preview_list');
+	var msgText = $.trim($('.js_editorArea').html());
+	var msgUrl = $('#urlText').val();
+	if($('#js_status_3').length>0){	
+	   if(!checkIsNull()){
+	   		return false;
+	   }
+	}
+	else{
+		if(msgImg.length < 1 && msgText.length < 1 && msgUrl == ''){
+			$('#js_fault_tips').css('display','inline-block');
+			return false;
+		}else {
+			return checkIsNull();
+		}
+	}
 	dialogs(this,
-		'470px',
-		'发布确认',
-		'发布成功后会覆盖原版本，且将在12小时内对所有用户生效，确认发布?',
-		'&nbsp;');
+	'470px',
+	'发布确认',
+	'发布成功后会覆盖原版本，且将在12小时内对所有用户生效，确认发布?',
+	'&nbsp;');
 })
+
+function checkIsNull(){
+	var cacheData = $('#menuBoxData').data().menus;
+	var isNull = true;
+		for(var i=0;i<cacheData.length;i++){
+			 if(cacheData[i].subMenus.length > 0){
+				for(var k=0;k<cacheData[i].subMenus.length;k++){
+					if(cacheData[i].subMenus[k].message.msg == '' && cacheData[i].subMenus[k].picMessage.length < 1 && cacheData[i].subMenus[k].url == ''){
+						$('#'+cacheData[i].listId).click();
+						$('#'+cacheData[i].subMenus[k].listId).click();
+						$('#js_fault_tips').css('display','inline-block');
+						isNull=false;
+						return false;
+					}
+				}
+			}else{
+				if(cacheData[i].message.msg == '' && cacheData[i].picMessage.length < 1 && cacheData[i].url == ''){
+						$('#'+cacheData[i].listId).click();
+						$('#js_fault_tips').css('display','inline-block');
+						isNull = false;
+						return false;
+					}
+			}
+		}
+	return isNull;
+}
+
 $('#js_appmsgPop').on('click',function(){
+	$('#settingInfoImg').find('.setting_info').load('page/information.html');
+	
+	
 	dialogset(this);
 	$('#'+$(this).data('role')).find('.demo_title_img').html('图文链接');
 })
+
 $('#js_previewInfo').on('click',function(){
+	joinData();
 	dialogset(this);
 })
 
@@ -319,49 +391,103 @@ function dialogset(obj){
     var d = $("#" + r + ""); 
     d.fadeIn();
     d.css('display', 'flex');
-    $('.fix,.close_log,.cancel,.confirm').on('click',function () {
+    $('.close_log,.cancel,.confirm').on('click',function () {
         d.fadeOut();
         setTimeout(function(){
         	$('.fix').detach();
+        	d.find('.setting_info').html('');
+        },500)
+      
+    });
+}
+
+function dialogadd(obj,pid){
+	$('.data-dia').prepend("<div class='fix'></div>");
+	var r = $(obj).data('role');
+    var d = $("#" + r + ""); 
+    d.fadeIn();
+    d.css('display', 'flex');
+    $('.close_log,.cancel').on('click',function(){
+        d.fadeOut();
+        setTimeout(function(){
+        	$('.fix').detach();
+        	d.find('.setting_info').html('');
         },500)
     });
+    $('#jsAddChild').on('click',function(e){
+        var pData = $('#'+pid).data();
+        pData.url = '';
+        pData.picMessage.length = 0;
+        pData.message.msg = '';
+        d.fadeOut();
+      	addChild(obj);
+      	setTimeout(function(){
+        	$('.fix').detach();
+        	d.find('.setting_info').html('');
+        },500)
+      	$('#jsAddChild').unbind('click');
+    });
+}
+
+function dialogSuccess(text){
+	var html = '<p id="success_tips">'+text+'</p>';
+	$('body').append(html);
+	setTimeout(function(){
+		$('#success_tips').remove()
+	},2000);
 }
 
 /*设置图文消息后同步预览*/
 $('#js_settingInfo').on('click',function(){
 	var pId = $(this).parents('.data-dia').attr('id');
-	var preHtml = '<div class="preview_list">';
-	preHtml += $('#'+pId).find('.demo_list')[0].innerHTML;
-	preHtml +='<a href="javascript:;" class="js_delPreview">删除</a></div>';
-	$('.msg_tab .js_appmsgArea').css('display','block');
-	$('.msg_tab .jsMsgSendTab').css('display','none');
-	$('.js_appmsgArea').append(preHtml);
+	var orignHtml = $('#'+pId).find('.demo_list').html();
+	if($.trim(orignHtml).length != 0){
+		var preHtml = '<div class="preview_list">';
+		preHtml += orignHtml;
+		preHtml +='<a href="javascript:;" class="js_delPreview">删除</a></div>';
+		$('.msg_tab .js_appmsgArea').css('display','block');
+		$('.msg_tab .jsMsgSendTab').css('display','none');
+		$('.js_appmsgArea').append(preHtml);
+		$('.js_delPreview').on('click',function(){
+			$(this).parents('.preview_list').remove();
+			$('.msg_tab .jsMsgSendTab').css('display','block');
+		})
+	}else{
+		return false;
+	}
 	
-	$('.js_delPreview').on('click',function(){
-		$(this).parents('.preview_list').remove();
-		$('.msg_tab .jsMsgSendTab').css('display','block');
-	})
 })
 
+/*设置图文链接回显页面*/
+$('#js_settingInfoImg').on('click',function(){
+   var url =	$('#settingInfoImg .img_check').parent('li').data('url');
+   $('#urlText').val(url);
+})
 
 /*保存数据拼接JSON*/
-$('#js_saveInfo,#js_previewInfo').on('click',function(){
+$('#js_saveInfo').on('click',function(){
 	joinData();
+	dialogSuccess('发布成功！');
+	$('	#wechat_edite_tips').css('display','none');
+	$('	#wechat_publis_tips').css('display','block');
+	console.log($('#menuBoxData').data());
 })
 
+
 $('#js_saveSort').on('click',function(){
+	IsDrag = 'off';
 	joinData();
 	initMenuList();
 	initMenuData();
 	binChildClick();
 	setClass();
-	IsDrag = 'off';
-	$('#js_stortable,.setting_btn').css('display','block');
-	$('#js_saveSort').css('display','none');
 	binParentClick();
 	resetCurrent();
 	resetChildCurrent();
-
+	$('#js_stortable,.setting_btn,#js_status_5').css('display','block');
+	$('.editor_inner,#js_saveSort').css('display','none');
+	$( "#parent_menu" ).sortable('destroy');
+	dialogSuccess('排序保存成功！');
 })
 
 /*保存拼接数据*/
@@ -369,7 +495,8 @@ function joinData(){
 	updateCacheData();
 	var parentList =  $('.parent_menu_list>li:not(.js_addMenuBox)');
 	var menuList = {
-		"menus":[]
+		"menus":[],
+		"mchId":"111"
 	}
 	for(var i=0,ii=parentList.length;i<ii;i++){
 		var childList = $(parentList[i]).find('li:not(.js_addMenuBox2)');
@@ -382,11 +509,10 @@ function joinData(){
 		menuList.menus.push(pdata);
 	}
 	$('#menuBoxData').data(menuList);
-	console.log(menuList);
 }
 
 /*写入菜单数据到菜单缓存中*/
-function saveCacheData(obj){
+function saveCacheData(obj,p){
 	var cacheData = {
 		"name":"",
 		"listId":obj,
@@ -394,14 +520,15 @@ function saveCacheData(obj){
 		"key":"",
 		"url":"",
 		"morp":"",
-		"message":{"name":""},
-		"picMessage":[],
-		"subMenus":[]
+		"message":{"msg":""},
+		"picMessage":[]
 	};
-	var name = $('#'+obj).find('.js_title').html();
-	cacheData.name = name;
+	if(p && p == 'p'){
+		cacheData.subMenus = [];
+	}
 	$('#'+obj).data(cacheData);
 }
+
 
 /*更新菜单数据到菜单缓存中*/
 function updateCacheData(){
@@ -409,7 +536,7 @@ function updateCacheData(){
 	  if(updateId && IsDrag == 'off'){
 	  	    var originTextId = $('#js_rightBox div[data-id="'+updateId+'"]').attr('id');
 		  	var originText = $('#' + originTextId);
-		  	var cacheData = $('#'+updateId).data(cacheData);	  	
+		  	var cacheData = $('#'+updateId).data(cacheData);	
 		  	if(cacheData){
 		  		var menuTitles = originText.find('.js_menu_name').val();
 			  	cacheData.name = menuTitles;
@@ -420,20 +547,21 @@ function updateCacheData(){
 				  	if(menuType == 'click'){
 				  		var menuMorP = originText.find('.js_tab_navs .selected').data('type');
 				  		cacheData.morp = menuMorP;
+				  		cacheData.picMessage.length = 0;
 				  		if(menuMorP == 0){
 				  		 	var picMessage = originText.find('.js_appmsgArea .preview_list > div');
 						  	var menuPicM =[];
 						  	for(var i=0,ii=picMessage.length;i<ii;i++){
 						  		var picObj = {};
-						  	    picObj.largePicUrl = $(picMessage[0]).find('img').attr('src');
-						  	    picObj.smallPicUrl = $(picMessage[0]).find('img').attr('src');
-						  	    picObj.msg = $(picMessage[0]).find('p').html();
+						  	    picObj.largePicUrl = $(picMessage[i]).find('img').attr('src');
+						  	    picObj.smallPicUrl = $(picMessage[i]).find('img').attr('src');
+						  	    picObj.title = $(picMessage[i]).find('p').html();
 						  	    menuPicM.push(picObj);
 						  }
 					        cacheData.picMessage = menuPicM;
 				  		}else{
 				  			var menuText = originText.find('.js_textArea .js_editorArea').html();
-				  			cacheData.message.name = menuText;
+				  			cacheData.message.msg = menuText;
 				  		}
 				  	}else{
 				  		var menuUrl = originText.find('#urlText').val();
@@ -451,7 +579,7 @@ $('#js_previewInfo').on('click',function(){
 	var pMenuList = menuBoxList.menus;
 	var html ='<ul class="pre_menu_list" >';
 			for(var i=0,ii=pMenuList.length;i<ii;i++){
-				html +='<li class="pre_list_item">'
+				html +='<li class="pre_list_item" id="'+ pMenuList[i].listId+'">'
 				      +'<a href="javascript:;">'
 				      +'<i class="menu_ico_dot"></i>'+ pMenuList[i].name+'</a>';
 					if(pMenuList[i].subMenus.length > 0){
@@ -459,7 +587,7 @@ $('#js_previewInfo').on('click',function(){
 						html+='<div class="sub_pre_menu">'
 							+'<ul class="sub_pre_menu_list">';
 							for(var k=0,kk=subMenuList.length;k<kk;k++){
-								html+='<li class="sub_list_item">'
+								html+='<li class="sub_list_item" id="'+subMenuList[k].listId+'">'
 									 +'<a href="javascript:;">'+ subMenuList[k].name+'</a>'
 									 +'</li>';
 							}
@@ -478,7 +606,6 @@ $('#js_previewInfo').on('click',function(){
 /*写入数据到设置图中*/
 function dataInSetting(obj){
 	var originData = $('#'+obj).data();
-	console.log(originData);
 	if(originData){
 		var targetSet = $('#js_rightBox');
 		if(originData.type == 'click'){
@@ -510,6 +637,10 @@ function dataInSetting(obj){
 								}
 							html+='<a href="javascript:;" class="js_delPreview">删除</a></div>';	
 				    targetSet.find('.js_appmsgArea').append(html);
+				    $('.js_delPreview').on('click',function(){
+						$(this).parents('.preview_list').remove();
+						$('.msg_tab .jsMsgSendTab').css('display','block');
+					})
 				}else{
 					targetSet.find('.jsMsgSendTab').css('display','block');
 					targetSet.find('.preview_list').remove();
@@ -520,7 +651,7 @@ function dataInSetting(obj){
 				targetSet.find('.tab_text').addClass('selected');
 				targetSet.find('#js_tabInfo').css('display','none');
 				targetSet.find('#js_tabText').css('display','block');
-				targetSet.find('.js_textArea .js_editorArea').html(originData.message.name);
+				targetSet.find('.js_textArea .js_editorArea').html(originData.message.msg);
 			}
 		}else{
 			targetSet.find('.frm_vertical_pt label').removeClass('selected');
@@ -563,7 +694,7 @@ function initMenuList(){
 				var cacheData = pData[i];
 				$('#'+pData[i].listId).data(cacheData);
 				html += '<li class="parent_menu_item grid_item" id="'+ pData[i].listId +'">'
-						+'<a class="parent_menu_link">'
+						+'<a class="parent_menu_link"><i class="menu_ico_dot"></i><i class="sort_gray"></i>'
 						+'<span class="js_title">'+ pData[i].name+'</span>'
 						+'</a>'
 							+'<div class="child_menu_box">'
@@ -594,23 +725,68 @@ function initMenuList(){
 				+'</li>';
 		}
 		$('#parent_menu').html(html);
+		$('.sort_gray').css('display','none');
+		for(var j=0;j<pData.length;j++){
+			if(pData[j].subMenus.length>0){
+				$('#'+pData[j].listId).find('.menu_ico_dot').css('display','inline-block');
+			}
+		}
 	}
 	
 }
 
-
-
-
 /*设置预览图点击样式*/
 function resetPreCurrent(){
+	$('#preViewPhone').find('.show_list').html('');
 	$('.pre_list_item').on('click',function(){
-		$('.pre_phone .open').removeClass('open');
-		$(this).find('.sub_pre_menu').addClass('open');
+		if($(this).find('.sub_list_item').length>0){
+			$('.pre_phone .open').removeClass('open');
+			$(this).find('.sub_pre_menu').addClass('open');					
+			$('.sub_list_item').on('click',function(e){
+				$('.pre_phone .open').removeClass('open');
+				setPreCont(this);
+				e.stopImmediatePropagation();
+				return false;
+			})
+		}else{
+			setPreCont(this);
+		}
+		
 	})
-	$('.sub_list_item').on('click',function(e){
-		$('.pre_phone .open').removeClass('open');
-		return false;
-	})
+}
+
+/*添加预览手机内容*/
+function setPreCont(obj){
+	var subId = $(obj).attr('id');
+	var cachData = $('#'+subId).data();
+	var html ='	<li class="show_item clearfix">'
+		+'<img src="images/warn_ico.png" />'
+		+'<div class="show_content">'
+		+'<div class="preview_list">';
+	if(cachData.morp == 0){
+		if(cachData.picMessage.length >0){
+			html+='<div class="demo_st clearfix" data-list="1">'
+			+'<a class="close_demo" href="javascript:;"></a>'
+			+'<p>'+ cachData.picMessage[0].msg+'</p>'
+			+'<img src="'+ cachData.picMessage[0].largePicUrl +'" alt="">'
+			+'</div>';
+			for(var i=1;i<cachData.picMessage.length;i++){
+				html += '<div class="deme_title_info" data-list="1">'
+				+'<a class="close_demo" href="javascript:;"></a>'
+				+'<p>'+cachData.picMessage[0].msg+'</p>'
+				+'<img src="'+cachData.picMessage[i].smallPicUrl+'" alt="">'
+				+'</div>';
+			}
+			html +='</div></div></li>';
+			$('#preViewPhone').find('.show_list').append(html);
+		}else{
+			return false;
+		}
+	}else{
+		html += cachData.message.msg;
+		html +='</div></div></li>';
+		$('#preViewPhone').find('.show_list').append(html);
+	}
 }
 
 /*设置cookies方法*/
@@ -662,30 +838,3 @@ function subStringChar(str, len) {
         }
         return newStr;
 } 
-
-var menuDataArr = [{
-	"mchId":"",
-	"name":"",
-	"type":"",
-	"key":"",
-	"morp":"",
-	"url":"",
-	"message":{"name":""},
-	"picmessage":[{"largePicUrl":"","smallPicUrl":"","msg":""},{"largePicUrl":"","smallPicUrl":"","msg":""},{"largePicUrl":"","smallPicUrl":"","msg":""}],
-	"subMenus":[{
-		"name":"",
-		"type":"",
-		"key":"",
-		"url":"",
-		"morp":"",
-		"message":{"name":""},
-		"picmessage":[{"largePicUrl":"","smallPicUrl":"","msg":""},{"largePicUrl":"","smallPicUrl":"","msg":""},{"largePicUrl":"","smallPicUrl":"","msg":""}]
-		},{
-		"name":"",
-		"type":"",
-		"key":"",
-		"url":"",
-		"morp":"",
-		"message":{"name":""},
-		"picmessage":[{"largePicUrl":"","smallPicUrl":"","msg":""},{"largePicUrl":"","smallPicUrl":"","msg":""},{"largePicUrl":"","smallPicUrl":"","msg":""}]}],
-}]
