@@ -103,7 +103,7 @@ $.msgDemo.getDemoChecked = function(pdiv) {
     return checkedInfos;
 }
 $.fn.extend({
-    addSettingModual: function() {
+    addSettingModual: function(checkedIds) {
         //添加各模块内容 this为当前添加dom的父级节点
         var divs = $(this).find('.msg-item');
         $(divs).each( function() {
@@ -111,7 +111,7 @@ $.fn.extend({
             //TODO
             //获取数据加载模块
             $(this).load('page/msg_imgtext.html',function(){
-                $.msgDemo(this);
+                $.msgDemo(this,checkedIds);
             });
         });
     },

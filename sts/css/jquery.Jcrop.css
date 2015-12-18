@@ -1,3 +1,4 @@
+@charset 'utf-8';
 /* jquery.Jcrop.css v0.9.12 - MIT License */
 /*
   The outer-most container in a typical Jcrop instance
@@ -8,6 +9,7 @@
   A better method for styling can be seen below with .jcrop-light
   (Add a class to the holder and style elements for that extended class)
 */
+/* 尾部追加有自定义样式 */
 .jcrop-holder {
   direction: ltr;
   text-align: left;
@@ -15,7 +17,7 @@
 /* Selection Border */
 .jcrop-vline,
 .jcrop-hline {
-  background: #ffffff url("Jcrop.gif");
+  background: #ffffff;
   font-size: 0;
   position: absolute;
 }
@@ -162,4 +164,78 @@
 .jcrop-holder img,
 img.jcrop-preview {
   max-width: none;
+}
+
+/**
+ * 自定义裁剪图片弹框样式
+ */
+.imgup-block {
+    float: left;
+}
+.imgup-block .img-drag-pane {
+    background-color: #b2b2b2;
+    border-radius: 4px;
+    padding-top: 30px;
+}
+.imgup-block .img-drag-container {
+    margin-left: -1px;
+    border:dotted 1px #ddd;
+    background-color: #fff;
+}
+.imgup-block .img-drag-container .p1 {
+    margin-top: 25%;
+    color: #808080;
+    text-align: center;
+    border-bottom: none;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.imgup-block .img-drag-container .p1 b {
+    font-size: 24px;
+    vertical-align: -3px;
+    color: #999;
+}
+.imgup-block .img-drag-container .p2 {
+    color: #999;
+    margin-top: 5px;
+    text-align: center;
+    border-bottom: none;
+    padding-top: 0;
+}
+
+.imgup-block1 .file-btn {
+    display:block;
+    height:32px;
+    line-height:32px;
+    border:solid 1px #ddd;
+    border-radius:2px;
+    cursor:pointer;
+    text-align: center;
+    margin-top: 20px;
+}
+.imgup-block1 b {
+    font-size: 20px;
+    color: #999;
+    vertical-align: -3px;
+}
+.imgup-block1 .file-tips {
+    display:inline-block;
+    width:290px;
+    margin-top:10px;
+    color:#666;
+}
+.imgup-block2 {
+    margin-left: 28px;
+}
+.imgup-block2 .img-fi-preview {
+    border: solid 1px #ddd;
+    border-radius: 2px;
+    position: relative;
+}
+.jcrop-holder .preview-pane {
+  display: block;
+  position: absolute;
+  z-index: 2000;
+  border-radius: 2px;
+  border: solid 1px #ddd;
 }

@@ -224,7 +224,7 @@ select::-ms-expand {
 
 /*--公共左边导航--- */
 #content {
-    overflow: hidden;
+	overflow: hidden;
 }
 
 #sidebar {
@@ -491,6 +491,7 @@ select::-ms-expand {
 #section {
     border-top: 1px solid #e8e8e8;
     text-align: left;
+    margin-left:165px;
     padding-bottom: 2000px;
     margin-bottom: -2000px;
 }
@@ -575,7 +576,7 @@ select::-ms-expand {
     font-size: 12px;
     text-align: center;
 }
-.input,.select {
+.input,.select,.textarea {
     display: inline-block;
     height: 32px;
     border: 1px solid #e8e8e8;
@@ -681,6 +682,7 @@ a.red-button {
     color: #e7441f!important;
 }
 /* ****************弹框内部内容样式****************** */
+.data-dia .data-content{max-height: 760px;overflow-y:auto;}
 .data-dia .dia-header {
     height: 44px;
     line-height: 44px;
@@ -688,6 +690,8 @@ a.red-button {
 }
 .data-dia .dia-header .dia-title {
     font-size: 25px;
+    display: block;
+    text-align: center;
 }
 .data-dia .dia-header .dia-cha {
     position: absolute;
@@ -752,89 +756,6 @@ a.red-button {
 }
 #warnInfoDia table td {
     text-align: center;
-}
-/*裁剪图片预览样式*/
-.data-dia .dia-main .img-block {
-    float: left;
-}
-.data-dia .dia-main .block1 {
-    width:290px;
-}
-#imgDragPane {
-    -webkit-box-sizing:border-box;
-    width: 290px;
-    background-color: #fff;
-    border-radius: 4px;
-}
-#imgDragContainer {
-    width: 290px;
-    height: 200px;
-    margin-left: -1px;
-    border:dotted 1px #ddd;
-    background-color: #fff;
-}
-#imgDragContainer .p1 {
-    margin-top: 70px;
-    color: #808080;
-    text-align: center;
-}
-#imgDragContainer .p1 b {
-    font-size: 24px;
-    vertical-align: -3px;
-    color: #999;
-}
-#imgDragContainer .p2 {
-    color: #999;
-    margin-top: 5px;
-    text-align: center;
-}
-
-.jcrop-holder #preview-pane {
-    display: block;
-    position: absolute;
-    z-index: 2000;
-    top: -30px;
-    right: -275px;
-    background-color: white;
-    border-radius: 2px;
-}
-#preview-pane .preview-container {
-    width: 210px;
-    height: 140px;
-    overflow: hidden;
-}
-.data-dia .dia-main .block1 .file-btn {
-    display:block;
-    width:288px;
-    eight:32px;
-    line-height:32px;
-    border:solid 1px #ddd;
-    border-radius:2px;
-    cursor:pointer;
-    text-align: center;
-    margin-top: 20px;
-}
-.data-dia .dia-main .block1 b {
-    font-size: 20px;
-    color: #999;
-    vertical-align: -3px;
-}
-.data-dia .dia-main .block1 .file-tips {
-    display:inline-block;
-    width:290px;
-    margin-top:10px;
-    color:#666;
-}
-.data-dia .dia-main .block2 {
-    margin-left: 28px;
-}
-.data-dia .dia-main .block2 .img-fi-preview {
-    display: block;
-    width: 210px;
-    height: 140px;
-    border: solid 1px #ddd;
-    border-radius: 2px;
-    position: relative;
 }
 .data-dia .dia-main .label {
     display: block;

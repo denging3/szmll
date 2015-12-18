@@ -761,18 +761,17 @@ a.red-button {
 .data-dia .dia-main .img-block {
     float: left;
 }
-
-#imgDragPane {
+.img-block .img-drag-pane {
     background-color: #b2b2b2;
     border-radius: 4px;
     padding-top: 30px;
 }
-#imgDragContainer {
+.img-block .img-drag-container {
     margin-left: -1px;
     border:dotted 1px #ddd;
     background-color: #fff;
 }
-#imgDragContainer .p1 {
+.img-block .img-drag-container .p1 {
     margin-top: 25%;
     color: #808080;
     text-align: center;
@@ -780,12 +779,12 @@ a.red-button {
     padding-top: 0;
     padding-bottom: 0;
 }
-#imgDragContainer .p1 b {
+.img-block .img-drag-container .p1 b {
     font-size: 24px;
     vertical-align: -3px;
     color: #999;
 }
-#imgDragContainer .p2 {
+.img-block .img-drag-container .p2 {
     color: #999;
     margin-top: 5px;
     text-align: center;
@@ -793,7 +792,7 @@ a.red-button {
     padding-top: 0;
 }
 
-.data-dia .dia-main .block1 .file-btn {
+.imgup-block1 .file-btn {
     display:block;
     height:32px;
     line-height:32px;
@@ -803,21 +802,21 @@ a.red-button {
     text-align: center;
     margin-top: 20px;
 }
-.data-dia .dia-main .block1 b {
+.imgup-block1 b {
     font-size: 20px;
     color: #999;
     vertical-align: -3px;
 }
-.data-dia .dia-main .block1 .file-tips {
+.imgup-block1 .file-tips {
     display:inline-block;
     width:290px;
     margin-top:10px;
     color:#666;
 }
-.data-dia .dia-main .block2 {
+.imgup-block2 {
     margin-left: 28px;
 }
-.data-dia .dia-main .block2 .img-fi-preview {
+.imgup-block2 .img-fi-preview {
     border: solid 1px #ddd;
     border-radius: 2px;
     position: relative;

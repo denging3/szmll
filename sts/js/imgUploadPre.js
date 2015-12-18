@@ -1,9 +1,10 @@
 //图片上传预览    IE是用了滤镜。
-function previewImage(file,fileInput,boxSize) {
+function previewImage(file,boxSize) {
     var MAXWIDTH  = boxSize.maxWidth,MINWIDTH = boxSize.minWidth;
     var MAXHEIGHT = boxSize.maxHeight,MINHEIGHT = boxSize.minHeight;
     var fileSuffixs = 'image/jpg,image/jpeg,image/png';
-    var div = document.getElementById('imgDragContainer');
+    var pDiv = $('#' + boxSize.boxId );
+    var imgContain = $(pDiv).find('.js-imgDragContainer');
     if (file.files && file.files[0]) {
         //验证选择的文件类型
         var fileType = file.files[0].type;
@@ -11,48 +12,50 @@ function previewImage(file,fileInput,boxSize) {
             alert('仅支持图片类型jpg、jpeg、png');
             return;
         }
-        div.innerHTML = '<div id="imgContainerInner">';
-        var innerDiv = document.getElementById('imgContainerInner');
+        var imgContainInner = $('<div class="js-imgContainInner">');
+        $(imgContain).html(imgContainInner);
+        var imgDrag = $('<img class="js-imgDrag" alt="jcrop Image">');
+        $(imgContainInner).html(imgDrag);
 
-        innerDiv.innerHTML ='<img id="imgDrag" alt="Jcrop Image">';
-        var img = document.getElementById('imgDrag'),
-            imgPre = document.getElementById('imgPre');
-        img.onload = function(){
-            var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
-            var rectPre = clacImgZoomParam2(MINWIDTH, MINHEIGHT, img.offsetWidth, img.offsetHeight);
-            img.width  =  rect.width;
-            img.height =  rect.height;
-            imgPre.width = rectPre.width;
-            imgPre.height = rectPre.height;
-            imgContainerInner.style.marginLeft = rect.left+'px';
-            imgContainerInner.style.marginTop = rect.top+'px';
+        var imgDom = $(imgDrag)[0],
+            imgPre = $(pDiv).find('.js-imgpre');
+        imgDom.onload = function(){
+            var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, imgDom.offsetWidth, imgDom.offsetHeight);
+            var rectPre = clacImgZoomParam2(MINWIDTH, MINHEIGHT, imgDom.offsetWidth, imgDom.offsetHeight);
+            imgDom.width  =  rect.width;
+            imgDom.height =  rect.height;
+            $(imgPre).css({width: (rectPre.width + 'px') ,height: (rectPre.height + 'px')});
+            $(imgContainInner).css({'margin-left': (rect.left + 'px'),'margin-top': (rect.top + 'px')});
+            $(pDiv).find('.preview-pane').css({right: -(30 + MINWIDTH + rect.left) + 'px',top: -(31 + rect.top) + 'px'});
 
             //添加拖拽框裁剪扩展
             var dragRect = clacImgZoomParam3(rect.width,rect.height,(MINWIDTH/MINHEIGHT));
-            jQuery(function($){
+            jQuery(function($) {
 
                 var jcrop_api,
                     boundx,
                     boundy,
-                    $preview = $('#preview-pane'),
-                    $pcnt = $('#preview-pane .preview-container'),
-                    $pimg = $('#preview-pane .preview-container img'),
+                    $preview = $('.preview-pane'),
+                    $pcnt = $('.preview-pane .preview-container'),
+                    $pimg = $('.preview-pane .preview-container img'),
                     xsize = $pcnt.width(),
                     ysize = $pcnt.height();
-                $('#imgDrag').Jcrop({
+                $(imgDrag).Jcrop({
                     bgFade:     true,
                     bgOpacity: .5,
-                    allowSelect: false,
-                    allowResize: false,
+                    // allowSelect: false,
+                    // allowResize: false,
                     onSelect: updatePreview,
+                    onChange: updatePreview,
                     aspectRatio: xsize / ysize,
+
                     setSelect: [ dragRect.left, dragRect.top, dragRect.width, dragRect.height]
                 },function(){
                     var bounds = this.getBounds();
                     boundx = bounds[0];
                     boundy = bounds[1];
                     jcrop_api = this;
-                    // $preview.appendTo('');
+                    $preview.appendTo(jcrop_api.ui.holder);
                 });
 
                 //更新裁剪预览框中图片
@@ -62,8 +65,8 @@ function previewImage(file,fileInput,boxSize) {
                         var ry = ysize / c.h;
 
                         $pimg.css({
-                          // width: Math.round(rx * boundx) + 'px',
-                          // height: Math.round(ry * boundy) + 'px',
+                          width: Math.round(rx * boundx) + 'px',
+                          height: Math.round(ry * boundy) + 'px',
                           marginLeft: '-' + Math.round(rx * c.x) + 'px',
                           marginTop: '-' + Math.round(ry * c.y) + 'px'
                         });
@@ -73,24 +76,32 @@ function previewImage(file,fileInput,boxSize) {
         }
         var reader = new FileReader();
         reader.onload = function(evt){
-            img.src = evt.target.result;
-            imgPre.src = evt.target.result;
+            imgDom.src = evt.target.result;
+
+            if ( !$(imgPre)[0] ) {
+                var preContainH = '<div class="preview-pane">'
+                        + '<div class="preview-container" style="width:'+ MINWIDTH +'px;height:'+ MINHEIGHT +'px;overflow:hidden;">'
+                            + ' <img class="js-imgpre jcrop-preview" />'
+                        + '</div></div>';
+                $(pDiv).find('.img-fi-preview').html(preContainH);
+                imgPre = $(pDiv).find('.js-imgpre');
+            }
+            $(imgPre).attr('src', evt.target.result);
         }
         reader.readAsDataURL(file.files[0]);
     } else {
         //兼容IE
         //TODO
-        var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
-        file.select();
-        var src = document.selection.createRange().text;
-        div.innerHTML = '<img id="imgDrag">';
-        var img = document.getElementById('imgDrag');
-        img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
-        var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
-        status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
-        div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;"+sFilter+src+"\"'></div>";
+        // var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+        // file.select();
+        // var src = document.selection.createRange().text;
+        // div.innerHTML = '<img id="imgDrag">';
+        // var img = document.getElementById('imgDrag');
+        // img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+        // var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+        // status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+        // div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;"+sFilter+src+"\"'></div>";
     }
-    $('#' + fileInput).val(file.value);
 }
 /**
  * [clacImgZoomParam 上传预览图片给定最大宽高计算图片展示宽高及margin] 
@@ -157,7 +168,6 @@ function clacImgZoomParam3(realWidth,realHeight,rate) {
         tempWidth = realWidth;
         tempHeight = tempWidth / rate;
     }
-    console.log(tempHeight+ '...' + tempWidth);
     return clacImgZoomParam(realWidth,realHeight,tempWidth,tempHeight);
 }
 
@@ -183,37 +193,37 @@ function upImgBox(boxSize,upImgBoxId,boxTitle,boxButtons) {
             maxWidth: 290,
             maxHeight: 200,
             minWidth: 210,
-            minHeight: 140
+            minHeight: 140,
+            boxId: upImgDiaId
         },boxSize);
-        var boxSizeString = '({maxWidth:'+ boxSize.maxWidth 
-            +',maxHeight:' + boxSize.maxHeight + 
-            ',minWidth:' + boxSize.minWidth + 
-            ',minHeight:' + boxSize.minHeight + '})';
-        
+        var boxSizeString = '({maxWidth:'+ boxSize.maxWidth +
+            ',maxHeight:' + boxSize.maxHeight +
+            ',minWidth:' + boxSize.minWidth +
+            ',minHeight:' + boxSize.minHeight +
+            ',boxId:\'' + boxSize.boxId + '\'})';
         //默认的弹框内容
-        var defaultContentH = '<div class="img-block block1">'
-            + '<form name="imgUpForm" method="post" enctype="multipart/form-data">'
-                + '<div id="imgDragPane" style="width:'+boxSize.maxWidth+'px;height:'+(boxSize.maxHeight+30)+'px;">'
-                    + '<div id="imgDragContainer" style="width:'+boxSize.maxWidth+'px;height:'+boxSize.maxHeight+'px;">'
+        var defaultContentH = '<div class="imgup-block imgup-block1">'
+            + '<form method="post" enctype="multipart/form-data">'
+                + '<div class="js-imgDragPane img-drag-pane" style="width:'+boxSize.maxWidth+'px;height:'+(boxSize.maxHeight+30)+'px;">'
+                    + '<div class="js-imgDragContainer img-drag-container" style="width:'+boxSize.maxWidth+'px;height:'+boxSize.maxHeight+'px;">'
                         + '<p class="p1"><b>+</b>&nbsp;上传图片</p>'
                         + '<p class="p2">(建议尺寸：'+boxSize.maxWidth+'×'+boxSize.maxHeight+')</p>'
                 + '</div></div>'
-                + '<span class="file-btn" onclick="filepath.click()"style="width:'+(boxSize.maxWidth-2)+'px;"><b>+</b>上传本地图片</span>'
-                + '<input type="hidden" name="upfile" id="upfile" />'
-                + '<input type="file" id="filepath" style="display:none" onchange="previewImage(this,\'upfile\',eval('+boxSizeString+'))">'
-                + '<input type="hidden" id="imgLeft" name="imgLeft" />'
-                + '<input type="hidden" id="imgTop" name="imgTop" />'
-                + '<input type="hidden" id="imgW" name="imgW" />'
-                + '<input type="hidden" id="imgH" name="imgH">'
-                + '<input type="hidden" id="cutW" name="cutW" value="'+boxSize.minWidth+'">'
-                + '<input type="hidden" id="cutH" name="cutH" value="'+boxSize.minHeight+'">'
+                + '<span class="file-btn" onclick="' + upImgBoxId + 'Filepath.click()"style="width:'+(boxSize.maxWidth-2)+'px;"><b>+</b>上传本地图片</span>'
+                + '<input type="file" name="' + upImgBoxId + 'Filepath" id="' + upImgBoxId + 'Filepath" style="display:none" onchange="previewImage(this,eval('+boxSizeString+'))">'
+                // + '<input type="hidden" id="imgLeft" name="imgLeft" />'
+                // + '<input type="hidden" id="imgTop" name="imgTop" />'
+                // + '<input type="hidden" id="imgW" name="imgW" />'
+                // + '<input type="hidden" id="imgH" name="imgH">'
+                // + '<input type="hidden" id="cutW" name="cutW" value="'+boxSize.minWidth+'">'
+                // + '<input type="hidden" id="cutH" name="cutH" value="'+boxSize.minHeight+'">'
                 + '<span class="file-tips">支持图片类型jpg、jpeg、png</span>'
             + '</form></div>'
-            + '<div class="img-block block2">'
-                + '<div class="img-fi-preview">'
-                    + '<div id="preview-pane">'
+            + '<div class="imgup-block imgup-block2">'
+                + '<div class="img-fi-preview" style="width:'+boxSize.minWidth+'px;height:'+boxSize.minHeight+'px;">'
+                    + '<div class="preview-pane">'
                         + '<div class="preview-container" style="width:'+boxSize.minWidth+'px;height:'+boxSize.minHeight+'px;overflow:hidden;">'
-                            + ' <img id="imgPre" class="jcrop-preview" />'
+                            + ' <img class="js-imgpre jcrop-preview" />'
                 + '</div></div></div>'
                 + '<span class="label">预览效果</span>'
             + '</div>';
@@ -223,7 +233,9 @@ function upImgBox(boxSize,upImgBoxId,boxTitle,boxButtons) {
         },{
             value: '确认',
             className: 'bright-button',
-            callbackFun: imgUpLoad
+            callbackFun: function() {
+                imgUpLoad(boxSize);
+            }
         }];
         $.lightBox({
             boxID: upImgBoxId,
@@ -237,20 +249,27 @@ function upImgBox(boxSize,upImgBoxId,boxTitle,boxButtons) {
 }
 /**
  * [imgUpLoad 上传图片处理]
+ * @param {object} boxSize [存放弹窗对话框相应的信息,必须包含当前图片选择框的domID，裁剪框大小]
  * imgLeft：图片预览左偏移；mgTop：图片预览上偏移
  * imgW：图片预览时宽度；mgH：图片预览时高度
  * cutW：裁剪框宽度；cutH：裁剪框高度
  */
-function imgUpLoad(){
-    if( !$('#upfile').val() ) {
+function imgUpLoad(boxSize){
+    var upFile = $('#' + boxSize.boxId).find('input[type=file]');
+    if( !$(upFile).val() ) {
         alert('还未选择更换图片哟！');
         return;
     }
-    var imgPreDom = $('#imgPre')[0];
-    $('#imgTop').val(parseFloat(imgPreDom.style.marginTop));
-    $('#imgLeft').val(parseFloat(imgPreDom.style.marginLeft));
-    $('#imgW').val(imgPreDom.width);
-    $('#imgH').val(imgPreDom.height);
+    var imgPreDom = $('#' + boxSize.boxId).find('.js-imgpre')[0];
 
-    document.imgUpForm.submit();
+    var res = {imgTop: parseFloat(imgPreDom.style.marginTop),
+        imgLeft: parseFloat(imgPreDom.style.marginLeft),
+        imgW: parseFloat(imgPreDom.style.width),
+        imgH: parseFloat(imgPreDom.style.height),
+        cutW: boxSize.minWidth,
+        cutH: boxSize.minHeight,
+        imgSrc: imgPreDom.src
+    };
+    console.log(res);
+    return res;
 }
