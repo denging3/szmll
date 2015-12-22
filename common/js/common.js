@@ -119,42 +119,70 @@ $(document).ready(function () {
 	 *  'list':[{...},{...},{...}]
 	 * },{...}]
 	 */
-    $.ajax({
-        type:"post",
-        url:durl,
-        async:true,
-        success:function(data){
-            var odata = JSON.parse(data);
-            var os = new menuTree();
-                os.init({
-                    "targetId":"sysInfo",
-                    "data":odata.rightNav,
-                    "url":'',
-                    "action":"hover"});
-            if($('#sidebar').length>0){
-                 var menu = new menuTree();
-                 menu.init({
-                    "targetId":"sidebar",
-                    "data":odata.menus,
-                    "url":'',
-                    "action":"click",
-                    "callBack":function(){
-                        setSectionLeft('#sidebar > ul > li.show >ul',80,220);
-                    }
-                 });
-                 setSectionLeft('#sidebar > ul > li.show >ul',80,220);
-            }else{
-                 var menu = new menuTree();
-                 menu.init({
-                    "targetId":"sts_sidebar",
-                    "data":odata.sys,
-                    "url":'',
-                    "action":"click"
-                 });
-                 setSectionLeft('#sidebar > ul > li.show >ul',165,165);
-            }
+var os = new menuTree();
+    os.init({
+        "targetId":"sysInfo",
+        "data":rightNav,
+        "url":'',
+        "action":"hover"});
+if($('#sidebar').length>0){
+     var menu = new menuTree();
+     menu.init({
+        "targetId":"sidebar",
+        "data":menus,
+        "url":'',
+        "action":"click",
+        "callBack":function(){
+            setSectionLeft('#sidebar > ul > li.show >ul',80,220);
         }
-    });
+     });
+     setSectionLeft('#sidebar > ul > li.show >ul',80,220);
+}else{
+     var menu = new menuTree();
+     menu.init({
+        "targetId":"sts_sidebar",
+        "data":sys,
+        "url":'',
+        "action":"click"
+     });
+     setSectionLeft('#sidebar > ul > li.show >ul',165,165);
+}
+    // $.ajax({
+    //     type:"post",
+    //     url:durl,
+    //     async:true,
+    //     success:function(data){
+    //         var odata = JSON.parse(data);
+    //         var os = new menuTree();
+    //             os.init({
+    //                 "targetId":"sysInfo",
+    //                 "data":odata.rightNav,
+    //                 "url":'',
+    //                 "action":"hover"});
+    //         if($('#sidebar').length>0){
+    //              var menu = new menuTree();
+    //              menu.init({
+    //                 "targetId":"sidebar",
+    //                 "data":odata.menus,
+    //                 "url":'',
+    //                 "action":"click",
+    //                 "callBack":function(){
+    //                     setSectionLeft('#sidebar > ul > li.show >ul',80,220);
+    //                 }
+    //              });
+    //              setSectionLeft('#sidebar > ul > li.show >ul',80,220);
+    //         }else{
+    //              var menu = new menuTree();
+    //              menu.init({
+    //                 "targetId":"sts_sidebar",
+    //                 "data":odata.sys,
+    //                 "url":'',
+    //                 "action":"click"
+    //              });
+    //              setSectionLeft('#sidebar > ul > li.show >ul',165,165);
+    //         }
+    //     }
+    // });
 });
 
 /*

@@ -50,7 +50,7 @@
         '1-2-0': {
             pageIndex: '1-2-0',
             display: [{curIndex:0,dataUrl:['1-0-0','2-0-0','3-0-0']},
-                {curIndex:1,dataUrl:['1-1-1','1-2-0']},
+                {curIndex:1,dataUrl:['1-1-0','1-2-0']},
                 {}],
             pageLoad: 'page/param_feedback.html',
             callFunc: function(){
@@ -118,7 +118,7 @@
         $(this).bindwordValid();
     });
     $('.addTextMsg').load('page/msg_text.html');
-    $('.addMsgItem').load('page/msg_imgtext.html');
+    $('.addMsgItem').load('page/msg_imgtext_kinds.html');
 }();
 /**
  * [goPage 微回复导航页面跳转]
@@ -320,6 +320,8 @@ function delQrRule(qrRuleId){
                 //TODO
                 //待完善删除二维码规则
                 // window.location.reload();
+                var that = this;
+                $.lightBox.closeBox($(that)[0].lightBox);
             }
         }]
     });
@@ -455,16 +457,32 @@ function chooseQR(qrString){
  */
 function delChoed(obj){
     var delID = $(obj).data('role');
-    //TODO
-    //数据库交互删除选定qr
     $(obj).parent().remove();
 
     for(var m in window.__chosedQR.id){
         if ( window.__chosedQR.id[m] == delID) {
+            
+            //去掉多选框选中样式
+            delCheckStyle(window.__chosedQR.id[m],window.__chosedQR.desc[m]);
+
+            //更新全局变量中逸轩二维码的暂存
             window.__chosedQR.id.splice(m,1);
             window.__chosedQR.desc.splice(m,1);
         }
     }
+}
+/**
+ * [delCheckStyle 去掉多选框选中样式]
+ * @param  {string} delID   [删除二维码id]
+ * @param  {string} delDesc [删除二维码描述]
+ */
+function delCheckStyle(delID,delDesc){
+    var descStr = delID + '=' + delDesc;
+    $('.data-dia .js-qr-check').each(function() {
+        if ( $(this).data('role') == descStr ) {
+            $(this).removeClass('checked');
+        }
+    })
 }
 /**
  * [changeContent 设置选择按钮展示值]
@@ -559,6 +577,7 @@ function delMsgItem(ruleId,msgId){
     $.lightBox({
         width: 390,
         title: '删除确认',
+        boxID: 'delMsgItem',
         closeOther: false,
         html: '<p style="text-align:center;">是否确认删除该回复消息设置？</p>',
         buttons: [{
@@ -570,11 +589,7 @@ function delMsgItem(ruleId,msgId){
             callbackFun: function(){
                 //TODO
                 //删除消息
-                if ( ruleId && msgId ) {
-                    //交互删除数据刷新页面
-                } else {
-                    //添加规则时删除配置消息
-                }
+                $.lightBox.closeBox($(this)[0].lightBox);
             }
         }]
     });
@@ -721,7 +736,7 @@ function editMsgItem(obj){
 
     });
     //绑定图文选择事件
-    $.msgDemo($('#addMsgItemDia'),$('.data-dia .js-imgmsg-ids').val());
+    $.msgDemo($('#addMsgItemDia'),'111',$('.data-dia .js-imgmsg-ids').val());
     //TODO 补充接口后完善
 }
 

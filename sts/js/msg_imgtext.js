@@ -3,92 +3,174 @@ $.msgDemo = function(pdiv,checkedIds) {
 }
 $.msgDemo.prototype = {
     constructor:$.msgDemo,
-    init: function(pdiv,checkedIds) {
+    init: function(pdiv,mchId,checkedIds) {
+        this.mchId = mchId;
         this.pdiv = pdiv;
         var that = this;
-
+        $.msgDemo.checkedIds = checkedIds;
         //TODO待扩展
         // $(this.pdiv).find('.demo_title_list li').on('click',function(){
         //     that.fsaf(this);
         // });
-        $(this.pdiv).find('.demo_info span').on('click',function(){
-            that.check_list(this);
-        });
-        this.defaultChecked(checkedIds);
-    },
-    check_first: function() {
-        var demoListDiv = $(this.pdiv).find('.demo_list>div');
-        $(demoListDiv).attr('class','deme_title_info');
-        $(demoListDiv).eq(0).attr('class','demo_st');
-    },
-    del_list: function(clickObj) {
-        var n = $(clickObj).parent(),
-            l = n.data('list');
-        $(this.pdiv).find('.demo_info li').each(function(i){
-            if ( $(this).data('list') == l ) {
-                $(this).children('span').removeClass('img_check');
-            }
-        });
-        n.remove();
-        this.check_first();
-    },
-    check_list: function(clickObj) {
-        if ( $(clickObj).hasClass('img_check') == false ) {
-            $(clickObj).addClass('img_check');
-            var t = $(clickObj).nextAll('p').text(),
-                i = $(clickObj).next('img').attr('src'),
-                d = $(clickObj).parent().data('list');
-            var domH = "";
-            if ( $(this.pdiv).find('.img_check').length == 1 ) {
-                domH = "<div class='demo_st' data-list='" + d + "'>" +
-                    "<a class='close_demo' href='javascript:;'></a>" +
-                    "<p>" + t + "</p>" +
-                    "<img src=" + i + " alt=''/>" +
-                    "</div>";
-            } else {
-                domH = "<div class='deme_title_info' data-list='" + d + "'>"+
-                    "<a class='close_demo' href='javascript:;'></a>" +
-                    "<p>" + t + "</p>" +
-                    "<img src=" + i + " alt=''/>" +
-                    "</div>";
-            }
-            var appendDom = $(domH);
-            $(this.pdiv).find('.demo_list').append(appendDom);
+        
+        //初始化数据
+        this.getModelTypes('111');
 
-            var that = this;
-            $(appendDom).find('.close_demo').on('click',function(){
-                that.del_list(this);
-            });
-        } else {
-            $(clickObj).removeClass('img_check');
-            var s = $(clickObj).parent().data('list');
-            $(this.pdiv).find('.demo_list>div').each(function(i){
-                if ( $(this).data('list') == s ){
-                    $(this).remove();
-                }
-            });
-        }
-        this.check_first();
-    },
-    defaultChecked: function(checkedIds){
-        var that = this;
-        if( checkedIds && checkedIds.length ) {
-
-            checkedIds = ',' + checkedIds + ',';
-            $(this.pdiv).find('.demo_info span').each(function(){
-                var d = $(this).parent().data('list');
-                if ( checkedIds.indexOf(',' + d + ',') != -1 ){
-                    that.check_list(this);
-                }
-            })
-        }
+        // $(this.pdiv).find('.demo_info span').on('click',function(){
+        //     that.check_list(this);
+        // });
+        // this.defaultChecked(checkedIds);
     },
     /*以下为java新增方法*/
-    fsaf:function(clickObj){
-        // console.log(this)
+    //获取图文信息模板
+    getModelTypes: function(mchId){
+        var that = this;
+        $.ajax({
+            url:"searchModelTypes",
+            type:"POST",
+            dataType:"json",
+            async:false,
+            data:{"mchId":mchId},
+            success:function(result){
+                if ( result != null ) {
+                    // $("#js_check_cate").empty();
+                    //展示模块类型
+                    var msgItemHtml = '<div class="msg-item">'
+                        + '<div class="msg-content demo-content">'
+                            + '<div class="demo_name flex">'
+                                + '<ul>'
+                                    + '<li class="demo_title">模板名称</li>'
+                                    + '<div class="demo_title_list"></div>'
+                                + '</ul>'
+                            + '</div>'
+                            + '<div class="demo_info flex">'
+                                + '<ul>'
+                                    + '<li class="demo_title">图文消息</li>'
+                                    + '<div class="demo_main_info"></div>'
+                                + '</ul>'
+                            + '</div>'
+                            + '<div class="demo_check flex">'
+                                + '<ul>'
+                                    + '<li class="demo_title">预览</li>'
+                                    + '<li>'
+                                        + '<div class="demo_list"></div>'
+                                    + '</li>'
+                                + '</ul>'
+                            + '</div>'
+                        + '</div></div>';
+                    var msgItemDom = $(msgItemHtml);
+
+                    $.each(result,function(i,n){
+                        //默认展示第一个
+                        if ( i == 0 ) {
+                            $(that.pdiv).find('.arrow-nav-title').append("<li class='cur-li' data-role='0'>" + n.modelType + "</li>");
+                            $(msgItemDom).data('role',n.modelType).addClass('cur-item');
+                            $(that.pdiv).find('.msg-contents').append(msgItemDom);
+                            //展示模块名称
+                            that.getModels(mchId,n.modelType,msgItemDom);
+                        }else{
+                            $(that.pdiv).find('.arrow-nav-title').append("<li data-role='" + i + "'>" + n.modelType + "</li>");
+                        }
+                    });
+                }
+            },
+            error: function(result){
+                result = [{modelType:'运营'},{modelType:'门店'}];
+                var msgItemHtml = '<div class="msg-item">'
+                    + '<div class="msg-content demo-content">'
+                        + '<div class="demo_name flex">'
+                            + '<ul>'
+                                + '<li class="demo_title">模板名称</li>'
+                                + '<div class="demo_title_list"></div>'
+                            + '</ul>'
+                        + '</div>'
+                        + '<div class="demo_info flex">'
+                            + '<ul>'
+                                + '<li class="demo_title">图文消息</li>'
+                                + '<div class="demo_main_info"></div>'
+                            + '</ul>'
+                        + '</div>'
+                        + '<div class="demo_check flex">'
+                            + '<ul>'
+                                + '<li class="demo_title">预览</li>'
+                                + '<li>'
+                                    + '<div class="demo_list"></div>'
+                                + '</li>'
+                            + '</ul>'
+                        + '</div>'
+                    + '</div></div>';
+                var msgItemDom = $(msgItemHtml);
+
+                $.each(result,function(i,n){
+                    //默认展示第一个
+                    if ( i == 0 ) {
+                        $(that.pdiv).find('.arrow-nav-title').append("<li class='cur-li' data-role='0'>" + n.modelType + "</li>");
+                        $(msgItemDom).data('role',n.modelType).addClass('cur-item');
+                        $(that.pdiv).find('.msg-contents').append(msgItemDom);
+                        //展示模块名称
+                        that.getModels(mchId,n.modelType,msgItemDom);
+                    }else{
+                        $(that.pdiv).find('.arrow-nav-title').append("<li data-role='" + i + "'>" + n.modelType + "</li>");
+                    }
+                });
+            }
+        });
+    },
+    getModels: function(mchId,modelType,pdiv) {
+        var titleLdiv = $(pdiv).find('.demo_title_list');
+        var that = this;
+        $.ajax({
+            url:"searchModels",
+            type:"POST",
+            dataType:"json",
+            async:false,
+            data:{"mchId":mchId,"modelType": modelType},
+            success:function(data){
+                if ( data != null ) {
+                    $.each(data,function(j,o){
+                        //默认展示第一个
+                        if(j==0){
+                            $(titleLdiv).append("<li data-role='"+ o.modelVisit+"'><img src='"+ o.modelPicUrl+"' alt=\"\"/><p>"+ o.modelName+"</p><span></span></li >");
+                            //加载图文信息
+                            $.msgDemo.getPicMessages(mchId,o.modelVisit,pdiv);
+                        }else{
+                            $(titleLdiv).append("<li data-role='"+ o.modelVisit+"'><img src='"+ o.modelPicUrl+"' alt=\"\"/><p>"+ o.modelName+"</p><span></span></li >");
+                        }
+                    });
+                    $(titleLdiv).find('li').on('click',function(){
+                        $.msgDemo.getPicMessages(mchId,$(this).data('role'),pdiv);
+                    });
+                }
+            },
+            error: function(data) {
+                data = [{
+                    modelPicUrl: 'images/yh-1.png',
+                    modelName: '优惠卷',
+                    modelVisit: '235603'
+                },{
+                    modelPicUrl: 'images/yh-1.png',
+                    modelName: '优惠卷',
+                    modelVisit: '235604'
+                }];
+                $.each(data,function(j,o){
+                    //默认展示第一个
+                    if(j==0){
+                        $(titleLdiv).append("<li data-role='"+ o.modelVisit+"'><img src='"+ o.modelPicUrl+"' alt=\"\"/><p>"+ o.modelName+"</p><span></span></li >");
+                        //加载图文信息
+                        $.msgDemo.getPicMessages(mchId,o.modelVisit,pdiv);
+                    }else{
+                        $(titleLdiv).append("<li data-role='"+ o.modelVisit+"'><img src='"+ o.modelPicUrl+"' alt=\"\"/><p>"+ o.modelName+"</p><span></span></li >");
+                    }
+                });
+                $(titleLdiv).find('li').on('click',function(){
+                    $.msgDemo.getPicMessages(mchId,$(this).data('role'),pdiv);
+                });
+            }
+        });
     }
 };
 $.msgDemo.prototype.init.prototype = $.msgDemo.prototype;
+$.msgDemo.msgItenIndex = 0;
 $.msgDemo.getDemoChecked = function(pdiv) {
     var checkSpans = $(pdiv).find('.demo_info span');
     var checkedInfos = [],t,i,d;
@@ -102,24 +184,170 @@ $.msgDemo.getDemoChecked = function(pdiv) {
     });
     return checkedInfos;
 }
+$.msgDemo.getPicMessages = function(mchId,modelVisit,pdiv){
+    $.ajax({
+        url:modelVisit,
+        type:"POST",
+        dataType:"json",
+        async:false,
+        data:{"mchId":mchId},
+        success:function(obj){
+            if(obj!=null){
+                $(pdiv).find(".demo_main_info").html('');
+                $.each(obj,function(i,p){
+                    $(pdiv).find(".demo_main_info").append("<li data-list='"+ p.systemId+"' data-url='"+ p.url+"' data-msg='"+p.description+"' data-largeurl='"+ p.largePicUrl+"' data-smallurl='"+ p.picUrl+"'><span></span><img src='"+ p.picUrl+"' alt=\"\"/><p>"+ p.title+"</p></li>");
+                });
+                // $('.demo_info span').on('click',function(){
+                //     $(this).toggleClass('img_check');
+                // });
+                // $('.demo_info span').check_list('click');
+
+                // $('.tab_menu li a').on('click',function(){
+                //     $(this).parent().siblings().find('a').removeClass('active');
+                //     $(this).addClass('active');
+                // })
+                // backChecked();
+            }
+        },
+        error: function(obj) {
+            obj = [{
+                systemId: '5578',
+                url: '#',
+                largePicUrl: 'images/bacimg.png',
+                picUrl: 'images/bacimg.png',
+                description: '美乐乐微信推广金秋10月代金券',
+                title: '美乐乐微信推广金秋10月代金券'
+            },{
+                systemId: '5579',
+                url: '#',
+                largePicUrl: 'images/bacimg.png',
+                picUrl: 'images/bacimg.png',
+                description: '美乐乐微信推广金秋11月代金券',
+                title: '美乐乐微信推广金秋11月代金券'
+            }];
+            $(pdiv).find(".demo_main_info").html("");
+            $.each(obj,function(i,p){
+                $(pdiv).find(".demo_main_info").append("<li data-list='"+ p.systemId+"' data-url='"+ p.url+"' data-msg='"+p.description+"' data-largeurl='"+ p.largePicUrl+"' data-smallurl='"+ p.picUrl+"'><span></span><img src='"+ p.picUrl+"' alt=\"\"/><p>"+ p.title+"</p></li>");
+            });
+
+            $(pdiv).find('.demo_main_info span').on('click',function(){
+                $.msgDemo.check_list(this,pdiv);
+            });
+            $.msgDemo.defaultChecked($.msgDemo.checkedIds,pdiv);
+        }
+    });
+}
+$.msgDemo.check_first = function(pdiv) {
+    var demoListDiv = $(pdiv).find('.demo_list>div');
+    $(demoListDiv).attr('class','deme_title_info');
+    $(demoListDiv).eq(0).attr('class','demo_st');
+}
+$.msgDemo.del_list = function(clickObj,pdiv) {
+    var n = $(clickObj).parent(),
+        l = n.data('list');
+    $(pdiv).find('.demo_info li').each(function(i){
+        if ( $(this).data('list') == l ) {
+            $(this).children('span').removeClass('img_check');
+        }
+    });
+    n.remove();
+    $.msgDemo.check_first();
+}
+$.msgDemo.check_list = function(clickObj,pdiv) {
+    var msgItemIndex = $(pdiv).find('.arrow-nav-title .cur-li').attr('data-role');
+
+    if ( $(clickObj).hasClass('img_check') == false ) {
+        $(clickObj).addClass('img_check');
+        var t = $(clickObj).nextAll('p').text(),
+            i = $(clickObj).next('img').attr('src'),
+            d = $(clickObj).parent().data('list');
+        var domH = "";
+        if ( $(pdiv).find('.img_check').length == 1 ) {
+            domH = "<div class='demo_st' data-list='" + d + "'>" +
+                "<a class='close_demo' href='javascript:;'></a>" +
+                "<p>" + t + "</p>" +
+                "<img src=" + i + " alt=''/>" +
+                "</div>";
+        } else {
+            domH = "<div class='deme_title_info' data-list='" + d + "'>"+
+                "<a class='close_demo' href='javascript:;'></a>" +
+                "<p>" + t + "</p>" +
+                "<img src=" + i + " alt=''/>" +
+                "</div>";
+        }
+        var appendDom = $(domH);
+        $(pdiv).find('.demo_list').append(appendDom);
+
+        $(appendDom).find('.close_demo').on('click',function(){
+            $.msgDemo.del_list(this,pdiv);
+        });
+    } else {
+        $(clickObj).removeClass('img_check');
+        var s = $(clickObj).parent().data('list');
+        $(pdiv).find('.demo_list>div').each(function(i){
+            if ( $(this).data('list') == s ){
+                $(this).remove();
+            }
+        });
+    }
+    $.msgDemo.check_first(pdiv);
+}
+$.msgDemo.defaultChecked = function(checkedIds,pdiv){
+    if( checkedIds && checkedIds.length ) {
+
+        checkedIds = ',' + checkedIds + ',';
+        $(pdiv).find('.demo_info span').each(function(){
+            var d = $(this).parent().data('list');
+            if ( checkedIds.indexOf(',' + d + ',') != -1 ){
+                $.msgDemo.check_list(this,pdiv);
+            }
+        })
+    }
+}
+// 根据商家id和模板类型获取模板信息及图文信息
+// @param mchId 商户id  @param modelType 模板类型
+
+$.msgDemo.getPicUrlMessages = function(mchId,modelType,modelName,clickObj){
+    $.ajax({
+        url:"searchPicModelsByName",
+        type:"POST",
+        dataType:"json",
+        async:false,
+        data:{"mchId":mchId,"modelType":modelType,"modelName":modelName},
+        success:function(obj){
+            if ( obj != null ) {
+                $.each(obj,function(i,p){
+                    $("#demo_main_info").append("<li data-list='"+ p.id+"' data-url='"+ p.url+"'><span></span><img src='"+ p.modelPicUrl+"' alt=\"\"/><p>"+ p.modelPicName+"</p></li>");
+                });
+                /*图文链接使用*/
+                $('.demo_info span').on('click',function(){
+                    $('.img_check').removeClass('img_check');
+                    $(this).addClass('img_check');
+                });
+            }
+        }
+    });
+}
 $.fn.extend({
     addSettingModual: function() {
+        $.msgDemo(this);
         //添加各模块内容 this为当前添加dom的父级节点
-        var divs = $(this).find('.msg-item');
-        $(divs).each( function() {
-            var dataRole = $(this).attr('data-role');
-            //TODO
-            //获取数据加载模块
-            $(this).load('page/msg_imgtext.html',function(){
-                $.msgDemo(this);
-            });
-        });
+        //$(this).getModelTypes();
+        // var divs = $(this).find('.msg-item');
+        // $(divs).each( function() {
+        //     var dataRole = $(this).attr('data-role');
+        //     //TODO
+        //     //获取数据加载模块
+        //     $(this).load('page/msg_imgtext.html',function(){
+        //         $.msgDemo(this);
+        //     });
+        // });
     },
     addSettingModualOne: function(){
-        $(this).load('page/msg_imgtext.html',function(){
-            $.msgDemo(this);
-        });
+        //TODO
     },
+    //获取图文信息模板
+    
     bindNavEvent: function() {
         //为各模块导航添加事件
         var that = this;
@@ -130,6 +358,7 @@ $.fn.extend({
             var index = $(this).attr('data-role');
             $(that).find('.arrow-nav').attr('class','arrow-nav arrow-nav-'+index);
             $(that).find('.msg-item').removeClass('cur-item').eq(index).addClass('cur-item');
+
         });
     },
     addFooterOper: function(buttons){
