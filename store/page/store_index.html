@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="css/store_index.css" />
 <link rel="stylesheet" href="css/zTreeStyle.css" type="text/css">
+<link rel="stylesheet" type="text/css" href="css/jquery.Jcrop.css">
 <style type="text/css">
     #pro_store .data-content{width:376px;height:645px;padding:0px}
     #pro_store .data-content .page-header{margin-bottom:0px}
@@ -66,19 +67,19 @@
             <div class="list" style="border-top:none;margin-top:0">
                 <div class="top_left">
                     <ul>
-                        <li><span class="required-field">*</span><span>门店名称：</span><input type="text" /></li>
-                        <li><span class="required-field">*</span><span>门店类型：</span><input type="text" /></li>
-                        <li><span class="required-field">*</span><span>上级门店：</span><input class='pro_store' data-role='pro_store' type="text" /></li>
-                        <li><span class="required-field">*</span><span>门店状态：</span><input type="text" /></li>
-                        <li><span class="required-field">*</span><span>门店电话：</span><input type="text" /></li>
-                        <li><span class="required-field">*</span><span>联系人：</span><input type="text" /></li>
+                        <li><span class="required-field">*</span><span class='required_info_name'>门店名称：</span><input type="text" /></li>
+                        <li><span class="required-field">*</span><span class='required_info_name'>门店类型：</span><input type="text" /></li>
+                        <li><span class="required-field">*</span><span class='required_info_name'>上级门店：</span><input class='pro_store' data-role='pro_store' type="text" /></li>
+                        <li><span class="required-field">*</span><span class='required_info_name'>门店状态：</span><input type="text" /></li>
+                        <li><span class="required-field">*</span><span class='required_info_name'>门店电话：</span><input type="text" /></li>
+                        <li><span class="required-field">*</span><span class='required_info_name'>联系人：</span><input type="text" /></li>
                     </ul>
                 </div>
                 <div class="btm_right">
                     <ul>
                         <li>
                             <span class="required-field">*</span>
-                            <span style="margin-left:-5px">门店名称：</span>
+                            <span style="margin-left:-5px" class='required_info_name'>门店名称：</span>
                             <select>
                                 <option value="选项">选项</option>
                                 <option value="选项">选项</option>
@@ -90,16 +91,15 @@
                         </li>
                         <li>
                             <span style='line-height:100px;height: 100px;float:left' class="required-field">*</span>
-                            <span style='line-height:100px;margin-left:-20px;float:left'>门店logo：</span>
+                            <span style='line-height:100px;margin-left:-20px;float:left' class='required_info_name'>门店logo：</span>
                             <a href="javascript:;" class="file" style="float:left">
                                 选择文件
-                                <input type="file" name="" id="" style="height:100%;cursor:pointer;background:#ddd">
                             </a>
                             <span style='line-height:100px;color:#999;float:left'>（建议尺寸：300*200）</span>
                         </li>
                         <li class="ssq">
                             <span class="required-field">*</span>
-                            <span style="margin-left:-5px">门店地址：</span>
+                            <span style="margin-left:-5px" class='required_info_name'>门店地址：</span>
                             <select>
                                 <option value="请选择省">请选择省</option>
                                 <option value="请选择省">广东</option>
@@ -161,11 +161,17 @@
 
 <script type="text/javascript" src="js/echarts-all.js"></script>
 <script type="text/javascript" src="js/jquery.ztree.all-3.5.min.js"></script>
+<!-- <script type="text/javascript" src='js/dragImg.js'></script> -->
+<script type="text/javascript" src="js/jquery.Jcrop.js"></script>
+<script type="text/javascript" src="js/imgUploadPre.js"></script>
 <script>
+    var sw;
     $(document).ready(function(){
         $.fn.zTree.init($("#pro_store_tree"), setting, zNodes);
-        $("#map").load('page/map.html')
+        $("#map").load('page/map.html');
+        sw = $('#section').width();
     });
+
     /*right_float*/
     var t = true;
     $('.flex_Click').click(function(){
@@ -173,9 +179,11 @@
         if(w ==250&&t == true){
             console.log(t)
             $('.right_flex').css('width',w+'px');
+            $('#section').css('width',sw-w+'px');
             t = false;
         }else{
             $('.right_flex').css('width','0px');
+            $('#section').css('width',sw+'px');
             t = true;
         }
     });
@@ -290,5 +298,9 @@
 
     $('.pro_store').click(function(){
         dialog(this);
+    })
+
+    $('.file').click(function(){
+        upImgBox({boxWidth:590,maxWidth:290,maxHeight:210,minWidth:250,minHeight:125},'upimgOther')
     })
 </script>

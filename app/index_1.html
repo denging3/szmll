@@ -1,0 +1,82 @@
+<html>
+<head>
+	<title>coupon_app</title>
+	<meta name="format-detection" content="telephone=no">
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"> 
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+	<meta http-equiv="Access-Control-Allow-Origin" content="*">
+</head>
+<script type="text/javascript">
+!function(a){function b(){var b=g.getBoundingClientRect().width;b/c>640&&(b=640*c),a.rem=b/16,g.style.fontSize=a.rem+"px"}var c,d,e,f=a.document,g=f.documentElement,h=f.querySelector('meta[name="viewport"]'),i=f.querySelector('meta[name="flexible"]');if(h){console.warn("将根据已有的meta标签来设置缩放比例");var j=h.getAttribute("content").match(/initial-scale=(["']?)([d.]+)1?/);j&&(d=parseFloat(j[2]),c=parseInt(1/d))}else if(i){var j=i.getAttribute("content").match(/initial-dpr=(["']?)([d.]+)1?/);j&&(c=parseFloat(j[2]),d=parseFloat((1/c).toFixed(2)))}if(!c&&!d){var k=(a.navigator.appVersion.match(/android/gi),a.navigator.appVersion.match(/iphone/gi)),c=a.devicePixelRatio;c=k?c>=3?3:c>=2?2:1:1,d=1/c}if(g.setAttribute("data-dpr",c),!h)if(h=f.createElement("meta"),h.setAttribute("name","viewport"),h.setAttribute("content","initial-scale="+d+", maximum-scale="+d+", minimum-scale="+d+", user-scalable=no"),g.firstElementChild)g.firstElementChild.appendChild(h);else{var l=f.createElement("div");l.appendChild(h),f.write(l.innerHTML)}a.dpr=c,a.addEventListener("resize",function(){clearTimeout(e),e=setTimeout(b,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(e),e=setTimeout(b,300))},!1),"complete"===f.readyState?f.body.style.fontSize=12*c+"px":f.addEventListener("DOMContentLoaded",function(){f.body.style.fontSize=12*c+"px"},!1),b()}(window);
+</script>
+<body>
+<div class='content'>
+
+</div>
+<div class="data-dia" id='info_content'>
+    <div class="data-content">
+    	<a class='close_icon' href="javascript:;"></a>
+    	<h3 class='page-header'>使用说明</h3>
+    	<div class='data_main_content'>
+	    	<p>不叠加使用</p>
+	    	<p>正常工作时间：<span>9:00~18:00</span></p>
+    	</div>
+    </div>
+</div>
+<div class="data-dia" id='applicable_stores'>
+    <div class="data-content">
+    	<a class='close_icon' href="javascript:;"></a>
+    	<h3 class='page-header'>适用门店</h3>
+    	<ul class='map_info_list'>
+    		<li>
+    			<div class='map_trak'>
+    				<h3>美乐乐体验馆</h3>
+    				<a href="javascript:;"><img src='images/pointMap.png'/>3.9km</a>
+    			</div>
+    			<p>青羊区光华东三路414号中铁西城青羊光华东三路414号中铁西城</p>
+    		</li>
+    		<li>
+    			<div class='map_trak'>
+    				<h3>美乐乐体验馆</h3>
+    				<a href="javascript:;"><img src='images/pointMap.png'/>3.9km</a>
+    			</div>  			
+    			<p>青羊区光华东三路414号中铁西城青羊光华东三路414号中铁西城</p>
+    		</li>
+    		<li>
+    			<div class='map_trak'>
+    				<h3>美乐乐体验馆</h3>
+    				<a href="javascript:;"><img src='images/pointMap.png'/>3.9km</a>
+    			</div> 
+    			<p>青羊区光华东三路414号中铁西城青羊光华东三路414号中铁西城</p>
+    		</li>
+    	</ul>
+    </div>
+</div>
+<div class="data-dia" id='consumer'>
+    <div class="data-content phone_content">
+    	<a class='close_icon' href="javascript:;"></a>
+    	<div class='page-header phone_top'>
+    		<h3>客服电话</h3>
+    		<h3>0755-12345678</h3>
+    	</div>
+    	<div class='data_main_content phone'>
+	    	<p>取消</p>
+	    	<p>拨打</p>
+    	</div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src='js/jquery-1.11.3.js'></script>
+<script type="text/javascript" src='js/common.js'></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+        // $('.content').load('page/stamps_n.html')
+		$('.content').load('page/stamps_h.html')
+		// $('.content').load('page/stamps_noinfo.html')
+	})
+</script>
+</html>

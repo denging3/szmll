@@ -14,11 +14,16 @@
 		</div>
 	</div>
 </div>
-<div class='info_list'>
+<div class='info_list' style='margin-left:0px'>
 	<ul>
-		<li>使用说明<span class='info_list_right'></span></li>
-		<li>适用门店<span class='info_list_right'></span></li>
-		<li>客服电话<span class='info_list_right'></span></li>
+		<li class='info_content' data-role='#info_content'>使用说明<span class='info_list_right'></span></li>
+		<li class='applicable_stores' data-role='#applicable_stores'>适用门店<span class='info_list_right'></span></li>
+		<li class='info_content' data-role='#consumer'>客服电话<span class='info_list_right'></span></li>
 	</ul>
 </div>
 <button>领&nbsp;取</button>
+<script type="text/javascript">
+    $('.info_content').dialog();
+    $('.applicable_stores').dialog();
+    $('.consumer').dialog();
+</script>

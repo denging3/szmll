@@ -4,7 +4,7 @@ h2{font-size: 16px;}
 h3{font-size: 14px;}
 h4{font-size: 13px;}
 input{ height: 34px; background-color: white;box-sizing: border-box; color: #666666;vertical-align: middle; padding-left: 10px; font-size: 14px;}
-input[type='radio']{ height: 16px;}
+input[type='radio']{ display: inline-block; height: 16px;}
 input[type='submit']{width: 100px;}
 button{width: 148px; height: 45px; border-radius: 2px; background-color: #ffae13; color: white; outline: none; border: none;vertical-align: middle;}
 #setting{padding: 30px;}
@@ -93,7 +93,7 @@ button{width: 148px; height: 45px; border-radius: 2px; background-color: #ffae13
 #qr_item .data-content input[type='submit']{width: 60px;}
 
 /*二维码列表*/
-.qr_list{width: 1150px; overflow: hidden;}
+.qr_list{width: 100%; overflow: hidden;}
 .qr_list li{ height: 218px; width: 167px; box-sizing: border-box; padding: 20px;  text-align: center; border: 1px solid transparent;float: left; margin-right: 20px; position: relative;}
 .qr_list li h5{color: #666666;overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
 .qr_list li img{margin-bottom: 20px;}

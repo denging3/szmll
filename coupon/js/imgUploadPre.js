@@ -1,7 +1,7 @@
 //图片上传预览    IE是用了滤镜。
-function previewImage(file,fileInput) {
-    var MAXWIDTH  = 290,MINWIDTH = 210;
-    var MAXHEIGHT = 200,MINHEIGHT = 140;
+function previewImage(file,fileInput,boxSize) {
+    var MAXWIDTH  = boxSize.maxWidth,MINWIDTH = boxSize.minWidth;
+    var MAXHEIGHT = boxSize.maxHeight,MINHEIGHT = boxSize.minHeight;
     var fileSuffixs = 'image/jpg,image/jpeg,image/png';
     var div = document.getElementById('imgDragContainer');
     if (file.files && file.files[0]) {
@@ -28,7 +28,7 @@ function previewImage(file,fileInput) {
             imgContainerInner.style.marginTop = rect.top+'px';
 
             //添加拖拽框裁剪扩展
-            var dragRect = clacImgZoomParam(rect.width,rect.height,MINWIDTH,MINHEIGHT);
+            var dragRect = clacImgZoomParam3(rect.width,rect.height,(MINWIDTH/MINHEIGHT));
             jQuery(function($){
 
                 var jcrop_api,
@@ -39,10 +39,11 @@ function previewImage(file,fileInput) {
                     $pimg = $('#preview-pane .preview-container img'),
                     xsize = $pcnt.width(),
                     ysize = $pcnt.height();
-
                 $('#imgDrag').Jcrop({
                     bgFade:     true,
                     bgOpacity: .5,
+                    allowSelect: false,
+                    allowResize: false,
                     onSelect: updatePreview,
                     aspectRatio: xsize / ysize,
                     setSelect: [ dragRect.left, dragRect.top, dragRect.width, dragRect.height]
@@ -53,8 +54,6 @@ function previewImage(file,fileInput) {
                     jcrop_api = this;
                     // $preview.appendTo('');
                 });
-                //去除图片选取框上的拖动小空格
-                $('.jcrop-handle').remove();
 
                 //更新裁剪预览框中图片
                 function updatePreview(c){
@@ -123,6 +122,7 @@ function clacImgZoomParam( maxWidth, maxHeight, width, height ){
     param.top = Math.round((maxHeight - param.height) / 2);
     return param;
 }
+
 /**
  * [clacImgZoomParam2 上传预览图片给定最小宽高计算图片展示宽高及margin] 
  * @param  {[type]} maxWidth  [最小宽度值]
@@ -143,4 +143,20 @@ function clacImgZoomParam2( minWidth, minHeight, width, height ) {
         param.height = Math.round(height / rateWidth);
     }
     return param;
+}
+/**
+ * [clacImgZoomParam3 计算裁剪框大小]
+ */
+function clacImgZoomParam3(realWidth,realHeight,rate) {
+    var rRate = realWidth / realHeight;
+    var tempWidth = 0,tempHeight = 0;
+    if ( rRate > rate ) {
+        tempHeight = realHeight;
+        tempWidth = rate * tempHeight;
+    } else {
+        tempWidth = realWidth;
+        tempHeight = tempWidth / rate;
+    }
+    console.log(tempHeight+ '...' + tempWidth);
+    return clacImgZoomParam(realWidth,realHeight,tempWidth,tempHeight);
 }

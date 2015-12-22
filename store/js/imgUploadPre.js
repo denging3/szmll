@@ -26,7 +26,7 @@ function previewImage(file,boxSize) {
             imgDom.height =  rect.height;
             $(imgPre).css({width: (rectPre.width + 'px') ,height: (rectPre.height + 'px')});
             $(imgContainInner).css({'margin-left': (rect.left + 'px'),'margin-top': (rect.top + 'px')});
-            $(pDiv).find('.preview-pane').css({right: -(30 + MINWIDTH + rect.left) + 'px',top: -(31 + rect.top) + 'px'});
+            $(pDiv).find('.preview-pane').css({right: -(30 + MINWIDTH + rect.left) + 'px',top: -(rect.top) + 'px'});
 
             //添加拖拽框裁剪扩展
             var dragRect = clacImgZoomParam3(rect.width,rect.height,(MINWIDTH/MINHEIGHT));
@@ -206,10 +206,9 @@ function upImgBox(boxSize,upImgBoxId,boxTitle,boxButtons) {
             + '<form method="post" enctype="multipart/form-data">'
                 + '<div class="js-imgDragPane img-drag-pane" style="width:'+boxSize.maxWidth+'px;height:'+(boxSize.maxHeight+30)+'px;">'
                     + '<div class="js-imgDragContainer img-drag-container" style="width:'+boxSize.maxWidth+'px;height:'+boxSize.maxHeight+'px;">'
-                        + '<p class="p1"><b>+</b>&nbsp;上传图片</p>'
-                        + '<p class="p2">(建议尺寸：'+boxSize.maxWidth+'×'+boxSize.maxHeight+')</p>'
+                        + '<p class="p1">(建议尺寸：'+boxSize.maxWidth+'×'+boxSize.maxHeight+')</p>'
                 + '</div></div>'
-                + '<span class="file-btn" onclick="' + upImgBoxId + 'Filepath.click()"style="width:'+(boxSize.maxWidth-2)+'px;"><b>+</b>上传本地图片</span>'
+                + '<span class="file-btn" onclick="' + upImgBoxId + 'Filepath.click()"style="width:'+(boxSize.maxWidth-2)+'px;"><b></b>上传本地图片</span>'
                 + '<input type="file" name="' + upImgBoxId + 'Filepath" id="' + upImgBoxId + 'Filepath" style="display:none" onchange="previewImage(this,eval('+boxSizeString+'))">'
                 // + '<input type="hidden" id="imgLeft" name="imgLeft" />'
                 // + '<input type="hidden" id="imgTop" name="imgTop" />'

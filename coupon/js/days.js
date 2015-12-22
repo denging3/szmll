@@ -28,8 +28,8 @@
                   	var s = new Date(moment(dateText).add('days', 0));
                   	/*设置手预览界面的开始时间同步*/
                   	$('#pre_startDate').html(s.getFullYear() + "." + stayindex.addZero((s.getMonth()+1)) + "." + stayindex.addZero(s.getDate()));
-                    /*stayindex.start.datepicker('option', 'appendText', strDay);
-                    if((new Date(stayindex.end.val()) - new Date(dateText)) <= (24*60*60*1000)){
+                    stayindex.start.datepicker('option', 'appendText', strDay);
+                    /*if((new Date(stayindex.end.val()) - new Date(dateText)) <= (24*60*60*1000)){
                         stayindex.end.datepicker('option', 'appendText', stayindex.compare(stayindex.end));
                     }*/
                 }
@@ -49,9 +49,10 @@
                 showOtherMonths:true,
                 minDate : 1,
                 maxDate:360,               
-				/* onSelect:function(){
-                    stayindex.end.datepicker('option', 'appendText', stayindex.compare($(this)));
-                }*/
+				onSelect:function(){
+                    //stayindex.end.datepicker('option', 'appendText', stayindex.compare($(this)));
+                    
+                }
             });
         },
         transformStr:function(day,strDay){
@@ -227,7 +228,7 @@
                 showMonthAfterYear:true,
                 firstDay : 1,
                 showOtherMonths:true,
-                minDate : 2,
+                minDate : 1,
                 maxDate:360,
                 onSelect:function(dateText,inst){
                     stay.end.datepicker('option', 'minDate', new Date(moment(dateText).add('days', 0)));
@@ -295,8 +296,8 @@
             return strDay;
         },
         inputVal:function(){
-            stay.inputTimes(stay.start,2);
-            stay.inputTimes(stay.end,2);
+            stay.inputTimes(stay.start,1);
+            stay.inputTimes(stay.end,1);
         },
         inputTimes:function(obj,day){
             var m = new Date(moment(stay.today).add('days', day));

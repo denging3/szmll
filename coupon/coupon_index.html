@@ -24,12 +24,7 @@
 			<div class="header_info">欢迎您，[label]<span>ceshi</span>[<span>修改密码</span>][<span>退出</span>]</div>
 			<div class="header_setting">
 				<div id="sysInfo" class="sys_info">
-				    	<div class="sys_title"><span class="sys_ico"></span><a>系统</a></div>
-						<div class="sys_tips">
-							<em></em>
-							<ul class="sys_list">
-							</ul>
-						</div> 
+				    	
 				</div>
 			</div>
 		</div>
@@ -50,18 +45,18 @@
 						</div>
 						<div class="item upload_pic clearfix">
 							<label>图文封面</label>
-							<div class="upload_big" id="upImg"  onclick="upImgBox();">
-								<span>+</span>上传图片
+							<div class="upload_big" id="upImg"  onclick="upImgBox({boxWidth:560,maxWidth:290,maxHeight:200,minWidth:225,minHeight:125,tipWidth:900,tipHeight:500},'ccPicBigImg');">
+								<span class="file-ico"></span>上传图片
 								<!--<input type="file" name="upfile" class="input_pic" />-->
 								<span class="pic_tips">大图建议尺寸900X500</span>
 								<div id="pic_fault_tips">*请上传图片</div>
 								<img src="" class="pic_hide" />
 							</div>
-							<div class="upload_small" id="upImgsmall" onclick="upImgBox();">
-								<span>+</span>上传图片
+							<div class="upload_small" id="upImgsmall" onclick="upImgBox({boxWidth:530,maxWidth:290,maxHeight:200,minWidth:150,minHeight:150,tipWidth:200,tipHeight:200},'ccPicBigImg');">
+								<span class="file-ico"></span>上传图片
 								<!--<input type="file" name="upfile" class="input_pic" />-->
 								<span class="pic_tips">小图建议尺寸200X200</span>
-								<img src="images/header.png" class="pic_show" />
+								<img src="" class="pic_hide" />
 							</div>
 						</div>
 						<div class="item">
@@ -173,13 +168,13 @@
 						<div class="coupon_pre_link">
 							<div class="link_list">
 								<div class="link_info">
-									<span>使用说明</span><span>></span>
+									<span>使用说明</span>
 								</div>
 								<div class="link_info">
-									<span>适用门店</span><span>></span>
+									<span>适用门店</span>
 								</div>
 								<div class="link_info" id="pre_phone">
-									<span>客服电话</span><span>></span>
+									<span>客服电话</span>
 								</div>
 							</div>
 						</div>
@@ -246,7 +241,6 @@
 	<!--ztree树形结构引用结束-->
 	<!--上传图片插件-->
 	<script type="text/javascript" src="js/jquery.Jcrop.js" ></script>
-	<script type="text/javascript" src="js/imgUploadPre.js" ></script>
 	<script type="text/javascript" src="js/upPic.js" ></script>
 	<!--上传图片插件结束-->
 </html>

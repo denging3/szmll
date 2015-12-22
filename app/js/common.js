@@ -7,7 +7,7 @@ $.fn.extend({
             $(r).prepend("<div class='fix'></div>");
             d.fadeIn();
             $(r).css('display', 'flex');
-            $('.fix,.close_log').on('click', function () {
+            $('.fix,.close_icon').on('click', function () {
                 d.fadeOut();
                 setTimeout(function () {
                     $('.fix').detach();
@@ -105,12 +105,15 @@ $.fn.extend({
                     "</div>"+
                     "<div class='info_list mar-top'>"+
                     "<ul>"+
-                    "<li>使用说明<span class='info_list_right'></span></li>"+
-                    "<li>适用门店<span class='info_list_right'></span></li>"+
-                    "<li>客服电话<span class='info_list_right'></span></li>"+
+                    "<li class='info_content' data-role='#info_content'>使用说明<span class='info_list_right'></span></li>"+
+                    "<li class='applicable_stores' data-role='#applicable_stores'>适用门店<span class='info_list_right'></span></li>"+
+                    "<li class='consumer' data-role='#consumer'>客服电话<span class='info_list_right'></span></li>"+
                     "</ul>"+
                     "</div>"
                 );
+                $('.info_content').dialog();
+                $('.applicable_stores').dialog();
+                $('.consumer').dialog();
             }else{
                 $('.content_made,.info_list').remove();
                 $('.stamp_bg').css('margin-bottom','30px');

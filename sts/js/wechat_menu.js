@@ -1,17 +1,21 @@
-
 /*初始化配置*/
-var IsDrag = 'off';
-binParentClick();
-$('#js_status_2,#wechat_edite_tips').css('display','block');
-$('#js_status_1').on('click',function(){
-	$('#js_fault_tips').css('display','none');
+    var IsDrag = 'off';
+	initMenuList();
+	initMenuData();
+	setClass();
+	binSetImgPop();
+	binParentClick();
+	binChildClick();
+	resetCurrent();
+	resetChildCurrent();
+
+$(document).one('click',function(){
+	binSetImgPop();
 })
-
-
 
 /*添加父级菜单*/
 function binParentClick(){
-	$('.js_addMenuBox').on('click',function(){
+	$('.js_addMenuBox').unbind('click').on('click',function(){
 		updateCacheData();
 		$('.parent_menu_list>.current').removeClass('current');
 		$('.parent_menu_list>.child_current').removeClass('child_current');
@@ -40,10 +44,15 @@ function binParentClick(){
 		binChildClick();
 		saveCacheData(liId,'p');
 		dataInSetting(liId);
-		$('#js_appImgPop').on('click',function(e){
-			$('#settingInfo').find('.setting_info').load('page/information.html');
+		//从后端获取key值
+		$('#'+liId).data('cacheData').key = getMenuKey();
+
+		/*$('#js_appImgPop').on('click',function(e){
+			$('#settingInfo').find('.setting_info').load('sys/ntpl/toInformationPage');
+			//取图文消息
+			//getModelTypes();
 			dialogset(this);
-		})
+		})*/
 		
 		$('.editor_inner,#js_fault_tips,#wechat_publis_tips,.frm_msg').css('display','none');
 		$('#js_status_1,#wechat_edite_tips').css('display','block').attr('data-id',liId);
@@ -53,17 +62,29 @@ function binParentClick(){
 	});
 }
 
+function binSetImgPop(){
+	$('#js_appImgPop').unbind('click').on('click',function(e){
+		var This = this;
+		$('#settingInfo').find('.setting_info').load('sys/ntpl/toInformationPage',function(){
+			//取图文消息
+			getModelTypes();
+		});
+		dialogset(this);
+	})
+}
 
 /* 添加子菜单 */
 function binChildClick(){
-	$('.js_addMenuBox2').on('click',function(e){
+	$('.js_addMenuBox2').unbind('blick').on('click',function(e){
 		e.stopImmediatePropagation();
 		updateCacheData();
 		var pId = $(this).parents('.parent_menu_item').attr('id');
-		var cacheData = $('#'+pId).data();
-		if(cacheData.url != '' || cacheData.picMessage.length >0 || cacheData.message.msg != '' ){
-			dialogadd(this,pId);
-			return false;
+		if(pId){
+			var cacheData = $('#'+pId).data('cacheData');
+			if(cacheData.url != '' || cacheData.picMessage.length >0 || cacheData.message.msg != '' ){
+				dialogadd(this,pId);
+				return false;
+			}
 		}
 		addChild(this);
 		return false;
@@ -87,6 +108,8 @@ function addChild(obj){
 		delDisabled('#js_stortable',cL,1);	
 		saveCacheData(liId);
 		dataInSetting(liId);
+		//从后端获取key值
+	    $('#'+liId).data('cacheData').key = getMenuKey();
 		
 		$('#'+pId).find('.menu_ico_dot').css('display','inline-block');
 		$('.editor_inner,#wechat_publis_tips,#js_fault_tips,.frm_msg').css('display','none');
@@ -118,7 +141,7 @@ function setClass(){
 /* 当子菜单点击时，触发焦点样式的更改，以及同步右边设置菜单的值 */
 
 function resetChildCurrent(){
-	$('.js_addMenuBox2').prevAll().on('click',function(e){
+	$('.js_addMenuBox2').prevAll().unbind('click').on('click',function(e){
 		if(IsDrag == 'off'){
 			updateCacheData();
 			var liId = $(this).attr('id');
@@ -139,7 +162,7 @@ function resetChildCurrent(){
 }
 
 function resetCurrent(){
-	$('.js_addMenuBox').prevAll().on('click',function(e){
+	$('.js_addMenuBox').prevAll().unbind('click').on('click',function(e){
 		if(IsDrag == 'off'){
 			updateCacheData();
 			var liId = $(this).attr('id');
@@ -226,14 +249,13 @@ $('#jsDelBt').on('click',function(){
 	}	
 	if(pL<2){
 		$('#js_status_2').css('display','block');	
+		$('#js_stortable').attr('disabled','disabled');
+		$('#js_saveBtn').attr('disabled','disabled');	
 	}else{
 		$('#js_status_5').css('display','block');
-	};
-	if(pL<3 && cL<3){
-		$('#js_stortable').attr('disabled','disabled');
 	}
-	if(pL<2){
-		$('#js_saveBtn').attr('disabled','disabled');	
+	if(cL<4){
+		$('#js_stortable').attr('disabled','disabled');
 	}
 })
 
@@ -278,6 +300,12 @@ $('#js_stortable').on('click',function(){
 	}
 })
 
+/*提示消息*/
+$('#js_status_2,#wechat_edite_tips').css('display','block');
+	$('#js_status_1').on('click',function(){
+		$('#js_fault_tips').css('display','none');
+	})
+
 /*跳出弹窗*/
 $('#js_delBtn').on('click',function(){
 	dialogs(this,
@@ -285,7 +313,7 @@ $('#js_delBtn').on('click',function(){
 		'确认信息',
 		'删除确认',
 		'删除后“一级导航”菜单下设置的内容将被删除',
-		'images/warn_ico.png');
+		'views/images/warn_ico.png');
 })
 $('#js_delBtn2').on('click',function(){
 	dialogs(this,
@@ -293,7 +321,7 @@ $('#js_delBtn2').on('click',function(){
 		'确认信息',
 		'删除确认',
 		'删除后菜单下设置的内容将被删除',
-		'images/warn_ico.png');
+		'views/images/warn_ico.png');
 })
 
 /*保存数据时做检测,检测不通过跳回到第一条为空的数据*/
@@ -349,9 +377,11 @@ function checkIsNull(){
 }
 
 $('#js_appmsgPop').on('click',function(){
-	$('#settingInfoImg').find('.setting_info').load('page/information.html');
-	
-	
+	//$('#settingInfoImg').find('.setting_info').load('page/information.html');
+	$('#settingInfoImg').find('.setting_info').load('sys/ntpl/toInformationPage',function(){
+		//取图文链接
+		getPicModelTypes();
+	});
 	dialogset(this);
 	$('#'+$(this).data('role')).find('.demo_title_img').html('图文链接');
 })
@@ -415,9 +445,11 @@ function dialogadd(obj,pid){
         },500)
     });
     $('#jsAddChild').on('click',function(e){
-        var pData = $('#'+pid).data();
+        var pData = $('#'+pid).data('cacheData');
         pData.url = '';
-        pData.picMessage.length = 0;
+		if(pData.picMessage != 'undefined'){
+			pData.picMessage.length = 0;
+		}
         pData.message.msg = '';
         d.fadeOut();
       	addChild(obj);
@@ -448,7 +480,7 @@ $('#js_settingInfo').on('click',function(){
 		$('.msg_tab .js_appmsgArea').css('display','block');
 		$('.msg_tab .jsMsgSendTab').css('display','none');
 		$('.js_appmsgArea').append(preHtml);
-		$('.js_delPreview').on('click',function(){
+		$('.js_delPreview').unbind('click').on('click',function(){
 			$(this).parents('.preview_list').remove();
 			$('.msg_tab .jsMsgSendTab').css('display','block');
 		})
@@ -467,10 +499,26 @@ $('#js_settingInfoImg').on('click',function(){
 /*保存数据拼接JSON*/
 $('#js_saveInfo').on('click',function(){
 	joinData();
-	dialogSuccess('发布成功！');
-	$('	#wechat_edite_tips').css('display','none');
-	$('	#wechat_publis_tips').css('display','block');
-	console.log($('#menuBoxData').data());
+	//保存菜单数据
+	var isSaved = false;
+	var menus = JSON.stringify($('#menuBoxData').data());
+	$.ajax({
+		url:"sys/insertMenu",
+		async:false,
+		dataType:"json",
+		data:{"jsonStr":menus},
+		type:"POST",
+		success:function(data){
+			if(data.code==0){
+				isSaved = true;
+				dialogSuccess('发布成功！');
+				$('	#wechat_edite_tips').css('display','none');
+				$('	#wechat_publis_tips').css('display','block');
+			}else{
+				dialogSuccess('发布失败！'+data.msg);
+			}
+		}
+	});
 })
 
 
@@ -500,15 +548,16 @@ function joinData(){
 	}
 	for(var i=0,ii=parentList.length;i<ii;i++){
 		var childList = $(parentList[i]).find('li:not(.js_addMenuBox2)');
-		var pdata = $(parentList[i]).data();
+		var pdata = $(parentList[i]).data('cacheData');
 		 	pdata.subMenus = [];
 			for(var k=0;k<childList.length;k++){
-				var cdata =  $(childList[k]).data();
+				var cdata =  $(childList[k]).data('cacheData');
 				pdata.subMenus.push(cdata);
 			} 
 		menuList.menus.push(pdata);
 	}
 	$('#menuBoxData').data(menuList);
+	var datas= $('#menuBoxData').data();
 }
 
 /*写入菜单数据到菜单缓存中*/
@@ -526,7 +575,7 @@ function saveCacheData(obj,p){
 	if(p && p == 'p'){
 		cacheData.subMenus = [];
 	}
-	$('#'+obj).data(cacheData);
+	$('#'+obj).data('cacheData',cacheData);
 }
 
 
@@ -536,7 +585,7 @@ function updateCacheData(){
 	  if(updateId && IsDrag == 'off'){
 	  	    var originTextId = $('#js_rightBox div[data-id="'+updateId+'"]').attr('id');
 		  	var originText = $('#' + originTextId);
-		  	var cacheData = $('#'+updateId).data(cacheData);	
+		  	var cacheData = $('#'+updateId).data('cacheData');
 		  	if(cacheData){
 		  		var menuTitles = originText.find('.js_menu_name').val();
 			  	cacheData.name = menuTitles;
@@ -547,14 +596,19 @@ function updateCacheData(){
 				  	if(menuType == 'click'){
 				  		var menuMorP = originText.find('.js_tab_navs .selected').data('type');
 				  		cacheData.morp = menuMorP;
-				  		cacheData.picMessage.length = 0;
+						if(cacheData.picMessage != "undefined"){
+							cacheData.picMessage.length = 0;
+						}
 				  		if(menuMorP == 0){
 				  		 	var picMessage = originText.find('.js_appmsgArea .preview_list > div');
 						  	var menuPicM =[];
 						  	for(var i=0,ii=picMessage.length;i<ii;i++){
 						  		var picObj = {};
-						  	    picObj.largePicUrl = $(picMessage[i]).find('img').attr('src');
-						  	    picObj.smallPicUrl = $(picMessage[i]).find('img').attr('src');
+								var oPicMessage = $(picMessage[i]);
+						  	    picObj.largePicUrl = $(picMessage[i]).find('p').parent().data('largeurl');
+						  	    picObj.smallPicUrl = oPicMessage.data('smallurl');
+								picObj.msg = oPicMessage.data('msg');
+								picObj.url = oPicMessage.data('srcul');
 						  	    picObj.title = $(picMessage[i]).find('p').html();
 						  	    menuPicM.push(picObj);
 						  }
@@ -569,7 +623,7 @@ function updateCacheData(){
 				  	}
 				}
 		  	}
-		  	
+		  	console.log(cacheData);
 	  }  
 }
 
@@ -605,7 +659,7 @@ $('#js_previewInfo').on('click',function(){
 
 /*写入数据到设置图中*/
 function dataInSetting(obj){
-	var originData = $('#'+obj).data();
+	var originData = $('#'+obj).data('cacheData');
 	if(originData){
 		var targetSet = $('#js_rightBox');
 		if(originData.type == 'click'){
@@ -622,22 +676,23 @@ function dataInSetting(obj){
 				targetSet.find('.js_textArea .js_editorArea').html('');
 				if(originData.picMessage.length > 0){
 					targetSet.find('.jsMsgSendTab').css('display','none');
+					$('.preview_list').remove();
 					var html ='<div class="preview_list">'
-								+'<div class="demo_st" data-list="1">'
+								+'<div class="demo_st"  data-srcul="'+originData.picMessage[0].url+'" data-largeurl="'+originData.picMessage[0].largePicUrl+'" data-smallurl="'+originData.picMessage[0].smallPicUrl+'" data-msg="'+originData.picMessage[0].msg+'">'
 								+'<a class="close_demo" href="javascript:;"></a>'
-								+'<p>'+ originData.picMessage[0].msg+'</p>'
+								+'<p>'+ originData.picMessage[0].title+'</p>'
 								+'<img src="'+ originData.picMessage[0].largePicUrl +'" alt="">'
 								+'</div>';
 								for(var i=1;i<originData.picMessage.length;i++){
-									html+='<div class="deme_title_info" data-list="2">'
+									html+='<div class="deme_title_info"  data-srcul="'+ originData.picMessage[i].url +'" data-largeurl="'+ originData.picMessage[i].largePicUrl +'" data-smallurl="'+ originData.picMessage[i].smallPicUrl +'" data-msg="'+ originData.picMessage[i].msg +'">'
 										+'<a class="close_demo" href="javascript:;"></a>'
-										+'<p>'+ originData.picMessage[i].msg +'</p>'
+										+'<p>'+ originData.picMessage[i].title +'</p>'
 										+'<img src="'+ originData.picMessage[i].largePicUrl +'" alt="">'
 										+'</div>';
 								}
 							html+='<a href="javascript:;" class="js_delPreview">删除</a></div>';	
 				    targetSet.find('.js_appmsgArea').append(html);
-				    $('.js_delPreview').on('click',function(){
+				    $('.js_delPreview').unbind('click').on('click',function(){
 						$(this).parents('.preview_list').remove();
 						$('.msg_tab .jsMsgSendTab').css('display','block');
 					})
@@ -671,11 +726,11 @@ function initMenuData(){
 		if(pData.length > 0){
 			for(var i=0,ii=pData.length;i<ii;i++){
 			var cacheData = pData[i];
-			$('#'+pData[i].listId).data(cacheData);
+			$('#'+pData[i].listId).data('cacheData',cacheData);
 					if(pData[i].subMenus.length >0){
 						for(var k=0,kk=pData[i].subMenus.length;k<kk;k++){
 							var cData = pData[i].subMenus[k];
-							$('#'+pData[i].subMenus[k].listId).data(cData);
+							$('#'+pData[i].subMenus[k].listId).data('cacheData',cData);
 						}
 					}
 			}
@@ -688,11 +743,11 @@ function initMenuList(){
 	var initData = $('#menuBoxData').data();
 	if(initData){
 		var pData = initData.menus;
-		var html='';
 		if(pData.length>0){
+			var html='';
 			for(var i=0,ii=pData.length;i<ii;i++){
 				var cacheData = pData[i];
-				$('#'+pData[i].listId).data(cacheData);
+				$('#'+pData[i].listId).data('cacheData',cacheData);
 				html += '<li class="parent_menu_item grid_item" id="'+ pData[i].listId +'">'
 						+'<a class="parent_menu_link"><i class="menu_ico_dot"></i><i class="sort_gray"></i>'
 						+'<span class="js_title">'+ pData[i].name+'</span>'
@@ -708,7 +763,7 @@ function initMenuList(){
 									+'</li>';
 								}
 							}
-							html+='<li class="js_addMenuBox2">'
+							html+='<li class="js_addMenuBox2" data-role="delParentMenuBox">'
 								+'<a href="javascript:void(0);" class="js_subView ">'
 								+'<span class="child_menu_innder">'
 								+'<i class="addmenu_gray sub_addmenu"></i>'
@@ -723,9 +778,12 @@ function initMenuList(){
 		html += '<li class="js_addMenuBox parent_menu_item no_extra sizeof1" >'
 					+'<a class="parent_menu_link"><i class="addmenu_gray"></i><span class="js_addMenuTips">添加按钮</span></a>'
 				+'</li>';
-		}
-		$('#parent_menu').html(html);
+			$('#parent_menu').html(html);
+		}		
 		$('.sort_gray').css('display','none');
+		var pL = $('.parent_menu_list>li').length;
+		delDisabled('#js_saveBtn',pL,0);
+		delDisabled('#js_stortable',pL,1);
 		for(var j=0;j<pData.length;j++){
 			if(pData[j].subMenus.length>0){
 				$('#'+pData[j].listId).find('.menu_ico_dot').css('display','inline-block');
@@ -758,22 +816,22 @@ function resetPreCurrent(){
 /*添加预览手机内容*/
 function setPreCont(obj){
 	var subId = $(obj).attr('id');
-	var cachData = $('#'+subId).data();
+	var cachData = $('#'+subId).data('cacheData');
 	var html ='	<li class="show_item clearfix">'
-		+'<img src="images/warn_ico.png" />'
+		+'<img src="views/images/warn_ico.png" />'
 		+'<div class="show_content">'
 		+'<div class="preview_list">';
 	if(cachData.morp == 0){
 		if(cachData.picMessage.length >0){
 			html+='<div class="demo_st clearfix" data-list="1">'
 			+'<a class="close_demo" href="javascript:;"></a>'
-			+'<p>'+ cachData.picMessage[0].msg+'</p>'
+			+'<p>'+ cachData.picMessage[0].title+'</p>'
 			+'<img src="'+ cachData.picMessage[0].largePicUrl +'" alt="">'
 			+'</div>';
 			for(var i=1;i<cachData.picMessage.length;i++){
 				html += '<div class="deme_title_info" data-list="1">'
 				+'<a class="close_demo" href="javascript:;"></a>'
-				+'<p>'+cachData.picMessage[0].msg+'</p>'
+				+'<p>'+cachData.picMessage[0].title+'</p>'
 				+'<img src="'+cachData.picMessage[i].smallPicUrl+'" alt="">'
 				+'</div>';
 			}
@@ -837,4 +895,4 @@ function subStringChar(str, len) {
                 newStr += singleChar;
         }
         return newStr;
-} 
+}

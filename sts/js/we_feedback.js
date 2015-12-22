@@ -9,12 +9,12 @@
 ======================================== */
 !function(){
     var pageQuery = window.location.search.substr(1).split('&');
-    var pageParam = ( /page=/.test(pageQuery[0]) ) ? ( pageQuery[0].replace('page=','') ) : '1-1-1';
+    var pageParam = ( /page=/.test(pageQuery[0]) ) ? ( pageQuery[0].replace('page=','') ) : '1-1-0';
     window._pageConf ={
         '1-0-0': {
             pageIndex: '1-0-0',
             defaultFunc: function() {
-                goPage(window._pageConf['1-1-1']);
+                goPage(window._pageConf['1-1-0']);
             }
         },
         '1-1-0': {

@@ -179,9 +179,22 @@ button:hover {
     padding: 0;
     height:33px;
 }
+
+.list li > .required_info_name {
+    display: inline-block;
+    width: 90px;
+    text-align: right;
+}
+
 .list>.top_left input{
+    position:relative;
+    top:-5px;
     padding-left:10px;
     width:200px;
+}
+.list>div select{
+    position:relative;
+    top: -5px;
 }
 .list select{
     width: 200px;

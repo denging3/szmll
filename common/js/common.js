@@ -1,37 +1,47 @@
-
 $(window).resize(function () {
-    $('#sidebar').setsideBarHeigh( 111);
-    $('#sts_sidebar').setsideBarHeigh(111);
+    setSectionLeft('#sidebar > ul li.show ul',80,220);
+    setSectionLeft('#sidebar > ul li.show ul',165,165);
 });
+
 $(document).ready(function () {
-	var setting = {
-	"msg":"1",
-	"commonIco":"../common/images/common.png",
-	"sysIco":"images/menu.png",
-	"common":[{
+	var rightNav =[{
+		'name':'系统',
+		'links':'settings',
+		'class':'menu_ico',
+		'href':'javascript:;',
+		'list':[{'name': '商家信息', 'href': 'javascript:;', 'class':''}, {'name': '帐号管理','href': 'javascript:;','class':''}, {'name': '第三方接入', 'href': 'javascript:;','class':''}]
+		
+	}];
+	 var menus = [{
             'name': '首页',
             'links': 'index',
-            'list': ''
+            'class':'menu_1',
+            'href':'javascript:;',
+            'list':''
         },
         {
             'name': '运营',
             'links': 'operation',
+            'class':'menu_2',
+            'href':'javascript:;',
             'list': [{
                 'name': '运营模块',
+                'href':'javascript:;',
                 'links': 'Coupons',
-                'list': [{'name': '优惠券',  'href': '#'}]
-            }
-            ]
+                'list': [{'name': '优惠券',  'href': '#' , 'class':'menu_1_1_1','list':''}]
+            }]
         },
         {
             'name': '电商',
             'links': 'ec',
+            'class':'menu_3',
+            'href':'javascript:;',
             'list': [{
                 'name': '电商1',
                 'links': 'ec1',
-                'list': [{'name': '优惠券1', 'href': '#'}, {
+                'list': [{'name': '优惠券1', 'href': '#', 'class':'menu_1_1_1'  }, {
                     'name': '优惠券3',
-                    'href': '#'
+                    'href': '#', 'class':'menu_1_1_1'
                 }]
             }
             ]
@@ -39,300 +49,212 @@ $(document).ready(function () {
         {
             'name': '门店',
             'links': 'store',
+            'class':'menu_4',
+            'href':'javascript:;',
             'list': [{
 		                'name': '门店1',
 		                'links': 'store1',
-		                'list': [{'name': '优惠券1', 'href': '#'}, {'name': '优惠券3','href': '#'
+		                'href':'javascript:;',
+		                'list': [{'name': '优惠券1', 'href': '#','list':'', 'class':'menu_1_1_1'}, {'name': '优惠券3','href': '#', 'class':'menu_1_1_1'
 		                   		 }]
 	                 }, {
 	                    'name': '门店2',
 	                    'links': 'store2',
-	                    'list': [{'name': '优惠券2', 'href': '#'}]
+	                    'href':'javascript:;',
+	                    'list': [{'name': '优惠券2', 'href': '#', 'class':'menu_1_1_1'}]
 	                }, {
 	                    'name': '门店3',
 	                    'links': 'store3',
-	                    'list': ''
+	                    'href':'javascript:;'
 	                }]
         },
         {
             'name': '客流',
             'links': 'custom',
+            'class':'menu_5',
+            'href':'javascript:;',
             'list': [{
 	                'name': '客户',
 	                'links': 'youhuiquan',
-	                'list': [{'name': '优惠券1',  'href': '#'}, {'name': '优惠券3','href': '#'}]
+	                'href':'javascript:;',
+	                'list': [{'name': '优惠券1',  'href': '#', 'class':'menu_1_1_1'}, {'name': '优惠券3','href': '#', 'class':'menu_1_1_1'}]
 	                },
 	                {'name': '管理',
                     'links': 'kehuguanli',
-                    'list': [{'name': '优惠券2',  'href': '#'}]
+                    'href':'javascript:;',
+                    'list': [{'name': '优惠券2',  'href': '#', 'class':'menu_1_1_1'}]
 	                }]
-         }],
-	"sys":[{
+         }];
+	var sys = [{
             'name': '商家信息',
             'links': 'index',
+            'class':'menu_1',
+            'href':'javascript:;',
             'list': []
         },
           {
             'name': '账号管理',
             'links': 'operation',
-            'list': []
+            'class':'menu_2',
+            'href':'javascript:;',
+            'list': [{'name': '微信接口','links': '','list': ''},{'name': '微信菜单','links': '','list': '' },{'name': '微回复','links': '','list': ''}]
           },
           {
             'name': '第三方接入',
             'links': 'ec',
-            'list': [{
-                'name': '微信接口',
-                'links': '',
-                'list': ''
-            	},
-                {
-                    'name': '微信菜单',
-                    'links': '',
-                    'list': ''
-                },
-                {
-                    'name': '微回复',
-                    'links': '',
-                    'list': ''
-                }]
-            }],
-	"rightNav":[{'name': '商家信息', 'url': 'javascript:;'}, {'name': '帐号管理','url': 'javascript:;'}, {'name': '第三方接入', 'url': 'javascript:;'}]
-}
+            'class':'menu_3',
+            'href':'javascript:;',
+            'list': [{'name': '微信接口','links': '','list': ''}, {'name': '微信菜单', 'links': '','list': ''},{'name': '微回复','links': '','list': ''}]
+            }]
+	
 	
 	/*
-	 *	$.fn.sideBarInit(url);
-	 * 
-	 * 参数
-	 *  	url  请求数据地址
-	 * 返回数据data
-	 * 		data.msg  0 没数据  1 成功
-	 * 		data.common 后台数据
-	 *      data.sys   系统导航
-	 *      data.rightNav 右顶角列表
-	 *      data.commonIco 后台导航图标
-	 *      data.sysIco  系统导航图标
+	 * obj:菜单函数实例化
+	 * data:数据结构：
+	 * [{
+	 * 	'name':'',
+	 *  'links':'',
+	 *  'class':'',
+	 *  'href':'',
+	 *  'list':[{...},{...},{...}]
+	 * },{...}]
 	 */
-	
-     $('#sysInfo').showList(setting.rightNav);
-    
-    if($('#sidebar').length>0){
-        $('#sidebar').setSectionMargin('#section', 80, 220);
-        /*
-         *arguments 左边导航栏传递列表数据格式
-         *u 设置为变量，为导航菜单雪碧图路径
-         */
-        $('#sidebar').sideBar(setting.common,setting.commonIco );
-    }else{
-        /*显示/隐藏下拉菜单*/
-        $('#sidebar').setSectionMargin('#section', 165, 165);
-        /*
-         *arguments 左边导航栏传递列表数据格式
-         *u 设置为变量，为导航菜单雪碧图路径
-         */
-        $('#sts_sidebar').Sts_sideBar(setting.sys,setting.sysIco);
-    }
+    $.ajax({
+        type:"post",
+        url:durl,
+        async:true,
+        success:function(data){
+            var odata = JSON.parse(data);
+            var os = new menuTree();
+                os.init({
+                    "targetId":"sysInfo",
+                    "data":odata.rightNav,
+                    "url":'',
+                    "action":"hover"});
+            if($('#sidebar').length>0){
+                 var menu = new menuTree();
+                 menu.init({
+                    "targetId":"sidebar",
+                    "data":odata.menus,
+                    "url":'',
+                    "action":"click",
+                    "callBack":function(){
+                        setSectionLeft('#sidebar > ul > li.show >ul',80,220);
+                    }
+                 });
+                 setSectionLeft('#sidebar > ul > li.show >ul',80,220);
+            }else{
+                 var menu = new menuTree();
+                 menu.init({
+                    "targetId":"sts_sidebar",
+                    "data":odata.sys,
+                    "url":'',
+                    "action":"click"
+                 });
+                 setSectionLeft('#sidebar > ul > li.show >ul',165,165);
+            }
+        }
+    });
 });
-
-
 
 /*
- *导航菜单
- *_data 将导航菜单以json数据保存为参数传递，自动生成一级，二级，三级菜单
+ *[menuTree 生成导航菜单]
+ * @param  {object} setting
+ *   {
+ *    targetId: ID值,必须有
+ * 	      data: 直接传入菜单数据，
+ *         url： ajax请求数据的接口，
+ *      action: 打开下级菜单的方式，默认'click'，滑动打开则是'hover'
+ *   }
  */
-
-$.fn.extend({
-	sideBarInit:function(u){
-		var setting = {
-			"msg":"1",
-			"commonIco":"../common/images/common.png",
-			"sysIco":"images/menu.png",
-			"common":[],
-			"sys":[],
-			"rightNav":[]
-		}
-		$.ajax({
-			type:"post",
-			url:u,
-			async:true,
-			success:function(result){
-				var oresult = JSON.parse(result);  
-				var oData =$.extend(setting, oresult);
-				if(oData.msg == 1){	
-					if($('#sidebar').length >0 ){
-					   $('#sidebar').sideBar(oData.common,oData.commonIco);
-					   $('#sysInfo').showList( oData.rightNav);
-					   $('#sidebar').setSectionMargin('#section', 80, 220);
-					}else{
-					   $('#sts_sidebar').Sts_sideBar(oData.sys,oData.sysIco);
-					   $('#sysInfo').showList( oData.rightNav);
-					   $('#sts_sidebar').setSectionMargin('#section', 165, 165);
-					}
-				}else{
-					console.log('没有数据');
+function menuTree(){
+				this.html = '';
+				this.obj = null ;
+				this.config = {
+					'data':'',
+					'url':'',
+					'action':'click',
+					'callBack':null
 				}
 			}
-		});
-	},
-    sideBar: function ( _data,_picUrl) {
-        if (_data.length > 0) {
-            $(this).append('<ul class="first_lev" id="first_lev"></ul>');
-            var L = 0;
-            for (var i = 0, ii = _data.length; i < ii; i++) {
-                $('#first_lev').append('<li class="fir_li" data-link=' + _data[i].links + '><a style="background:url(' + _picUrl + ')0 '+ i*(-32)+'px;"></a><span>' + _data[i].name + '</span></li>');
-                if (_data[i].list.length > 0) {
-                    var html;
-                    html = '<ul class="second_lev close" id=' + _data[i].links + '>';
-                    for (var k = 0, kk = _data[i].list.length; k < kk; k++) {
-                        html += '<li class="sec_li" data-link="' + _data[i].list[k].links + '"><span>' + _data[i].list[k].name + '</span><a class="arrow"></a>';
-                        if (_data[i].list[k].list.length > 0) {
-                            if (k == 0) {
-                                html += '<ul class="third_lev" id="' + _data[i].list[k].links + '">';
-                            } else {
-                                html += '<ul class="third_lev close" id="' + _data[i].list[k].links + '">';
-                            }
-                            for (var y = 0, yy = _data[i].list[k].list.length; y < yy; y++) {	
-                                html += '<li class="thir_li"><span style="background:url(' + _picUrl + ') -50px '+ L*(-14) +'px;"></span><a href="' + _data[i].list[k].list[y].href + '">' + _data[i].list[k].list[y].name + '</a></li>';
-                                L++;
-                            }
-                            html += '</ul>';
-                        }
-                    }
-                    html += '</ul>';
-                    $(this).append(html);
-                }
-            }
-            $('.first_lev li').dropDown('.second_lev');
-            $('.second_lev li').dropDownArr('.third_lev');
-            $(this).setsideBarHeigh(105);
-        }
-    },
+			menuTree.prototype.init = function(setting){
+				var _config = $.extend(this.config,setting);
+				this.obj = $('#'+_config.targetId);
+				if(_config.url != '' && _config.url != null && _config.url != 'undefined'){
+					this.getData(_config.url);
+				}else{
+					this.forTree(_config.data);
+				}
+				this.obj.append(this.html);	
+				_config.action == 'click' ?this.menuClick(_config.callBack):this.menuHover(_config.callBack);;
+				this.setsideBarHeigh(_config.targetId,80);
+				
+			}
+			menuTree.prototype.forTree = function(data){
+				this.html += '<ul><i></i>';
+				for(var i=0,ii=data.length;i<ii;i++){
+					if(typeof data[i].url == 'undefined'){
+						this.html += '<li><span class="' + data[i].class+ '"></span><a href="javascript:;">'+ data[i].name+'</a><i class="arrow"></i>';
+					}else{
+						this.html += '<li><span class="' + data[i].class+ '"></span><a hreft="'+  data[i].url +'">'+ data[i].name+'</a><i class="arrow"></i>';
+					}
+					if(data[i].list != null && data[i].list.length >0){
+						this.forTree(data[i].list);
+					}
+					this.html +='</li>';
+				}
+				this.html +='</ul>';
+			}
+			menuTree.prototype.getData = function(durl){
+				$.ajax({
+					type:"post",
+					url:durl,
+					async:true,
+					success:function(result){
+						var oresult = JSON.parse(result);
+						this.forTree(oresult);
+					}
+				});
+			}
+			menuTree.prototype.menuClick = function(callback){
+				var menuEls = this.obj.find('li');
+				for(var i=0,ii=menuEls.length;i<ii;i++){
+					menuEls[i].onclick=function() {	
+						$(this).siblings('li').removeClass('show');
+						this.className+=(this.className.length>0? " ": "") + "show";
+						//TODO
+						callback();
+					}
+				}
+			}
+			menuTree.prototype.menuHover = function(){
+				var menuEls = this.obj.find('li');
+				for(var i=0,ii=menuEls.length;i<ii;i++){
+					menuEls[i].onmouseover=function() {
+						this.className+=(this.className.length>0? " ": "") + "show";
+					}
+					menuEls[i].onmouseout=function() {
+						this.className=this.className.replace(new RegExp("( ?|^)show\\b"), "");
+					}
+				}
+			}
+			menuTree.prototype.setsideBarHeigh = function(obj,val){
+				var h = $(window).height() - val;
+		        var ch = $('#'+obj).height();
+		        if (ch < h) {
+		            $('#'+obj).css('height', h + 'px');
+		        }
+			}
 
-    /*
-     *展开一级菜单
-     *target 显示的对象
-     */
-    dropDown: function (target) {
-        $(this).on('click', function () {
-            var id = $(this).data('link');
-            $(target).removeClass('close').addClass('close');
-            $('#' + id).removeClass('close').addClass('open');
-            if ($('#section')) {
-                $('#sidebar').setSectionMargin('#section', 80, 220);
-            }
-        })
-    },
-    
-     /*
-     *展开二级菜单
-     *target 显示的对象
-     */
-    dropDownArr: function (target) {
-        $(this).on('click', function () {
-            var id = $(this).data('link');
-            $(this).parent().find('.arrow').css('transform','rotate(0deg)');
-            $(this).find('.arrow').css('transform','rotate(90deg)');
-            $(this).parent().find(target).removeClass('close').addClass('close');
-            $('#' + id).removeClass('close').addClass('open');
-            if ($('#section')) {
-                $('#sidebar').setSectionMargin('#section', 80, 220);
-            }
-        })
-    },
-
-    /*设置左边栏的高度*/
-    setsideBarHeigh: function (val) {
-        var h = $(window).height() - val;
-        var ch = $(this).height();
-        if (ch < h) {
-            $('.first_lev,.second_lev').css('height', h + 'px');
-        }
-    },
-
-    /*设置target的左边距*/
-    setSectionMargin: function (target, first_left, sec_left) {
-        if ($(this).width() > first_left) {
-            $(target).css('margin-left', sec_left + 'px')
-        } else {
-            $(target).css('margin-left', first_left + 'px');
-        }
-    },
-
-    /*
-     *显示页头系统设置显示/隐藏下拉单功能
-     *data 显示/隐藏下拉菜单的链接列表
-     */
-    showList: function (data) {
-        $(this).on('mouseover', function () {
-            $(this).find('.sys_tips').show();
-        }).on('mouseout', function () {
-            $(this).find('.sys_tips').hide();
-        })
-        if (data.length > 0) {
-            var list = '';
-            for (var i = 0, ii = data.length; i < ii; i++) {
-                list += '<li><a href="' + data[i].url + '" target="blank">' + data[i].name + '</a></li>'
-            }
-            ;
-            $(this).find('.sys_list').append(list);
-        }
-    },
-    /*
-     *显示页头系统设置显示/隐藏下拉单功能
-     *data 显示/隐藏下拉菜单的链接列表
-     */
-    Sts_showList: function (data) {
-        $(this).on('mouseover', function () {
-            $(this).find('.sys_tips').show();
-        }).on('mouseout', function () {
-            $(this).find('.sys_tips').hide();
-        })
-        if (data.length > 0) {
-            var list = '';
-            for (var i = 0, ii = data.length; i < ii; i++) {
-                list += '<li><a href="' + data[i].url + '" target="blank">' + data[i].name + '</a></li>'
-            }
-            ;
-            $(this).find('.sys_list').append(list);
-        }
-    },
-    /*
-     *展开下级菜单
-     *obj 点击的对象
-     *target 显示的对象
-     */
-    Sts_dropDown: function (target) {
-        $(this).on('click', function () {
-            var id = $(this).data('link');
-            $(this).siblings().find('.arrow').css('-webkit-transform','rotate(0deg)');
-            $(this).find('.arrow').css('-webkit-transform','rotate(90deg)');
-            $(target).css('display', 'none');
-            $('#' + id).css('display', 'block');
-            if ($('#section')) {
-                $('#sts_sidebar').setSectionMargin('#section', 165,165);
-            }
-        })
-    },
-    Sts_sideBar: function ( _data,_picUrl) {
-        if (_data.length > 0) {
-            $(this).append('<ul class="first_lev" id="first_lev"></ul>');
-            for (var i = 0, ii = _data.length; i < ii; i++) {
-                $('#first_lev').append('<li class="fir_li" data-link=' + _data[i].links + '><a style="background:url(' + _picUrl + ') 0 '+ i*(-15)+'px;"></a><span>' + _data[i].name + '</span><a class="arrow"></a></li>');
-                if (_data[i].list.length > 0) {
-                    var html;
-                    html = '<ul class="second_lev" id=' + _data[i].links + ' style="display:none;">';
-                    for (var k = 0, kk = _data[i].list.length; k < kk; k++) {
-                        html += '<li class="sec_li" data-link="' + _data[i].list[k].links + '"><span>' + _data[i].list[k].name + '</span>';
-                    }
-                    html += '</ul>';
-                    $('#first_lev').append(html);
-                }
-            }
-            $('.first_lev li').Sts_dropDown('.second_lev');
-            $('#sts_sidebar').setsideBarHeigh(105);
-        }
-    },
-});
-
+ 
+ /*根据sideBar的宽度设置section的左边距*/
+ function setSectionLeft(obj,smallLeft,largeLeft){
+ 	if($(obj).css('display') == 'block'){
+		$('#section').css('margin-left', ''+ largeLeft +'px');
+	}else{
+		$('#section').css('margin-left',''+ smallLeft +'px');
+	}
+ }
 /**
  * 漂浮弹窗
  * setting对象
@@ -366,11 +288,11 @@ $.lightBox.prototype = {
         },setting  );
         this.setting.buttons = this.setting.buttons || ([{value: '确定', className: 'dia-close bright-button'}]);
         //默认删除之前弹框
-        if( this.setting.closeOther && $('#' + this.setting.boxID + 'Dia')[0] ) {
-            $('#' + this.setting.boxID + 'Dia').remove();
+        this.id = this.setting.boxID + 'Dia';
+        if( this.setting.closeOther && $('.data-dia')[0] ) {
+            $('#'+this.id).remove();
         }
         //添加弹框dom
-        this.id = this.setting.boxID + 'Dia';
         var h = this.createDiaHTML();
         $('body').append(h);
         this.dom = $('#' + this.id);
@@ -475,10 +397,9 @@ $.lightBox.closeALL = function(){
     $('.data-dia').fadeOut();
     setTimeout(function(){
         $('.fix').detach();
-        $('.data-dia').remove();
+        $('#'+this.id).remove();
     },500);
 }
-
 
 function dialog(obj) {
     var r = $(obj).data('role');
@@ -494,17 +415,4 @@ function dialog(obj) {
     });
 }
 
-
-//------------drag----------------
-var event = document.addEventListener();
-$('.drag_list li').mousedown(function () {
-    console.log(event);
-    $(this).css('background', '#333');
-});
-$('.drag_list li').mousemove(function () {
-    console.log($(this))
-});
-$('.drag_list li').mouseup(function () {
-    $(this).css('background', '#fff');
-});
 
