@@ -8,6 +8,7 @@
 * description: 系统-微回复页面涉及js
 ======================================== */
 !function(){
+    var MCHID = '111';
     var pageQuery = window.location.search.substr(1).split('&');
     var pageParam = ( /page=/.test(pageQuery[0]) ) ? ( pageQuery[0].replace('page=','') ) : '1-1-0';
     window._pageConf ={
@@ -30,7 +31,7 @@
                 {curIndex:0,dataUrl:['1-1-1','1-1-2']}],
             pageLoad: 'page/msg_imgtext_kinds.html',
             callFunc: function() {
-                $("#js-page1-1-1").addSettingModual();
+                $("#js-page1-1-1").addSettingModual(MCHID);
                 $("#js-page1-1-1").bindNavEvent();
                 $("#js-page1-1-1").addFooterOper(null);
             }
@@ -70,7 +71,7 @@
                 {curIndex:0,dataUrl:['2-0-1','2-0-2']}],
             pageLoad: 'page/msg_imgtext_kinds.html',
             callFunc: function() {
-                $("#js-page2-0-1").addSettingModual();
+                $("#js-page2-0-1").addSettingModual(MCHID);
                 $("#js-page2-0-1").bindNavEvent();
                 $("#js-page2-0-1").addFooterOper(null);
             }
@@ -234,7 +235,7 @@ function addQrRule(){
     choQREvent();
     
     //图文模块添加事件
-    $('#addQrRuleDia').addSettingModual();
+    $('#addQrRuleDia').addSettingModual(MCHID);
     $('#addQrRuleDia').bindNavEvent();
 
     $('.data-dia .radio-wefeed').on('click',function(){
@@ -291,7 +292,7 @@ function editQrRule(ruleInfo){
     //选择二维码事件
     choQREvent();
     //图文模块添加事件
-    $('#addQrRuleDia').addSettingModual();
+    $('#addQrRuleDia').addSettingModual(MCHID);
     $('#addQrRuleDia').bindNavEvent();
 
     $('.data-dia .radio-wefeed').on('click',function(){
@@ -549,7 +550,7 @@ function editRule(ruleID){
                 ruleName: 'this_is_a_rule',
                 ruleKeys: '互联网家居,美乐乐,运营',
                 textMsg: [{id:235601,desc:'这是一条规则说明',msgType:'textmsg'},{id:235607,desc:'这是另一条规则说明',msgType:'textmsg'}],
-                imgMsg: [{id:235603,desc:'这是第三条规则说明',imgSrc:'http://www.szmll.com/sts/images/bacimg.png',msgType:'msg'}]
+                imgMsg: [{id:5578,desc:'这是第三条规则说明',imgSrc:'http://www.szmll.com/sts/images/bacimg.png',msgType:'msg'}]
             };
 
         //使用隐藏域 js-imgmsg-ids保存当前选择的图文消息id
@@ -699,7 +700,8 @@ function addMsgItem(obj){
         }]
     });
     //绑定图文选择事件
-    $.msgDemo($('#addMsgItemDia'),$('.data-dia .js-imgmsg-ids').val());
+    var mchId = '111';
+    $.msgDemo($('#addMsgItemDia'),mchId,$('.data-dia .js-imgmsg-ids').val());
 }
 function editMsgItem(obj){
     $.lightBox({

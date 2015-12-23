@@ -1,25 +1,16 @@
-$.msgDemo = function(pdiv,checkedIds) {
-    return new $.msgDemo.prototype.init( pdiv,checkedIds );
+$.msgDemo = function(pdiv,mchId,checkedIds) {
+    return new $.msgDemo.prototype.init( pdiv,mchId,checkedIds );
 }
 $.msgDemo.prototype = {
     constructor:$.msgDemo,
     init: function(pdiv,mchId,checkedIds) {
         this.mchId = mchId;
         this.pdiv = pdiv;
+        this.checkedIds = checkedIds;
         var that = this;
-        $.msgDemo.checkedIds = checkedIds;
-        //TODO待扩展
-        // $(this.pdiv).find('.demo_title_list li').on('click',function(){
-        //     that.fsaf(this);
-        // });
-        
-        //初始化数据
-        this.getModelTypes('111');
 
-        // $(this.pdiv).find('.demo_info span').on('click',function(){
-        //     that.check_list(this);
-        // });
-        // this.defaultChecked(checkedIds);
+        //初始化数据
+        this.getModelTypes(this.mchId);
     },
     /*以下为java新增方法*/
     //获取图文信息模板
@@ -67,7 +58,7 @@ $.msgDemo.prototype = {
                             $(msgItemDom).data('role',n.modelType).addClass('cur-item');
                             $(that.pdiv).find('.msg-contents').append(msgItemDom);
                             //展示模块名称
-                            that.getModels(mchId,n.modelType,msgItemDom);
+                            that.getModels(mchId,n.modelType);
                         }else{
                             $(that.pdiv).find('.arrow-nav-title').append("<li data-role='" + i + "'>" + n.modelType + "</li>");
                         }
@@ -108,7 +99,7 @@ $.msgDemo.prototype = {
                         $(msgItemDom).data('role',n.modelType).addClass('cur-item');
                         $(that.pdiv).find('.msg-contents').append(msgItemDom);
                         //展示模块名称
-                        that.getModels(mchId,n.modelType,msgItemDom);
+                        that.getModels(mchId,n.modelType);
                     }else{
                         $(that.pdiv).find('.arrow-nav-title').append("<li data-role='" + i + "'>" + n.modelType + "</li>");
                     }
@@ -116,8 +107,8 @@ $.msgDemo.prototype = {
             }
         });
     },
-    getModels: function(mchId,modelType,pdiv) {
-        var titleLdiv = $(pdiv).find('.demo_title_list');
+    getModels: function(mchId,modelType) {
+        var titleLdiv = $(this.pdiv).find('.demo_title_list');
         var that = this;
         $.ajax({
             url:"searchModels",
@@ -132,13 +123,13 @@ $.msgDemo.prototype = {
                         if(j==0){
                             $(titleLdiv).append("<li data-role='"+ o.modelVisit+"'><img src='"+ o.modelPicUrl+"' alt=\"\"/><p>"+ o.modelName+"</p><span></span></li >");
                             //加载图文信息
-                            $.msgDemo.getPicMessages(mchId,o.modelVisit,pdiv);
+                            $.msgDemo.getPicMessages(mchId,o.modelVisit,that);
                         }else{
                             $(titleLdiv).append("<li data-role='"+ o.modelVisit+"'><img src='"+ o.modelPicUrl+"' alt=\"\"/><p>"+ o.modelName+"</p><span></span></li >");
                         }
                     });
                     $(titleLdiv).find('li').on('click',function(){
-                        $.msgDemo.getPicMessages(mchId,$(this).data('role'),pdiv);
+                        $.msgDemo.getPicMessages(mchId,$(this).data('role'),that);
                     });
                 }
             },
@@ -157,13 +148,13 @@ $.msgDemo.prototype = {
                     if(j==0){
                         $(titleLdiv).append("<li data-role='"+ o.modelVisit+"'><img src='"+ o.modelPicUrl+"' alt=\"\"/><p>"+ o.modelName+"</p><span></span></li >");
                         //加载图文信息
-                        $.msgDemo.getPicMessages(mchId,o.modelVisit,pdiv);
+                        $.msgDemo.getPicMessages(mchId,o.modelVisit,that);
                     }else{
                         $(titleLdiv).append("<li data-role='"+ o.modelVisit+"'><img src='"+ o.modelPicUrl+"' alt=\"\"/><p>"+ o.modelName+"</p><span></span></li >");
                     }
                 });
                 $(titleLdiv).find('li').on('click',function(){
-                    $.msgDemo.getPicMessages(mchId,$(this).data('role'),pdiv);
+                    $.msgDemo.getPicMessages(mchId,$(this).data('role'),that);
                 });
             }
         });
@@ -184,7 +175,7 @@ $.msgDemo.getDemoChecked = function(pdiv) {
     });
     return checkedInfos;
 }
-$.msgDemo.getPicMessages = function(mchId,modelVisit,pdiv){
+$.msgDemo.getPicMessages = function(mchId,modelVisit,msgDemo){
     $.ajax({
         url:modelVisit,
         type:"POST",
@@ -193,20 +184,14 @@ $.msgDemo.getPicMessages = function(mchId,modelVisit,pdiv){
         data:{"mchId":mchId},
         success:function(obj){
             if(obj!=null){
-                $(pdiv).find(".demo_main_info").html('');
+                $(msgDemo.pdiv).find(".demo_main_info").html('');
                 $.each(obj,function(i,p){
-                    $(pdiv).find(".demo_main_info").append("<li data-list='"+ p.systemId+"' data-url='"+ p.url+"' data-msg='"+p.description+"' data-largeurl='"+ p.largePicUrl+"' data-smallurl='"+ p.picUrl+"'><span></span><img src='"+ p.picUrl+"' alt=\"\"/><p>"+ p.title+"</p></li>");
+                    $(msgDemo.pdiv).find(".demo_main_info").append("<li data-list='"+ p.systemId+"' data-url='"+ p.url+"' data-msg='"+p.description+"' data-largeurl='"+ p.largePicUrl+"' data-smallurl='"+ p.picUrl+"'><span></span><img src='"+ p.picUrl+"' alt=\"\"/><p>"+ p.title+"</p></li>");
                 });
-                // $('.demo_info span').on('click',function(){
-                //     $(this).toggleClass('img_check');
-                // });
-                // $('.demo_info span').check_list('click');
-
-                // $('.tab_menu li a').on('click',function(){
-                //     $(this).parent().siblings().find('a').removeClass('active');
-                //     $(this).addClass('active');
-                // })
-                // backChecked();
+                $(msgDemo.pdiv).find('.demo_main_info span').on('click',function(){
+                    $.msgDemo.check_list(this,msgDemo.pdiv);
+                });
+                $.msgDemo.defaultChecked(msgDemo);
             }
         },
         error: function(obj) {
@@ -225,15 +210,15 @@ $.msgDemo.getPicMessages = function(mchId,modelVisit,pdiv){
                 description: '美乐乐微信推广金秋11月代金券',
                 title: '美乐乐微信推广金秋11月代金券'
             }];
-            $(pdiv).find(".demo_main_info").html("");
+            $(msgDemo.pdiv).find(".demo_main_info").html("");
             $.each(obj,function(i,p){
-                $(pdiv).find(".demo_main_info").append("<li data-list='"+ p.systemId+"' data-url='"+ p.url+"' data-msg='"+p.description+"' data-largeurl='"+ p.largePicUrl+"' data-smallurl='"+ p.picUrl+"'><span></span><img src='"+ p.picUrl+"' alt=\"\"/><p>"+ p.title+"</p></li>");
+                $(msgDemo.pdiv).find(".demo_main_info").append("<li data-list='"+ p.systemId+"' data-url='"+ p.url+"' data-msg='"+p.description+"' data-largeurl='"+ p.largePicUrl+"' data-smallurl='"+ p.picUrl+"'><span></span><img src='"+ p.picUrl+"' alt=\"\"/><p>"+ p.title+"</p></li>");
             });
 
-            $(pdiv).find('.demo_main_info span').on('click',function(){
-                $.msgDemo.check_list(this,pdiv);
+            $(msgDemo.pdiv).find('.demo_main_info span').on('click',function(){
+                $.msgDemo.check_list(this,msgDemo.pdiv);
             });
-            $.msgDemo.defaultChecked($.msgDemo.checkedIds,pdiv);
+            $.msgDemo.defaultChecked(msgDemo);
         }
     });
 }
@@ -292,9 +277,10 @@ $.msgDemo.check_list = function(clickObj,pdiv) {
     }
     $.msgDemo.check_first(pdiv);
 }
-$.msgDemo.defaultChecked = function(checkedIds,pdiv){
+$.msgDemo.defaultChecked = function(msgDemo){
+    var checkedIds = String(msgDemo.checkedIds),
+        pdiv = msgDemo.pdiv;
     if( checkedIds && checkedIds.length ) {
-
         checkedIds = ',' + checkedIds + ',';
         $(pdiv).find('.demo_info span').each(function(){
             var d = $(this).parent().data('list');
@@ -304,44 +290,9 @@ $.msgDemo.defaultChecked = function(checkedIds,pdiv){
         })
     }
 }
-// 根据商家id和模板类型获取模板信息及图文信息
-// @param mchId 商户id  @param modelType 模板类型
-
-$.msgDemo.getPicUrlMessages = function(mchId,modelType,modelName,clickObj){
-    $.ajax({
-        url:"searchPicModelsByName",
-        type:"POST",
-        dataType:"json",
-        async:false,
-        data:{"mchId":mchId,"modelType":modelType,"modelName":modelName},
-        success:function(obj){
-            if ( obj != null ) {
-                $.each(obj,function(i,p){
-                    $("#demo_main_info").append("<li data-list='"+ p.id+"' data-url='"+ p.url+"'><span></span><img src='"+ p.modelPicUrl+"' alt=\"\"/><p>"+ p.modelPicName+"</p></li>");
-                });
-                /*图文链接使用*/
-                $('.demo_info span').on('click',function(){
-                    $('.img_check').removeClass('img_check');
-                    $(this).addClass('img_check');
-                });
-            }
-        }
-    });
-}
 $.fn.extend({
-    addSettingModual: function() {
-        $.msgDemo(this);
-        //添加各模块内容 this为当前添加dom的父级节点
-        //$(this).getModelTypes();
-        // var divs = $(this).find('.msg-item');
-        // $(divs).each( function() {
-        //     var dataRole = $(this).attr('data-role');
-        //     //TODO
-        //     //获取数据加载模块
-        //     $(this).load('page/msg_imgtext.html',function(){
-        //         $.msgDemo(this);
-        //     });
-        // });
+    addSettingModual: function(mchId,checkedIds) {
+        $.msgDemo(this,mchId,checkedIds);
     },
     addSettingModualOne: function(){
         //TODO
