@@ -34,7 +34,7 @@
 /* ***************************
 * 图文消息内容模块
 * ****************************/
-.msg-contents .msg-item{display: none;}
+.msg-contents .msg-item{display: block;}
 .msg-contents .cur-item{display: block;}
 /* ***************************
 * 回复列表
@@ -216,11 +216,11 @@ i.icon20-white-add{display: inline-block;width: 20px;height: 20px;background: ur
                     <input type="hidden" class="js-imgmsg-ids" />
                 </td>
             </tr>
-            <tr>
+            <tr class="js-keywords-tr">
                 <td class="lab">关键词</td>
                 <td>
-                    <textarea class="textarea js-keywords"></textarea>
-                    <span class="js-keyw-tips keyw-tips">多个关键字使用空格隔开，还可输入30个字</span>
+                    <textarea class="textarea js-keywords js-editorArea"></textarea>
+                    <span class="js-keyw-tips keyw-tips">多个关键字使用空格隔开，还可输入<span class=" js-left-word">30</span>个字</span>
                 </td>
             </tr>
             <tr class="js-add-content">

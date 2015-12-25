@@ -7,8 +7,8 @@
 * modify: {}
 * description: 系统-微回复页面涉及js
 ======================================== */
+var MCHID = '111';
 !function(){
-    var MCHID = '111';
     var pageQuery = window.location.search.substr(1).split('&');
     var pageParam = ( /page=/.test(pageQuery[0]) ) ? ( pageQuery[0].replace('page=','') ) : '1-1-0';
     window._pageConf ={
@@ -31,8 +31,9 @@
                 {curIndex:0,dataUrl:['1-1-1','1-1-2']}],
             pageLoad: 'page/msg_imgtext_kinds.html',
             callFunc: function() {
-                $("#js-page1-1-1").addSettingModual(MCHID);
-                $("#js-page1-1-1").bindNavEvent();
+                // $("#js-page1-1-1").addSettingModual(MCHID);
+                // $("#js-page1-1-1").bindNavEvent();
+                $.msgDemo($("#js-page1-1-1"),MCHID);
                 $("#js-page1-1-1").addFooterOper(null);
             }
 
@@ -71,8 +72,9 @@
                 {curIndex:0,dataUrl:['2-0-1','2-0-2']}],
             pageLoad: 'page/msg_imgtext_kinds.html',
             callFunc: function() {
-                $("#js-page2-0-1").addSettingModual(MCHID);
-                $("#js-page2-0-1").bindNavEvent();
+                // $("#js-page2-0-1").addSettingModual(MCHID);
+                // $("#js-page2-0-1").bindNavEvent();
+                $.msgDemo($("#js-page2-0-1"),MCHID);
                 $("#js-page2-0-1").addFooterOper(null);
             }
         },
@@ -235,8 +237,9 @@ function addQrRule(){
     choQREvent();
     
     //图文模块添加事件
-    $('#addQrRuleDia').addSettingModual(MCHID);
-    $('#addQrRuleDia').bindNavEvent();
+    // $('#addQrRuleDia').addSettingModual(MCHID);
+    // $('#addQrRuleDia').bindNavEvent();
+    $.msgDemo($('#addQrRuleDia'),MCHID,{index:0,picMessages:[]});
 
     $('.data-dia .radio-wefeed').on('click',function(){
         $('.data-dia .radio-wefeed').removeClass('radio-current');
@@ -292,8 +295,9 @@ function editQrRule(ruleInfo){
     //选择二维码事件
     choQREvent();
     //图文模块添加事件
-    $('#addQrRuleDia').addSettingModual(MCHID);
-    $('#addQrRuleDia').bindNavEvent();
+    // $('#addQrRuleDia').addSettingModual(MCHID);
+    // $('#addQrRuleDia').bindNavEvent();
+    // $.msgDemo($('#addQrRuleDia'),'111',{index:0,picMessages:***});
 
     $('.data-dia .radio-wefeed').on('click',function(){
         $('.data-dia .radio-wefeed').removeClass('radio-current');
@@ -520,12 +524,18 @@ function addRule(){
             }
         }]
     });
+    // 绑定事件
+    $('#addRuleDia .js-rulename').blur(function(){
+        alert($(this).val());
+        //TODO
+    });
+    $('#addRuleDia .js-keywords-tr').bindwordValid(30);
 }
-function editRule(ruleID){
-        $.lightBox({
+function editRule(id){
+        var lightBD = $.lightBox({
             width: 930,
             boxID: 'addRule',
-            title: '添加规则',
+            title: '编辑规则',
             html: $('.addRule').html(),
             buttons: [{
                 value: '取  消',
@@ -535,7 +545,7 @@ function editRule(ruleID){
                 className: 'bright-button',
                 callbackFun: function() {
                     //TODO
-                    //添加规则。数据交互
+                    //编辑规则
                     //window.location.reload();
                 }
             }]
@@ -550,24 +560,38 @@ function editRule(ruleID){
                 ruleName: 'this_is_a_rule',
                 ruleKeys: '互联网家居,美乐乐,运营',
                 textMsg: [{id:235601,desc:'这是一条规则说明',msgType:'textmsg'},{id:235607,desc:'这是另一条规则说明',msgType:'textmsg'}],
-                imgMsg: [{id:5578,desc:'这是第三条规则说明',imgSrc:'http://www.szmll.com/sts/images/bacimg.png',msgType:'msg'}]
+                imgMsg: [{picMessages: [{datalist:5578,desc:'这是第三条规则说明',smallPicUrl:'http://www.szmll.com/sts/images/bacimg.png',largePicUrl:'http://www.szmll.com/sts/images/bacimg.png',msgType:'msg'},{datalist:5579,desc:'这是第er条规则说明',smallPicUrl:'http://www.szmll.com/sts/images/bacimg.png',largePicUrl:'http://www.szmll.com/sts/images/bacimg.png',msgType:'msg'}]},
+                    {picMessages:[{datalist:5581,desc:'这是第si条规则说明',smallPicUrl:'http://www.szmll.com/sts/images/bacimg.png',largePicUrl:'http://www.szmll.com/sts/images/bacimg.png',msgType:'msg'},{datalist:5582,desc:'这是第w5条规则说明',smallPicUrl:'http://www.szmll.com/sts/images/bacimg.png',largePicUrl:'http://www.szmll.com/sts/images/bacimg.png',msgType:'msg'}]}]
             };
 
-        //使用隐藏域 js-imgmsg-ids保存当前选择的图文消息id
-        var imgMsgIds = [];
+        var msgItemDOM;
 
-        //弹框数据初始化
+        //弹框数据初始化并添加事件
         $('.data-dia .js-rulename').val(ruleInfo.ruleName);
+        $('#addRuleDia .js-rulename').on('blur',function(){
+                //TODO
+        });
+
         $('.data-dia .js-keywords').text(ruleInfo.ruleKeys);
+        $('#addRuleDia .js-keywords-tr').bindwordValid(30);
+
         for ( var ii in ruleInfo.textMsg ) {
-             $('.data-dia .js-add-content').before(createMsgH(ruleInfo.textMsg[ii]));
+            msgItemDOM = $(createMsgH(ruleInfo.textMsg[ii]));
+            $('.data-dia .js-add-content').before(msgItemDOM);
+            $(msgItemDOM).attr('data-order',ii);
+            console.log(msgItemDOM);
         }
         for ( ii in ruleInfo.imgMsg ) {
-             $('.data-dia .js-add-content').before(createMsgH(ruleInfo.imgMsg[ii]));
-             imgMsgIds.push(ruleInfo.imgMsg[ii].id);
+            msgItemDOM = $(createMsgH(ruleInfo.imgMsg[ii].picMessages,'msg'));
+            $('.data-dia .js-add-content').before(msgItemDOM);
+            (function(index){
+                var msgItemParam = {"index": index,picMessages: ruleInfo.imgMsg[index].picMessages};
+                $(msgItemDOM).find('.js-editmsg-item').on('click',function(){
+                    editMsgItem(this,msgItemParam);
+                });
+            })(ii);
         }
-        
-        $('.data-dia .js-imgmsg-ids').val(imgMsgIds.join(','));
+        // $('.data-dia .js-imgmsg-ids').val(imgMsgIds.join(','));
 }
 /**
  * [delMsgItem 删除规则配置消息]
@@ -600,6 +624,12 @@ function delMsgItem(ruleId,msgId){
  * @param {[dom节点]} obj [点击触发添加文字消息弹框的dom节点]
  */
 function addTextMsg(obj){
+    //验证是否多于5条
+    var valid = validMsgItemNum();
+    if ( !valid ) {
+        return false;
+    }
+
     $.lightBox({
         width: 585,
         closeOther: false,
@@ -627,6 +657,8 @@ function addTextMsg(obj){
                     }
                     
                     $.lightBox.closeBox(thisLightBox);
+                } else {
+                    alert('输入内容非空！')
                 }
             }
         }]
@@ -634,9 +666,7 @@ function addTextMsg(obj){
     //添加字数验证
     $('#addTextMsgDia').bindwordValid();
 }
-function editTextMsg(id,desc,obj){
-    desc = '我是一直小小鸟';
-    //获取接口数据
+function editTextMsg(obj,desc){
     $.lightBox({
         width: 585,
         closeOther: false,
@@ -654,9 +684,17 @@ function editTextMsg(id,desc,obj){
                 var thisLBdom = thisLightBox.dom;
                 var text = $(thisLBdom).find('.js-editorArea').text();
                 if ( text.length ) {
-                    $(obj).parent().parent().parent().find('.js-textmsg').text(text);
+                    var ptr = $(obj).parent().parent().parent().parent().parent();
+                    $(ptr).find('.js-textmsg').text(text);
+                    //更新全局
+                    //index为当前文本消息于所有文本消息数组
+                    var index = $(ptr).attr('data-order');
+
+                    $.lightBox.closeBox(thisLightBox);
+                } else {
+                    alert("输入内容非空！");
                 }
-                $.lightBox.closeBox(thisLightBox);
+                
             }
         }]
     });
@@ -664,9 +702,15 @@ function editTextMsg(id,desc,obj){
     //是否关闭时提交
     $('.data-dia .js-editorArea').text(desc);
     //添加字数验证
-    $('#editTextMsgDia').bindwordValid();
+    $('#addTextMsgDia').bindwordValid();
 }
 function addMsgItem(obj){
+    //验证是否多于5条
+    var valid = validMsgItemNum();
+    if ( !valid ) {
+        return false;
+    }
+
     $.lightBox({
         width: 980,
         closeOther: false,
@@ -684,26 +728,27 @@ function addMsgItem(obj){
             className: 'bright-button',
             callbackFun: function() {
                 var thisLightBox = $(this)[0].lightBox;
-                var checkeds = $.msgDemo.getDemoChecked(thisLightBox.dom);
-                var checkTrH = '';
-                var imgMsgIds = [];
-                for ( var kk in checkeds ) {
-                    checkTrH += createMsgH(checkeds[kk]);
-                    imgMsgIds.push(checkeds[kk].msgID);
+                var checkeds = checkedMsg.picMessages || [];
+                //图文添加后弹窗交互
+                if ( checkeds.length ) {
+                    var msgItemDOM = $(createMsgH({"picMessages": checkeds},'msg'));
+                    $('.data-dia .js-add-content').before(msgItemDOM);
+                    $(msgItemDOM).find('.js-editmsg-item').on('click',function(){
+                        editMsgItem(this,checkedMsg);
+                    });
                 }
-                var pDia = $.lightBox.getCurDia($(obj));
-                $(pDia).find('.js-showmsg-tr').remove();
-                $(pDia).find('.js-add-content').before(checkTrH);
-                $(pDia).find('.js-imgmsg-ids').val(imgMsgIds.join(','));
+                //global变更
+                
                 $.lightBox.closeBox(thisLightBox);
             }
         }]
     });
     //绑定图文选择事件
-    var mchId = '111';
-    $.msgDemo($('#addMsgItemDia'),mchId,$('.data-dia .js-imgmsg-ids').val());
+    // var checkedMsg = $.msgDemo($('#addMsgItemDia'),'111',{index:全局变量图文的length,picMessages:[]});
 }
-function editMsgItem(obj){
+function editMsgItem(obj,picMessages){
+    console.log(picMessages);
+    console.log('bbbbbbbbbbbbbb');
     $.lightBox({
         width: 980,
         closeOther: false,
@@ -721,52 +766,57 @@ function editMsgItem(obj){
             className: 'bright-button',
             callbackFun: function() {
                 var thisLightBox = $(this)[0].lightBox;
-                var checkeds = $.msgDemo.getDemoChecked(thisLightBox.dom);
-                var checkTrH = '';
-                var imgMsgIds = [];
-                for ( var kk in checkeds ) {
-                    checkTrH += createMsgH(checkeds[kk]);
-                    imgMsgIds.push(checkeds[kk].msgID);
-                }
+                var checkeds = checkedMsg.picMessages || [];
                 var pDia = $.lightBox.getCurDia($(obj));
-                $(pDia).find('.js-showmsg-tr').remove();
-                $(pDia).find('.js-add-content').before(checkTrH);
-                $(pDia).find('.js-imgmsg-ids').val(imgMsgIds.join(','));
+                if ( checkeds && checkeds.length ){
+                     var tr = $(pDia).find('.js-showmsg-tr').eq(checkedMsg.index);
+                     $(tr).find('.msg-span img').attr('src',checkeds[0].smallPicUrl);
+                     $(tr).find('.msg-span-intext').text(checkeds[0].msg);
+                     $(tr).find('.js-editmsg-item').unbind('click').on('click',function(){
+                        editMsgItem(this,checkedMsg);
+                     });
+                } else {
+                    $(pDia).find('.js-showmsg-tr').eq(checkedMsg.index).remove();
+                }
+                // global更新
                 $.lightBox.closeBox(thisLightBox);
             }
         }]
 
     });
     //绑定图文选择事件
-    $.msgDemo($('#addMsgItemDia'),'111',$('.data-dia .js-imgmsg-ids').val());
-    //TODO 补充接口后完善
+    console.log(picMessages);
+    var checkedMsg = $.msgDemo($('#addMsgItemDia'),'111',picMessages);
 }
 
-function createMsgH(msgInfo){
+function createMsgH(msgInfo,msgType){
     //TODO  接口获取图文消息数据
     //msgType 消息类型约定图文消息为msg，文字消息为textmsg
-    // var msgInfo = {id:1,imgSrc:'http://www.szmll.com/sts/images/bacimg.png',desc:'2050国庆大欢乐',msgType: 'textmsg'};
+    // var msgInfo = {id:1,imgSrc:'http://www.szmll.com/sts/images/bacimg.png',desc:'2050国庆大欢乐'};
 
     var html = '';
-    if ( msgInfo.msgType == 'msg' ) {
-        html = '<tr class="js-showmsg-tr"><td></td><td>'
-            + '<span class="msg-contain js-textmsg-contain">'
-                + '<span class="msg-span">'
-                    + '<img src="' + msgInfo.imgSrc + '" width="100" height="100" />'
-                    + '<span class="msg-span-intext">' + msgInfo.desc + '</span>'
-                + '</span>'
-                + '<dl><dt>图文消息</dt>'
-                    + '<dd><a href="javascript:;" class="green-link"  onclick="editMsgItem(this);">编辑</a></dd>'
-                    + '<dd><a href="javascript:;" class="gray-link"  onclick="delMsgItem();">删除</a></dd>'
-                + '</dl>'
-            + '</span></td></tr>';
+    if ( msgType == 'msg' ) {
+        if ( msgInfo[0] ) {
+            msgInfo = msgInfo[0];
+            html = '<tr class="js-showmsg-tr"><td></td><td>'
+                + '<span class="msg-contain js-textmsg-contain">'
+                    + '<span class="msg-span">'
+                        + '<img src="' + msgInfo.imgSrc + '" width="100" height="100" />'
+                        + '<span class="msg-span-intext">' + msgInfo.desc + '</span>'
+                    + '</span>'
+                    + '<dl><dt>图文消息</dt>'
+                        + '<dd><a href="javascript:;" class="green-link js-editmsg-item">编辑</a></dd>'
+                        + '<dd><a href="javascript:;" class="gray-link"  onclick="delMsgItem();">删除</a></dd>'
+                    + '</dl>'
+                + '</span></td></tr>';
+        }
     } else {
         html = '<tr class="js-showtextmsg-tr"><td></td><td>'
             + '<span class="msg-contain js-textmsg-contain">'
                 + '<span class="msg-span js-textmsg">' + msgInfo.desc + '</span>'
                 + '<dl>'
                     + '<dt>文字消息</dt>'
-                    + '<dd><a href="javascript:;" class="green-link" onclick="editTextMsg(' + msgInfo.id + ',\'' + msgInfo.desc + '\',this);">编辑</a></dd>'
+                    + '<dd><a href="javascript:;" class="green-link" onclick="editTextMsg(this,\'' + msgInfo.desc + '\');">编辑</a></dd>'
                     + '<dd><a href="javascript:;" class="gray-link" onclick="delMsgItem();">删除</a></dd>'
                 + '</dl>'
             + '</span></td></tr>';

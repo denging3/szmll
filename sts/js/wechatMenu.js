@@ -48,7 +48,7 @@ function getPicMessages(mchId,modelVisit){
             if(obj!=null){
                 $("#js_check_cont").empty();
                 $.each(obj,function(i,p){
-                    $("#js_check_cont").append("<li data-list='"+ p.systemId+"' data-url='"+ p.url+"' data-msg='"+p.msg+"' data-largeurl='"+ p.largePicUrl+"' data-smallurl='"+ p.picUrl+"'><span></span><img src='"+ p.picUrl+"' alt=\"\"/><p>"+ p.title+"</p></li>");
+                    $("#js_check_cont").append("<li data-list='"+ p.systemId+"' data-url='"+ p.url+"' data-msg='"+p.description+"' data-largeurl='"+ p.largePicUrl+"' data-smallurl='"+ p.picUrl+"'><span></span><img src='"+ p.picUrl+"' alt=\"\"/><p>"+ p.title+"</p></li>");
                 });
                 $('.demo_info span').on('click',function(){
                     $(this).toggleClass('img_check');
@@ -207,16 +207,25 @@ function getMenuKey(){
  */
 function backChecked(){
     var originData = [];
-    $('.demo_list div').each(function(i){
+    $('.demo_list div').each(function(e){
         originData.push($(this).data('list'));
     })
     if(originData.length >0){
         for(var i=0,ii=originData.length;i<ii;i++){
-            $(".demo_main_info li").each(function(i){
+            $(".demo_main_info li").each(function(s){
                 if($(this).data('list') == originData[i]){
                     $(this).find('span').attr('class','img_check');
                 }
             })
         }
+    }
+}
+
+function clearModel(pageNum){
+    if(pageNum!='#js-page2-0-1') {
+        $('#js-page2-0-1').empty();
+    }
+    if(pageNum!='#js-page1-1-1') {
+        $('#js-page1-1-1').empty();
     }
 }
