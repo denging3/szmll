@@ -222,9 +222,9 @@ function menuTree(){
 				this.html += '<ul><i></i>';
 				for(var i=0,ii=data.length;i<ii;i++){
 					if(typeof data[i].url == 'undefined'){
-						this.html += '<li><span class="' + data[i].class+ '"></span><a href="javascript:;">'+ data[i].name+'</a><i class="arrow"></i>';
+						this.html += '<li><span class="' + data[i]['class']+ '"></span><a href="javascript:;">'+ data[i].name+'</a><i class="arrow"></i>';
 					}else{
-						this.html += '<li><span class="' + data[i].class+ '"></span><a hreft="'+  data[i].url +'">'+ data[i].name+'</a><i class="arrow"></i>';
+						this.html += '<li><span class="' + data[i]['class']+ '"></span><a hreft="'+  data[i].url +'">'+ data[i].name+'</a><i class="arrow"></i>';
 					}
 					if(data[i].list != null && data[i].list.length >0){
 						this.forTree(data[i].list);
@@ -334,7 +334,7 @@ $.lightBox.prototype = {
 
         //展现关闭弹框
         this.dom.fadeIn();
-        this.dom.css('display', 'flex');
+        this.dom.css({'display':'flex','display\0':'block'});
         var that = this;
         $(this.dom).find('.fix,.dia-close').on('click',function(){
             that.dom.fadeOut();
@@ -409,7 +409,7 @@ $.lightBox.getCurDia = function(curDom){
 $.lightBox.showBox = function(lightBoxId){
     $('#' + lightBoxId).prepend('<div class="fix"></div>');
     $('#' + lightBoxId).fadeIn();
-    $('#' + lightBoxId).css('display','flex');
+    $('#' + lightBoxId).css({'display':'flex','display\0':'block'});
 }
 $.lightBox.closeBox = function(thisLightBox){
     var diaObj = thisLightBox.dom;
@@ -428,6 +428,7 @@ $.lightBox.closeALL = function(){
         $('#'+this.id).remove();
     },500);
 }
+
 
 function dialog(obj) {
     var r = $(obj).data('role');

@@ -10,7 +10,7 @@
 .sec-header .tab-menu-0 ul .last { border-right: none;}
 .sec-header .tab-menu-0 ul .current { background-color: #2bc486; color: #fff;}
 .sec-header .tab-menu-1 { width: 960px; border-bottom: 1px solid #ddd;}
-.sec-header .tab-menu-1 ul li { display: inline-block; padding: 20px 0 10px 0 ; width: 95px; text-align: center; margin-bottom: -1px; margin-right: 10px; font-size: 14px;}
+.sec-header .tab-menu-1 ul li { display: inline-block; padding: 20px 20px 10px 20px; text-align: center; margin-bottom: -1px; margin-right: 10px; font-size: 14px;}
 .sec-header .tab-menu-1 ul .current { color: #2bc486; border-bottom: 1px solid #2bc486;}
 .sec-header .tab-menu-2 ul li { display: inline-block; margin: 20px 0 10px 10px; width: 95px; height:16px;line-height:16px;text-align: center; font-size: 14px; background: url(images/radio.png) 0 -18px no-repeat; background-size: 16px;}
 .sec-header .tab-menu-2 ul .current { background-position: 0 0;}
@@ -44,10 +44,10 @@
 /* ***************************
 * 添加规则弹窗
 * ****************************/
-.data-dia p{padding: 5px 0;}
+.data-dia p{padding: 10px 0;}
 .data-dia p .lab{display: inline-block;width: 80px;}
-.data-dia p .input{width: 734px;}
-.data-dia p .choose-qr-btn{display:inline-block;width: 754px;height: 60px;line-height: 60px;text-align: center;border:solid 1px #ddd; border-radius: 2px;cursor: pointer;}
+.data-dia p .input{width: 734px;border-color: #ddd;}
+.data-dia p .choose-qr-btn{display:inline-block;width: 873px;height: 60px;line-height: 60px;text-align: center;border:solid 1px #ddd; border-radius: 2px;cursor: pointer;}
 .data-dia .radio-wefeed{display: inline-block; cursor: pointer; padding-left: 22px; background: url(images/radio.png) 0 -16px no-repeat;background-size: 16px;}
 .data-dia .radio-current{background-position: 0 2px;}
 .data-dia .rule-main .emotion-editor{margin-top:20px;}
@@ -77,6 +77,30 @@
 #chooseQrDia .qr-choose-box .hover-li {border: solid 1px #2bc486;border-radius: 2px;}
 #chooseQrDia .qr-choose-box .hover-li span{ color: #2bc486;}
 #chooseQrDia .qr-choose-box .hover-li .del-span{ background-position: 0 -1824px;}
+/* ***************************
+* 有参关注二维码弹窗模块
+* ****************************/
+#screenQrDia .dia-main{margin-top: 30px;}
+#screenQrDia .qr-screen-search-box{margin-bottom: 15px;}
+#screenQrDia .qr-screen-search-box .select-item {display: inline-block;position: relative;margin-right: 12px;}
+#screenQrDia .qr-screen-search-box .select-item ul{display: none;position: absolute;top: 36px;left: 0;background-color: #fff; border: solid 1px #ddd; border-top: none; width: 82px; z-index: 99;}
+#screenQrDia .qr-screen-search-box .select-item ul li{padding-left: 4px;}
+#screenQrDia .qr-screen-search-box .select-item ul li:hover{background-color: #2bc486;color: #fff;}
+#screenQrDia .qr-screen-search-box .select-item .cur-display-select{display: block;}
+#screenQrDia .qr-screen-search-box .cur-display-select-span ul { display: block;}
+#screenQrDia .qr-screen-search-box .select-item input[type="text"] {background: #fff;width: 80px;height: 32px;padding-left: 4px;}
+#screenQrDia .qr-screen-search-box input[type=button] {width: 88px;height: 36px;}
+#screenQrDia .qr-screen-box div{width:1090px;height: 244px;overflow-y:auto;}
+#screenQrDia .qr-screen-box div table{width: 1088px;}
+#screenQrDia .qr-screen-box p{color: #f60;font-weight: bold;font-size: 14px;}
+#screenQrDia .qr-screen-box table th{background-color: #f4f4f4; text-align: center;height: 40px;vertical-align: middle;color: #666;}
+#screenQrDia .qr-screen-box table td{text-align: center;height: 34px;vertical-align: middle;color: #666;}
+#screenQrDia .qr-screen-box .hover-tr {border: solid 1px #2bc486;border-radius: 2px;}
+#screenQrDia .qr-screen-box .hover-tr td{ color: #2bc486;}
+#screenQrDia .qr-screen-box .qr-screening-list table span {display: inline-block;width: 16px;height: 16px;background: url("images/check.png") 0 0 no-repeat;cursor: pointer;vertical-align: -2px;}
+#screenQrDia .qr-screen-box .qr-screening-list table .checked {background-position: 0 -16px;}
+#screenQrDia .qr-screen-box .qr-screened-list .del-span{display: inline-block;width: 20px;height: 20px;background: url("images/base_z2968da.png") 0 -2570px no-repeat;cursor: pointer;vertical-align: -10px;}
+#screenQrDia .qr-screen-box .qr-screened-list .hover-tr .del-span{background-position: 0 -1824px;}
 
 /* ***************************
 * 关键词-添加规则弹窗
@@ -108,6 +132,9 @@ i.icon20-white-add{display: inline-block;width: 20px;height: 20px;background: ur
 .data-dia a.green-link{  padding: 3px 5px; border: 1px solid #2bc486; border-radius: 2px;color: #2bc486;}
 .data-dia a.red-link{  padding: 3px 5px; border: 1px solid red; border-radius: 2px;color: red;}
 .data-dia a.gray-link{  padding: 3px 5px; border: 1px solid #ddd; border-radius: 2px;color: #666;}
+.section .list .odd td .hover-red-link{border-color: #ddd;color: #666;}
+.section .list  td .hover-red-link:hover{border-color: #e7441f;color: #e7441f;}
+.section .list .odd td .hover-red-link:hover{border-color: #2bc486;color: #2bc486;}
 </style>
 <link rel="stylesheet" type="text/css" href="css/msg_imgtext.css" />
 <div class="sec-header">
@@ -123,6 +150,7 @@ i.icon20-white-add{display: inline-block;width: 20px;height: 20px;background: ur
         <ul>
             <li>无参关注</li>
             <li>有参关注</li>
+            <li>美乐乐有参关注</li>
         </ul>
     </div>
     <div class="tab-menu-2">
@@ -136,6 +164,7 @@ i.icon20-white-add{display: inline-block;width: 20px;height: 20px;background: ur
     <div class="page-content" id="js-page1-1-1"></div>
     <div class="page-content" id="js-page1-1-2"></div>
     <div class="page-content" id="js-page1-2-0"></div>
+    <div class="page-content" id="js-page1-3-0"></div>
     <div class="page-content" id="js-page2-0-1"></div>
     <div class="page-content" id="js-page2-0-2"></div>
     <div class="page-content" id="js-page3-0-0"></div>
@@ -165,7 +194,7 @@ i.icon20-white-add{display: inline-block;width: 20px;height: 20px;background: ur
 </div>
 <!-- 添加二维码规则弹框内容 end -->
 <!-- 选择二维码弹框内容 start -->
-<div class="chooseQRcode" style="display:none;">
+<div class="chooseQr" style="display:none;">
     <div class="qr-choose-box clearfix">
         <dl>
             <dt>二维码列表</dt>
@@ -204,6 +233,93 @@ i.icon20-white-add{display: inline-block;width: 20px;height: 20px;background: ur
     </div>
 </div>
 <!-- 选择二维码弹框内容 end -->
+<!-- 筛选条件选择二维码 start -->
+<div class="screenQr" style="display:none;">
+    <div class="qr-screen-search-box">
+        <form><div class="select-item">
+            <input type="text" data-keytype="city" name="city" placeholder="城市" />
+            <ul class="js-screen-pane"></ul>
+        </div><div class="select-item">
+            <input type="text" data-keytype="siteAttr" name="siteAttr" placeholder="站点属性" />
+            <ul class="js-screen-pane"></ul>
+        </div><div class="select-item">
+            <input type="text" data-keytype="pageAddr" name="pageAddr" placeholder="页面位置" />
+            <ul class="js-screen-pane"></ul>
+        </div><div class="select-item">
+            <input type="text" data-keytype="storeName" name="storeName" placeholder="门店" />
+            <ul class="js-screen-pane"></ul>
+        </div><div class="select-item">
+            <input type="text" data-keytype="param1" name="param1" placeholder="参数1" />
+            <ul class="js-screen-pane"></ul>
+        </div><div class="select-item">
+            <input type="text" data-keytype="param2" name="param2" placeholder="参数2" />
+            <ul class="js-screen-pane"></ul>
+        </div><div class="select-item">
+            <input type="text" data-keytype="param3" name="param3" placeholder="参数3" />
+            <ul class="js-screen-pane"></ul>
+        </div><div class="select-item">
+            <input type="text" data-keytype="param4" name="param4" placeholder="参数4" />
+            <ul class="js-screen-pane"></ul>
+        </div><div class="select-item">
+            <input type="text" data-keytype="param5" name="param5" placeholder="参数5" />
+            <ul class="js-screen-pane"></ul>
+        </div><div class="select-item">
+            <input type="text" data-keytype="param6" name="param6" placeholder="参数6" />
+            <ul class="js-screen-pane"></ul>
+        </div>
+        <input type="button" class="bright-button js-screenqr-btn" value="搜索" />
+        </form>
+    </div>
+    <div class="qr-screen-box">
+        <p class="js-screening-num">筛选结果:20</p>
+        <div class="qr-screening-list">
+            <table>
+                <thead>
+                    <th width="42"><span class="js-screen-check-all "></th>
+                    <th width="37">ID</th>
+                    <th width="52">城市</th>
+                    <th width="90">门店</th>
+                    <th width="92">页面位置</th>
+                    <th width="105">站点属性</th>
+                    <th width="94">参1</th>
+                    <th width="94">参2</th>
+                    <th width="94">参3</th>
+                    <th width="94">参4</th>
+                    <th width="94">参5</th>
+                    <th width="94">参6</th>
+                    <th>目前所属规则</th>
+                </thead>
+                <tbody class="js-screening-list">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="qr-screen-box">
+        <p class="js-screened-num">已选择二维码：7</p>
+        <div class="qr-screened-list">
+            <table>
+                <thead>
+                    <th width="42"></th>
+                    <th width="37">ID</th>
+                    <th width="52">城市</th>
+                    <th width="90">门店</th>
+                    <th width="92">页面位置</th>
+                    <th width="105">站点属性</th>
+                    <th width="94">参1</th>
+                    <th width="94">参2</th>
+                    <th width="94">参3</th>
+                    <th width="94">参4</th>
+                    <th width="94">参5</th>
+                    <th width="94">参6</th>
+                    <th>目前所属规则</th>
+                </thead>
+                <tbody class="js-screened-list">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- 筛选条件选择二维码 end -->
 <!-- 添加/编辑关键词规则弹框内容 start -->
 <div class="addRule" style="display:none">
     <div class="edit-rule-main">
@@ -212,6 +328,7 @@ i.icon20-white-add{display: inline-block;width: 20px;height: 20px;background: ur
                 <td class="lab">规则名</td>
                 <td>
                     <input type="text" class="input js-rulename" />
+                    <span class="js-rulename-warn" /></span>
                     <span class="rulename-tips">规则名最多为60个字</span>
                     <input type="hidden" class="js-imgmsg-ids" />
                 </td>
@@ -226,6 +343,7 @@ i.icon20-white-add{display: inline-block;width: 20px;height: 20px;background: ur
             <tr class="js-add-content">
                 <td>回复内容</td>
                 <td>
+                    <span class="msg-add-tips" style="display:inline-block;width:100%;color:#ddd;padding-bottom:3px;">最多回复五条</span>
                     <span class="create-access fir-create-access">
                         <a class="js-add-msg" href="javascript:;" onclick="addMsgItem(this);" data-role="add-mulmsg">
                             <i class="icon20-gray-add"></i>
@@ -252,3 +370,5 @@ i.icon20-white-add{display: inline-block;width: 20px;height: 20px;background: ur
 <!-- 添加编辑图文消息 end -->
 <script type="text/javascript" src="js/msg_imgtext.js"></script>
 <script type="text/javascript" src="js/we_feedback.js"></script>
+<script type="text/javascript" src="js/we_feedback_qrchoose.js"></script>
+

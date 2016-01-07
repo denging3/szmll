@@ -173,7 +173,9 @@ img.jcrop-preview {
     float: left;
 }
 .imgup-block .img-drag-pane {
+    background-color: #b2b2b2;
     border-radius: 4px;
+    padding-top: 30px;
 }
 .imgup-block .img-drag-container {
     margin-left: -1px;
@@ -181,7 +183,7 @@ img.jcrop-preview {
     background-color: #fff;
 }
 .imgup-block .img-drag-container .p1 {
-    margin-top: 32%;
+    margin-top: 25%;
     color: #808080;
     text-align: center;
     border-bottom: none;
@@ -205,27 +207,22 @@ img.jcrop-preview {
     display:block;
     height:32px;
     line-height:32px;
-    border:solid 1px #2bc486;
+    border:solid 1px #ddd;
     border-radius:2px;
     cursor:pointer;
     text-align: center;
-    color:#2bc486;
+    margin-top: 20px;
 }
 .imgup-block1 b {
     font-size: 20px;
-    width:16px;
-    height:16px;
-    display:inline-block;
-    margin-right:15px;
+    color: #999;
     vertical-align: -3px;
-    background:url(../images/add_green_ico.png);
 }
 .imgup-block1 .file-tips {
     display:inline-block;
     width:290px;
     margin-top:10px;
     color:#666;
-    text-align:center;
 }
 .imgup-block2 {
     float:right;

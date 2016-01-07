@@ -3,7 +3,7 @@
  * @param  {dom} pdiv       [图文编辑模块所在html的父容器]
  * @param  {string} mchId      [当前登录标识，用以请求图文展示模版、模块消息参数]
  * @param  {object} checkedMsg [规则图文条目信息]
- * checkedMsg:{index:当前编辑图文在规则包含所有图文中的索引,picMessages:当前规则对应的图文的数组}
+ * checkedMsg:{index:当前编辑图文在规则包含所有图文中的索引,picMessages:当前规则对应下标的的图文的数组}
  */
 $.msgDemo = function(pdiv,mchId,checkedMsg) {
     return new $.msgDemo.prototype.init( pdiv,mchId,checkedMsg );
@@ -14,12 +14,15 @@ $.msgDemo.prototype = {
         this.mchId = mchId;
         this.pdiv = pdiv;
         this.checkedMsg = checkedMsg;
+        this.newCheckedMsg = {};
+        objDeepCopy(this.newCheckedMsg,checkedMsg);
         var that = this;
 
         //初始化数据
         this.getModelTypes(this.mchId);
         this.initCheckedPreview();
-        return this.checkedMsg;
+        
+        return this.newCheckedMsg;
     },
 
     /**
@@ -28,7 +31,7 @@ $.msgDemo.prototype = {
     getModelTypes: function(mchId){
         var that = this;
         $.ajax({
-            url:"searchModelTypes",
+            url:"sys/menu/searchModelTypes",
             type:"POST",
             dataType:"json",
             async:false,
@@ -103,7 +106,7 @@ $.msgDemo.prototype = {
 
         var that = this;
         $.ajax({
-            url:"searchModels",
+            url:"sys/menu/searchModels",
             type:"POST",
             dataType:"json",
             async:false,
@@ -157,16 +160,16 @@ $.msgDemo.prototype = {
     },
     initCheckedPreview: function(){
         $(this.pdiv).find('.demo_list').html('');
-        var picMessages = this.checkedMsg.picMessages;
+        var picMessages = this.newCheckedMsg.picMessages;
         var demoListDiv = $(this.pdiv).find('.demo_list');
         var that = this;
         for(var i=0,ii=picMessages.length;i<ii;i++){
             if(i==0) {
                 //第一条加载大图的样式z
-                $(demoListDiv).append("<div class='demo_st' data-list='" + picMessages[i].datalist + "' data-srcul='" + picMessages[i].url + "' data-largeurl='" + picMessages[i].largePicUrl + "' data-samllurl='" + picMessages[i].smallPicUrl + "' data-msg='" + picMessages[i].msg + "'> <a class=\"close_demo\" href=\"javascript:;\"></a> <p>"+picMessages[i].title+"</p> <img src='" + picMessages[i].largePicUrl + "' alt=''> </div>");
+                $(demoListDiv).append("<div class='demo_st' data-list='" + picMessages[i].datalist + "' data-srcurl='" + picMessages[i].url + "' data-largeurl='" + picMessages[i].largePicUrl + "' data-smallurl='" + picMessages[i].smallPicUrl + "' data-msg='" + picMessages[i].msg + "'> <a class=\"close_demo\" href=\"javascript:;\"></a> <p>"+picMessages[i].title+"</p> <img src='" + picMessages[i].largePicUrl + "' alt=''> </div>");
             }else{
                 //小图样式
-                $(demoListDiv).append("<div class='deme_title_info' data-list='" + picMessages[i].datalist + "' data-srcul='" + picMessages[i].url + "' data-largeurl='" + picMessages[i].largePicUrl + "' data-samllurl='" + picMessages[i].smallPicUrl + "' data-msg='" + picMessages[i].msg + "'> <a class=\"close_demo\" href=\"javascript:;\"></a> <p>"+picMessages[i].title+"</p> <img src='" + picMessages[i].smallPicUrl + "' alt=''> </div>");
+                $(demoListDiv).append("<div class='deme_title_info' data-list='" + picMessages[i].datalist + "' data-srcurl='" + picMessages[i].url + "' data-largeurl='" + picMessages[i].largePicUrl + "' data-smallurl='" + picMessages[i].smallPicUrl + "' data-msg='" + picMessages[i].msg + "'> <a class=\"close_demo\" href=\"javascript:;\"></a> <p>"+picMessages[i].title+"</p> <img src='" + picMessages[i].smallPicUrl + "' alt=''> </div>");
             }
         }
         $(demoListDiv).find('.close_demo').on('click',function(){
@@ -181,15 +184,19 @@ $.msgDemo.prototype.init.prototype = $.msgDemo.prototype;
  * @return {array}      [已选择的图文条目的对象数组]
  */
 $.msgDemo.getDemoChecked = function(pdiv) {
-    var checkSpans = $(pdiv).find('.demo_info span');
-    var checkedInfos = [],t,i,d;
-    $(checkSpans).each(function(){
-        if ( $(this).hasClass('img_check') == true ) {
-            t = $(this).nextAll('p').text();
-            i = $(this).next('img').attr('src');
-            d = $(this).parent().data('list');
-            checkedInfos.push({id:d,imgSrc:i,desc:t});
-        }
+    var checkLists= $(pdiv).find('.demo_list>div');
+    var checkedInfos = [],
+        o = {};
+    $(checkLists).each(function(){
+        o = {
+            "datalist": $(this).data('list'),
+            "largePicUrl": $(this).data('largeurl'),
+            "msg": $(this).data('msg'),
+            "smallPicUrl": $(this).data('smallurl'),
+            "title": $(this).find('p').text(),
+            "url": $(this).data('srcurl')
+        };
+        checkedInfos.push(o);
     });
     return checkedInfos;
 }
@@ -255,12 +262,14 @@ $.msgDemo.getPicMessages = function(mchId,modelVisit,msgDemo){
 $.msgDemo.check_first = function(pdiv) {
     var demoListDiv = $(pdiv).find('.demo_list>div');
     $(demoListDiv).attr('class','deme_title_info');
-    $(demoListDiv).eq(0).attr('class','demo_st');
+    var demoListDivFir = $(demoListDiv).eq(0);
+    $(demoListDivFir).attr('class','demo_st');
+    $(demoListDivFir).find('img').attr('src',$(demoListDivFir).data('largeurl'));
 }
 //图文消息删除选中
 $.msgDemo.del_list = function(clickObj,msgDemo) {
     var pdiv = msgDemo.pdiv,
-        picMessages = msgDemo.checkedMsg.picMessages;
+        picMessages = msgDemo.newCheckedMsg.picMessages;
     var n = $(clickObj).parent(),
         l = n.data('list');
     $(pdiv).find('.demo_info li').each(function(i){
@@ -271,7 +280,7 @@ $.msgDemo.del_list = function(clickObj,msgDemo) {
     for ( var kk=0;kk<picMessages.length;kk++){
         if ( l == picMessages[kk].datalist ) {
             picMessages.splice(kk,1);
-            msgDemo.checkedMsg.picMessages = picMessages;
+            msgDemo.newCheckedMsg.picMessages = picMessages;
             break;
         }
     }
@@ -281,10 +290,22 @@ $.msgDemo.del_list = function(clickObj,msgDemo) {
 //图文消息选中
 $.msgDemo.check_list = function(clickObj,msgDemo) {
     var pdiv = msgDemo.pdiv,
-        picMessages = msgDemo.checkedMsg.picMessages;
+        picMessages = msgDemo.newCheckedMsg.picMessages;
     var msgItemIndex = $(pdiv).find('.arrow-nav-title .cur-li').attr('data-role');
 
     if ( $(clickObj).hasClass('img_check') == false ) {
+        //验证是否已选中10条
+        var MAX_CHECK_NUM = 10;
+        if ( picMessages && picMessages.length >= MAX_CHECK_NUM ) {
+            $.lightBox({
+                width:200,
+                boxID:'tips',
+                closeOther:false,
+                html:'<p style="text-align:center;">最多只能添加十条信息!</p>',
+                buttons:null
+            });
+            return;
+        }
         $(clickObj).addClass('img_check');
         var clickPobj = $(clickObj).parent();
         var p = {
@@ -297,9 +318,9 @@ $.msgDemo.check_list = function(clickObj,msgDemo) {
         };
         var domH = "";
         if ( $(pdiv).find('.img_check').length == 1 ) {
-            domH = "<div class='demo_st' data-list='" + p.datalist + "' data-srcul='" + p.url + "' data-largeurl='" + p.largePicUrl + "' data-samllurl='" + p.smallPicUrl + "' data-msg='" + p.msg + "'> <a class=\"close_demo\" href=\"javascript:;\"></a> <p>"+p.title+"</p> <img src='" + p.largePicUrl + "' alt=''> </div>";
+            domH = "<div class='demo_st' data-list='" + p.datalist + "' data-srcurl='" + p.url + "' data-largeurl='" + p.largePicUrl + "' data-smallurl='" + p.smallPicUrl + "' data-msg='" + p.msg + "'> <a class=\"close_demo\" href=\"javascript:;\"></a> <p>"+p.title+"</p> <img src='" + p.largePicUrl + "' alt=''> </div>";
         } else {
-            domH = "<div class='deme_title_info' data-list='" + p.datalist + "' data-srcul='" + p.url + "' data-largeurl='" + p.largePicUrl + "' data-samllurl='" + p.smallPicUrl + "' data-msg='" + p.msg + "'> <a class=\"close_demo\" href=\"javascript:;\"></a> <p>"+p.title+"</p> <img src='" + p.smallPicUrl + "' alt=''> </div>";
+            domH = "<div class='deme_title_info' data-list='" + p.datalist + "' data-srcurl='" + p.url + "' data-largeurl='" + p.largePicUrl + "' data-smallurl='" + p.smallPicUrl + "' data-msg='" + p.msg + "'> <a class=\"close_demo\" href=\"javascript:;\"></a> <p>"+p.title+"</p> <img src='" + p.smallPicUrl + "' alt=''> </div>";
         }
         var appendDom = $(domH);
         $(pdiv).find('.demo_list').append(appendDom);
@@ -309,7 +330,7 @@ $.msgDemo.check_list = function(clickObj,msgDemo) {
         });
         //添加已选择的数据
         picMessages.push(p);
-        msgDemo.checkedMsg.picMessages = picMessages;
+        msgDemo.newCheckedMsg.picMessages = picMessages;
     } else {
         $(clickObj).removeClass('img_check');
         var s = $(clickObj).parent().data('list');
@@ -322,7 +343,7 @@ $.msgDemo.check_list = function(clickObj,msgDemo) {
         for ( var kk=0;kk<picMessages.length;kk++){
             if ( s == picMessages[kk].datalist ) {
                 picMessages.splice(kk,1);
-                msgDemo.checkedMsg.picMessages = picMessages;
+                msgDemo.newCheckedMsg.picMessages = picMessages;
                 break;
             }
         }
@@ -333,11 +354,11 @@ $.msgDemo.check_list = function(clickObj,msgDemo) {
 /**
  * [defaultChecked 根据传入对象多选框选中样式]
  * @param  {object} msgDemo [msgDemo对象，成员一pdiv：表示当前图文模块的父级容器
- * 成员二checkedMsg:{index:当前编辑图文在规则包含所有图文中的索引,picMessages:当前规则对应的图文的数组}]
+ * 成员二checkedMsg:{index:当前编辑图文在规则包含所有图文中的索引,picMessages:当前规则下标INDEX对应的图文的数组}]
  */
 $.msgDemo.defaultChecked = function(msgDemo){
-    if ( msgDemo.checkedMsg ) {
-        var checkedMsgArray = msgDemo.checkedMsg.picMessages,
+    if ( msgDemo.newCheckedMsg ) {
+        var checkedMsgArray = msgDemo.newCheckedMsg.picMessages,
             pdiv = msgDemo.pdiv,
             checkedIds = ',';
         if( checkedMsgArray && checkedMsgArray.length ) {
@@ -352,6 +373,10 @@ $.msgDemo.defaultChecked = function(msgDemo){
             })
         }  
     }
+}
+//清除所有选中
+$.msgDemo.clearAll = function(pdiv){
+    $(pdiv).find('.close_demo').click();
 }
 $.fn.extend({
     // bindNavEvent: function() {
@@ -406,7 +431,11 @@ $.fn.extend({
         $(editorAreaDom).bind('input',function(){
             var text = $(this).val() || $(this).text();
             if ( text.length > MAX_INPUT_WORD ) {
-                $(this).text(text.slice(0,MAX_INPUT_WORD));
+                if( $(this).val() ) {
+                    $(this).val(text.slice(0,MAX_INPUT_WORD));
+                } else {
+                    $(this).text(text.slice(0,MAX_INPUT_WORD));
+                }
                 $(leftWordDom).text(0);
             } else {
                 $(leftWordDom).text( MAX_INPUT_WORD - text.length );
@@ -414,317 +443,19 @@ $.fn.extend({
         });
     }
 });
-/**
- * [delFeed 删除回复]
- */
-function delFeed(){
-    //TODO
-    //待完善删除回复
-}
-/**
- * [confirmFeed 回复确认]
- */
-function confirmFeed(){
-    //TODO
-}
-/**
- * [delMessRpTextFeed 消息自动回复确认]
- */
-function delMessRpTextFeed(){
-    //TODO  根据商户ID删除
-    var message = '您确认删除回复？';
-    if (confirm(message)) {
-        $.ajax({
-            url:"/ntpl/deleteMessage",
-            async:false,
-            dataType:"json",
-            data:{"mchId":'111'},
-            type:"POST",
-            success:function(data){
-                if(data.code==0){
-                    alert('删除回复成功');
-                    goPage(window._pageConf['2-0-2'],[{selector:'#js-page2-0-2 .js-left-word',value:"",domType: 'text'}])
-                }else{
-                    alert('删除回复失败')
-                }
-            }
-        });
 
-    }
+function getVarType(o){
+    var _t;
+    return ((_t = typeof(o)) == "object" ? o==null && "null" || Object.prototype.toString.call(o).slice(8,-1):_t).toLowerCase();
 }
-/**
- * [confirmMessRpTextFeed 消息自动回复确认]
- */
-function confirmMessRpTextFeed(){
-    var pageId = $(this).data('page');
-    if ( pageId ) {
-        var editorArea=$('#js-page2-0-2').find('.js-editorArea').text();
-        var text={};
-        text.msg=editorArea;
-        var picMessages=null;
-        //TODO
-        //提交回复内容
-        var jsonStr={};
-        jsonStr.replyType='2';
-        jsonStr.morp='1';
-        //商户Id暂时没有
-        jsonStr.mchId='111';
-        jsonStr.message=text;
-        jsonStr.picMessages=picMessages;
-        console.log(JSON.stringify(jsonStr));
-        var message = '您确认保存文字消息？';
-        if (confirm(message)) {
-            $.ajax({
-                url:"/ntpl/insertMessage",
-                async:false,
-                dataType:"json",
-                data:{"jsonStr":JSON.stringify(jsonStr)},
-                type:"POST",
-                success:function(data){
-                    if(data.code==0){
-                        alert('保存成功');
-                    }else{
-                        alert('保存失败')
-                    }
-                }
-            });
+//对象深拷贝
+function objDeepCopy(destination,source){
+    for ( var p in source ) {
+        if( getVarType(source[p]) == "array" || getVarType(source[p]) == "object" ) {
+            destination[p] = getVarType(source[p]) == "array" ? [] : {};
+            arguments.callee(destination[p],source[p]);
+        } else {
+            destination[p]=source[p];
         }
-        /*//提交成功后提示
-         $.lightBox({
-         width: 290,
-         title: '提示',
-         html: '<p style="text-align:center;">'+mes+'</p>'
-         });*/
-    }
-}
-
-/**
- * [delMessRpTextFeed 关注自动回复-无参-文字消息删除回复]
- */
-function delNoParamTextFeed(){
-    //TODO  根据商户ID删除
-    var message = '您确认删除回复？';
-    if (confirm(message)) {
-        $.ajax({
-            url:"/ntpl/deleteNoParamAtt",
-            async:false,
-            dataType:"json",
-            data:{"mchId":'111'},
-            type:"POST",
-            success:function(data){
-                console.log(data);
-                if(data.code==0){
-                    alert('删除回复成功');
-                    goPage(window._pageConf['1-1-2'],[{selector:'#js-page1-1-2 .js-left-word',value:"",domType: 'text'}])
-                }else{
-                    alert('删除回复失败')
-                }
-            }
-        });
-
-    }
-}
-
-/**
- * [delNoParamImgTextFeed 关注自动回复-无参-图文消息删除回复]
- */
-function delNoParamImgTextFeed(){
-    //TODO  根据商户ID删除
-    var message = '您确认删除回复？';
-    if (confirm(message)) {
-        $.ajax({
-            url:"/ntpl/deleteNoParamAtt",
-            async:false,
-            dataType:"json",
-            data:{"mchId":'111'},
-            type:"POST",
-            success:function(data){
-                if(data.code==0){
-                    alert('删除回复成功');
-                    goPage(window._pageConf['1-1-1']);
-                    //goPage(window._pageConf['1-1-2'],[{selector:'#js-page1-1-1 .js-left-word',value:"",domType: 'text'}])
-                }else{
-                    alert('删除回复失败')
-                }
-            }
-        });
-
-    }
-}
-
-/**
- * [confirmNoParamImgTextFeed 关注自动回复 无参 图文确认]
- */
-function confirmNoParamImgTextFeed(){
-    var pageId = $(this).data('page');
-    if ( pageId ) {
-        var editorArea=$('#js-page1-1-2').find('.js-editorArea').text();
-        //TODO
-        //图文消息赋值  提交回复内容
-        var jsonStr={};
-        var picMessage = $('#js-page1-1-1 .demo_list > div');
-        var menuPicM =[];
-        for(var i=0,ii=picMessage.length;i<ii;i++){
-            var picObj = {};
-            var oPicMessage = $(picMessage[i]);
-            picObj.largePicUrl = $(picMessage[i]).find('p').parent().data('largeurl');
-            picObj.smallPicUrl = oPicMessage.data('smallurl');
-            alert($(picMessage[i]).find('p').parent().data('smallurl'));
-            picObj.msg = oPicMessage.data('msg');
-            picObj.datalist=oPicMessage.data('list');
-            picObj.url = oPicMessage.data('srcul');
-            picObj.title = $(picMessage[i]).find('p').html();
-            menuPicM.push(picObj);
-        }
-
-        jsonStr.replyType='1';
-        jsonStr.morp='0';
-        //商户Id暂时没有
-        jsonStr.mchId='111';
-        jsonStr.message=null;
-        jsonStr.picMessage=menuPicM;/*
-        console.log(JSON.stringify(jsonStr));
-        console.log(jsonStr.picMessage);*/
-        var message = '您确认保存文字消息？';
-        if (confirm(message)) {
-            $.ajax({
-                url:"/ntpl/insertNoParamAtt",
-                async:false,
-                dataType:"json",
-                data:{"jsonStr":JSON.stringify(jsonStr)},
-                type:"POST",
-                success:function(data){
-                    if(data.code==0){
-                        alert('保存成功');
-                    }else{
-                        alert('保存失败')
-                    }
-                }
-            });
-        }
-    }
-}
-
-
-/**
- * [delMessageImgTextFeed 消息自动回复-图文消息删除回复]
- */
-function delMessageImgTextFeed(){
-    //TODO  根据商户ID删除
-    var message = '您确认删除回复？';
-    if (confirm(message)) {
-        $.ajax({
-            url:"/ntpl/deleteMessage",
-            async:false,
-            dataType:"json",
-            data:{"mchId":'111'},
-            type:"POST",
-            success:function(data){
-                if(data.code==0){
-                    alert('删除回复成功');
-                    goPage(window._pageConf['2-0-0']);
-                    //goPage(window._pageConf['1-1-2'],[{selector:'#js-page1-1-1 .js-left-word',value:"",domType: 'text'}])
-                }else{
-                    alert('删除回复失败')
-                }
-            }
-        });
-
-    }
-}
-
-/**
- * [confirmMessageImgTextFeed 消息自动回复 图文确认]
- */
-function confirmMessageImgTextFeed(){
-    var pageId = $(this).data('page');
-    if ( pageId ) {
-       // var editorArea=$('#js-page1-1-2').find('.js-editorArea').text();
-        //TODO
-        //图文消息赋值  提交回复内容
-        var jsonStr={};
-        var picMessage = $('#js-page2-0-1 .demo_list > div');
-        var menuPicM =[];
-        for(var i=0,ii=picMessage.length;i<ii;i++){
-            var picObj = {};
-            var oPicMessage = $(picMessage[i]);
-            picObj.largePicUrl = $(picMessage[i]).find('p').parent().data('largeurl');
-            picObj.smallPicUrl = oPicMessage.data('smallurl');
-            picObj.msg = oPicMessage.data('msg');
-            picObj.url = oPicMessage.data('srcul');
-            picObj.datalist=oPicMessage.data('list');
-            picObj.title = $(picMessage[i]).find('p').html();
-            menuPicM.push(picObj);
-        }
-
-        jsonStr.replyType='2';
-        //0图文 1文字
-        jsonStr.morp='0';
-        //商户Id暂时没有
-        jsonStr.mchId='111';
-        jsonStr.message=null;
-        jsonStr.picMessages=menuPicM;
-        var message = '您确认保存文字消息？';
-        if (confirm(message)) {
-            $.ajax({
-                url:"/ntpl/insertMessage",
-                async:false,
-                dataType:"json",
-                data:{"jsonStr":JSON.stringify(jsonStr)},
-                type:"POST",
-                success:function(data){
-                    if(data.code==0){
-                        alert('保存成功');
-                    }else{
-                        alert('保存失败')
-                    }
-                }
-            });
-        }
-    }
-}
-/**
- * [confirmMessRpTextFeed 消息自动回复 文字确认]
- */
-function confirmNoParamTextFeed(){
-    var pageId = $(this).data('page');
-    if ( pageId ) {
-        var editorArea=$('#js-page1-1-2').find('.js-editorArea').text();
-        var text={};
-        text.msg=editorArea;
-        var picMessage=null;
-        //TODO
-        //提交回复内容
-        var jsonStr={};
-        jsonStr.replyType='2';
-        jsonStr.morp='1';
-        //商户Id暂时没有
-        jsonStr.mchId='111';
-        jsonStr.message=text;
-        jsonStr.picMessage=picMessage;
-        //console.log(JSON.stringify(jsonStr));
-        var message = '您确认保存文字消息？';
-        if (confirm(message)) {
-            $.ajax({
-                url:"/ntpl/insertNoParamAtt",
-                async:false,
-                dataType:"json",
-                data:{"jsonStr":JSON.stringify(jsonStr)},
-                type:"POST",
-                success:function(data){
-                    if(data.code==0){
-                        alert('保存成功');
-                    }else{
-                        alert('保存失败')
-                    }
-                }
-            });
-        }
-        /*//提交成功后提示
-         $.lightBox({
-         width: 290,
-         title: '提示',
-         html: '<p style="text-align:center;">'+mes+'</p>'
-         });*/
     }
 }
